@@ -1,11 +1,9 @@
 package com.ecommerce.application;
 
-import com.ecommerce.domain.Wallet;
+import com.ecommerce.domain.repository.entity.Wallet;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 
 /**
  * TODO Sub PJT Ⅱ 과제 1, 과제 3

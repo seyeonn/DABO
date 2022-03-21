@@ -1,6 +1,6 @@
 package com.ecommerce.application;
 
-import com.ecommerce.domain.Address;
+import com.ecommerce.domain.repository.entity.Address;
 import java.math.BigInteger;
 
 public interface IEthereumService {

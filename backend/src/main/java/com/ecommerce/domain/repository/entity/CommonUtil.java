@@ -1,4 +1,4 @@
-package com.ecommerce.domain;
+package com.ecommerce.domain.repository.entity;
 
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.exception.DomainException;

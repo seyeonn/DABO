@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.EthInfo;
+import com.ecommerce.domain.repository.entity.EthInfo;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IEthInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

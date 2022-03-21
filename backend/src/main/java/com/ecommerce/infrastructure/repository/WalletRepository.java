@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.Wallet;
+import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IWalletRepository;
 import com.ecommerce.infrastructure.repository.factory.WalletFactory;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.ecommerce.domain.repository;
 
-import com.ecommerce.domain.Transaction;
+import com.ecommerce.domain.repository.entity.Transaction;
 
 import java.util.List;
 

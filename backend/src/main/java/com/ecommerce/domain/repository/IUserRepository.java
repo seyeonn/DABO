@@ -1,6 +1,6 @@
 package com.ecommerce.domain.repository;
 
-import com.ecommerce.domain.User;
+import com.ecommerce.domain.repository.entity.User;
 
 import java.util.List;
 

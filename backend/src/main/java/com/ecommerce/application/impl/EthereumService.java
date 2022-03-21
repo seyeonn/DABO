@@ -1,32 +1,16 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IEthereumService;
-import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.ITransactionRepository;
-import com.ecommerce.domain.wrapper.EthereumTransaction;
-import com.ecommerce.domain.Address;
-import com.ecommerce.domain.CommonUtil;
-import com.ecommerce.domain.CryptoUtil;
+import com.ecommerce.domain.repository.entity.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.*;
-import org.web3j.protocol.exceptions.TransactionException;
-import org.web3j.tx.Transfer;
-import org.web3j.utils.Convert;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class EthereumService implements IEthereumService {

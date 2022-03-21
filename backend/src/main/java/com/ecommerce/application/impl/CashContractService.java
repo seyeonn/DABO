@@ -1,9 +1,6 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.ICashContractService;
-import com.ecommerce.domain.CommonUtil;
-import com.ecommerce.domain.CryptoUtil;
-import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.wrapper.CashContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +11,6 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
-
-import java.math.BigInteger;
 
 @Service
 public class CashContractService implements ICashContractService {

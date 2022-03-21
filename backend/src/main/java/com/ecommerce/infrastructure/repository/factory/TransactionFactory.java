@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository.factory;
 
-import com.ecommerce.domain.Transaction;
+import com.ecommerce.domain.repository.entity.Transaction;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

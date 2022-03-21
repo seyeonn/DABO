@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository.factory;
 
-import com.ecommerce.domain.Wallet;
+import com.ecommerce.domain.repository.entity.Wallet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

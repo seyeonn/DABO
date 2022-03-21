@@ -3,10 +3,7 @@ package com.ecommerce.application.impl;
 import com.ecommerce.application.ICashContractService;
 import com.ecommerce.application.IEthereumService;
 import com.ecommerce.application.IWalletService;
-import com.ecommerce.domain.Address;
-import com.ecommerce.domain.Wallet;
-import com.ecommerce.domain.exception.ApplicationException;
-import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 
 /**
  * TODO Sub PJT Ⅱ 과제 1, 과제 3

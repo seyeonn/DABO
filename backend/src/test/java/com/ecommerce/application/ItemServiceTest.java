@@ -1,7 +1,7 @@
 package com.ecommerce.application;
 
 import com.ecommerce.Application;
-import com.ecommerce.domain.Item;
+import com.ecommerce.domain.repository.entity.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

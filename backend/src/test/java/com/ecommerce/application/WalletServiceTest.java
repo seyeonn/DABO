@@ -1,8 +1,7 @@
 package com.ecommerce.application;
 
 import com.ecommerce.Application;
-import com.ecommerce.domain.Wallet;
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
+import com.ecommerce.domain.repository.entity.Wallet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)

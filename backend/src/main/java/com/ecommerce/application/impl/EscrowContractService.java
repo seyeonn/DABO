@@ -2,28 +2,17 @@ package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IEscrowContractService;
 import com.ecommerce.application.IPurchaseService;
-import com.ecommerce.domain.CommonUtil;
-import com.ecommerce.domain.CryptoUtil;
-import com.ecommerce.domain.Purchase;
-import com.ecommerce.domain.PurchaseState;
-import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.repository.entity.Purchase;
 import com.ecommerce.domain.wrapper.EscrowContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
-
-import java.math.BigInteger;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * EscrowContractService

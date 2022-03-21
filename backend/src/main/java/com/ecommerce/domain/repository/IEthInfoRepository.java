@@ -1,6 +1,6 @@
 package com.ecommerce.domain.repository;
 
-import com.ecommerce.domain.EthInfo;
+import com.ecommerce.domain.repository.entity.EthInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface IEthInfoRepository {
