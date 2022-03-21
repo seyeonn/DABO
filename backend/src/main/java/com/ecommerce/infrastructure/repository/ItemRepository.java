@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.Item;
+import com.ecommerce.domain.repository.entity.Item;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IItemRepository;
 import com.ecommerce.infrastructure.repository.factory.ItemFactory;

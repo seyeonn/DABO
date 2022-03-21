@@ -1,9 +1,7 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IPurchaseRecordContractService;
-import com.ecommerce.domain.*;
-import com.ecommerce.domain.Record;
-import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.repository.entity.Record;
 import com.ecommerce.domain.repository.IPurchaseRepository;
 import com.ecommerce.domain.wrapper.PurchaseRecordContract;
 import org.slf4j.Logger;
@@ -13,15 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * PurchaseRecordContractService

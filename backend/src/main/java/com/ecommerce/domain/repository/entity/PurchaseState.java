@@ -1,4 +1,4 @@
-package com.ecommerce.domain;
+package com.ecommerce.domain.repository.entity;
 
 /**
  * Sub PJT Ⅲ

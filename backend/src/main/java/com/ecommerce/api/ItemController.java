@@ -1,7 +1,7 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IItemService;
-import com.ecommerce.domain.Item;
+import com.ecommerce.domain.repository.entity.Item;
 import com.ecommerce.domain.exception.EmptyListException;
 import com.ecommerce.domain.exception.NotFoundException;
 import io.swagger.annotations.ApiOperation;

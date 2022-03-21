@@ -1,10 +1,8 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IPurchaseService;
-import com.ecommerce.domain.Item;
-import com.ecommerce.domain.Purchase;
-import com.ecommerce.domain.PurchaseInfo;
-import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.repository.entity.PurchaseInfo;
 import com.ecommerce.domain.repository.IItemRepository;
 import com.ecommerce.domain.repository.IPurchaseRepository;
 import org.slf4j.Logger;
@@ -12,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

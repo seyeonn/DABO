@@ -2,7 +2,7 @@ package com.ecommerce.application;
 
 import com.ecommerce.Application;
 import com.ecommerce.application.impl.PurchaseRecordContractService;
-import com.ecommerce.domain.Record;
+import com.ecommerce.domain.repository.entity.Record;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

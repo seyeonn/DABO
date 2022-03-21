@@ -1,7 +1,7 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IUserService;
-import com.ecommerce.domain.User;
+import com.ecommerce.domain.repository.entity.User;
 import com.ecommerce.domain.exception.DomainException;
 import com.ecommerce.domain.exception.EmptyListException;
 import com.ecommerce.domain.exception.NotFoundException;

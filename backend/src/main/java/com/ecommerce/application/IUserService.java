@@ -1,6 +1,6 @@
 package com.ecommerce.application;
 
-import com.ecommerce.domain.User;
+import com.ecommerce.domain.repository.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

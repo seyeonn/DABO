@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.User;
+import com.ecommerce.domain.repository.entity.User;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IUserRepository;
 import com.ecommerce.infrastructure.repository.factory.UserFactory;

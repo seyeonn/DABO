@@ -1,21 +1,16 @@
 package com.ecommerce.application.impl;
 
-import com.ecommerce.domain.EthInfo;
 import com.ecommerce.domain.repository.IEthInfoRepository;
 import com.ecommerce.domain.repository.ITransactionRepository;
-import com.ecommerce.domain.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.methods.response.EthBlock;
 
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
-import java.util.concurrent.ExecutionException;
 
 /**
  * TODO Sub PJT Ⅲ 추가 과제

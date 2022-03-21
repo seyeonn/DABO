@@ -1,7 +1,7 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IItemService;
-import com.ecommerce.domain.Item;
+import com.ecommerce.domain.repository.entity.Item;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.IItemRepository;
 import org.slf4j.Logger;
@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

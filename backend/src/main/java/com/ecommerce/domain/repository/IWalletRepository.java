@@ -1,6 +1,6 @@
 package com.ecommerce.domain.repository;
 
-import com.ecommerce.domain.Wallet;
+import com.ecommerce.domain.repository.entity.Wallet;
 
 import java.math.BigDecimal;
 import java.util.List;

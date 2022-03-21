@@ -1,6 +1,6 @@
 package com.ecommerce.application;
 
-import com.ecommerce.domain.Record;
+import com.ecommerce.domain.repository.entity.Record;
 
 import java.util.List;
 

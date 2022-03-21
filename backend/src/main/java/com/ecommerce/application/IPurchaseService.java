@@ -1,7 +1,7 @@
 package com.ecommerce.application;
 
-import com.ecommerce.domain.Purchase;
-import com.ecommerce.domain.PurchaseInfo;
+import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.repository.entity.PurchaseInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

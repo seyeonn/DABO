@@ -1,4 +1,4 @@
-package com.ecommerce.domain;
+package com.ecommerce.domain.repository.entity;
 
 import org.apache.commons.codec.binary.Base64;
 

@@ -1,6 +1,7 @@
 package com.ecommerce.domain;
 
 import com.ecommerce.Application;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

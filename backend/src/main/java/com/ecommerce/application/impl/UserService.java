@@ -1,7 +1,7 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IUserService;
-import com.ecommerce.domain.User;
+import com.ecommerce.domain.repository.entity.User;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
