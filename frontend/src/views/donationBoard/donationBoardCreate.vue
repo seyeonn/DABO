@@ -1,13 +1,9 @@
 <template>
-  <div></div>
+  <div>donation</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
