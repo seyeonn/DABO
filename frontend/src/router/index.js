@@ -7,7 +7,10 @@ import daboWallet from "@/views/daboWallet/daboWalletMain.vue";
 import donationBoard from "@/views/donationBoard/donationBoardCreate.vue";
 import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
-import user from "@/views/user/signUp.vue";
+
+import user from "@/views/user/userPage.vue";
+import Login from "@/components/user/loginPage.vue";
+import Signup from "@/components/user/signUp.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,7 +23,20 @@ const routes = [
     path: "/user",
     name: "user",
     component: user,
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: Login,
+      },
+      {
+        path: "signup",
+        name: "signup",
+        component: Signup,
+      },
+    ],
   },
+
   {
     path: "/reservation",
     name: "reservation",
