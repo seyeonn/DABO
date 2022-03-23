@@ -16,6 +16,7 @@
             </div>
             <sub>n명의 후원자가 있습니다.</sub>
         </div>
+        <div class="line"></div>
         <!-- 댓글 -->
         <!-- <comment-write v-if="isModifyShow && this.modifyComment != null"
             :modifyComment="this.modifyComment"
@@ -85,5 +86,10 @@ export default {
 .campaign-img {
   width: 100%;
   height: 200px;
+}
+.line {
+  border-top: 2px solid rgb(211, 211, 211);
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 </style>
