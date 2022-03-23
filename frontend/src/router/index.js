@@ -10,6 +10,8 @@ import ListBoard from "@/components/campaign/donationBoardList.vue";
 import ListItem from "@/components/campaign/donationBoardListItem.vue";
 import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
+import MyDonation from "@/components/campaign/myDonationDetail.vue";
+import DonationConfirm from "@/components/campaign/donationConfirm.vue";
 
 import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
@@ -77,6 +79,16 @@ const routes = [
         path: "detailBoard",
         name: "detailBoard",
         component: DetailBoard,
+      },
+      {
+        path: "myDonation",
+        name: "myDonation",
+        component: MyDonation,
+      },
+      {
+        path: "donationConfirm",
+        name: "donationConfirm",
+        component: DonationConfirm,
       },
     ],
   },
