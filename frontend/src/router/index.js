@@ -13,6 +13,8 @@ import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
 import MyDonation from "@/components/campaign/myDonationDetail.vue";
 import DonationConfirm from "@/components/campaign/donationConfirm.vue";
+import DaboDonation from "@/components/campaign/daboDonation.vue";
+import DaboConfirm from "@/components/campaign/daboConfirm.vue";
 
 import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
@@ -101,6 +103,16 @@ const routes = [
         path: "donationConfirm",
         name: "donationConfirm",
         component: DonationConfirm,
+      },
+      {
+        path: "daboDonation",
+        name: "daboDonation",
+        component: DaboDonation,
+      },
+      {
+        path: "daboConfirm",
+        name: "daboConfirm",
+        component: DaboConfirm,
       },
     ],
   },
