@@ -2,10 +2,15 @@ package com.ecommerce;
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.ecommerce.application.impl.UserService;
+import com.ecommerce.application.impl.DABOUserService;
+import com.ecommerce.application.impl.SsafyUserDetails;
+import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.util.JwtTokenUtil;
 import com.ecommerce.util.ResponseBodyWriteUtil;
+import org.apache.http.auth.AuthenticationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -22,9 +27,10 @@ import static com.google.common.collect.Lists.newArrayList;
  * 요청 헤더에 jwt 토큰이 있는 경우, 토큰 검증 및 인증 처리 로직 정의.
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
-    private UserService userService;
+    private DABOUserService userService;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
+    @Autowired
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, DABOUserService userService) {
         super(authenticationManager);
         this.userService = userService;
     }
@@ -40,7 +46,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
         try {
             // If header is present, try grab user principal from database and perform authorization
             Authentication authentication = getAuthentication(request);
@@ -51,7 +56,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             ResponseBodyWriteUtil.sendError(request, response, ex);
             return;
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -66,26 +70,26 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             DecodedJWT decodedJWT = verifier.verify(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""));
             String userId = decodedJWT.getSubject();
 
+            System.out.println(userId);
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (userId != null) {
                 // jwt 토큰에 포함된 계정 정보(userId) 통해 실제 디비에 해당 정보의 계정이 있는지 조회.
-                // User user = userService.getUserByUserId(userId);
-                // System.out.println("jwtAuth :"+ user);
-                // if(user != null) {
-                    // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
-                    //SsafyUserDetails userDetails = new SsafyUserDetails(user);
-//                    System.out.println("jwtAuth :"+ userDetails.getAuthorities());
-//                    UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userId,
-//                            null, userDetails.getAuthorities());
+                 DABOUser user = userService.getUserByEmail(userId);
+                 System.out.println("jwtAuth :"+ user);
+                 if(user != null) {
+//                    // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
+                    SsafyUserDetails userDetails = new SsafyUserDetails(user);
+                    UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userId,
+                            null, userDetails.getAuthorities());
 
                     // System.out.println(jwtAuthentication);
-                    // jwtAuthentication.setDetails(userDetails);
-                    // return jwtAuthentication;
+                     jwtAuthentication.setDetails(userDetails);
+                     return jwtAuthentication;
                 }
             }
-            return null;
+            throw new AuthenticationException();
         }
-        //return null;
+        throw new AuthenticationException();
     }
-//}
+}
