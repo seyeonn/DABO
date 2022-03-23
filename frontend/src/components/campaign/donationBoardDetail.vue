@@ -1,7 +1,7 @@
 <template>
     <div class="detailBoard-page">
         <div>
-            <img src="https://i.imgur.com/httN9Bm.png" class="campaign-img" alt="">
+            <img src="https://i.imgur.com/httN9Bm.png" class="campaign-detail-img" alt="">
             <h4>캠페인 제목</h4>
             <p>캠페인 설명</p>
             <div>
@@ -16,6 +16,7 @@
             </div>
             <sub>n명의 후원자가 있습니다.</sub>
         </div>
+        <div class="line"></div>
         <!-- 댓글 -->
         <!-- <comment-write v-if="isModifyShow && this.modifyComment != null"
             :modifyComment="this.modifyComment"
@@ -82,8 +83,13 @@ export default {
   font-weight: 3px;
   margin-right: 10px;
 }
-.campaign-img {
+.campaign-detail-img {
   width: 100%;
   height: 200px;
+}
+.line {
+  border-top: 2px solid rgb(211, 211, 211);
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 </style>
