@@ -4,9 +4,9 @@
 
     <div class="submit-form">
       <input type="text" name="name" placeholder="Name" />
-      <div class="input-check d-flex">
+      <div class="input-check">
         <input type="text" name="nickname" placeholder="NickName" />
-        <button class="btn_red col-2">
+        <button class="btn_input btn_red col-2">
           <span>check</span>
         </button>
       </div>
@@ -35,7 +35,7 @@
 
       <div class="input-check d-flex">
         <input class="" type="email" name="email" placeholder="Email" />
-        <button class="btn_red col-2">
+        <button class="btn_input btn_red col-2">
           <span>check</span>
         </button>
       </div>
@@ -69,7 +69,6 @@ export default {};
   border-radius: 10px;
   border: none;
   width: 100%;
-  height: 35px;
   font-size: 12px;
 }
 .header {
@@ -91,6 +90,15 @@ export default {};
   font-size: 12px;
   padding: 10px;
 }
+.input-check {
+  position: relative;
+}
+.btn_input {
+  position: absolute;
+  right: 1%;
+  top: 5px;
+  height: 29px;
+}
 
 .input-bloodtype span {
   margin-top: 5%;
@@ -103,7 +111,7 @@ export default {};
   height: 40px;
   border: 1px solid #eae7e7;
   border-radius: 8px;
-  margin-bottom: 5%;
+  margin-bottom: 10px;
 }
 .form_radio_btn input[type="radio"] {
   display: none;
