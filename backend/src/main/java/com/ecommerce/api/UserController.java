@@ -1,6 +1,9 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IUserService;
+import com.ecommerce.application.impl.DABOUserService;
+import com.ecommerce.domain.dto.daboUserDto;
+import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.domain.repository.entity.User;
 import com.ecommerce.domain.exception.DomainException;
 import com.ecommerce.domain.exception.EmptyListException;
@@ -15,21 +18,21 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private IUserService userService;
+    DABOUserService userService;
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(DABOUserService userService) {
         Assert.notNull(userService, "userService 개체가 반드시 필요!");
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> list() {
-        List<User> userList = userService.list();
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<DABOUser> list() {
+        List<DABOUser> userList = userService.list();
 
         if (userList == null || userList.isEmpty() )
             throw new EmptyListException("NO DATA");
@@ -37,40 +40,38 @@ public class UserController {
         return userList;
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public User get(@PathVariable int id) {
-
-        User user = userService.get(id);
-        if (user == null) {
-            logger.error("NOT FOUND ID: ", id);
-            throw new NotFoundException(id + " 회원 정보를 찾을 수 없습니다.");
-        }
-
+    // 회원가입
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public DABOUser create(@RequestBody daboUserDto userDto) {
+        System.out.println("userDto = " + userDto);
+        DABOUser user = userService.add(userDto);
         return user;
     }
-
-    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
-    public User login(@RequestBody User user) {
-        User userFetched = userService.get(user.getEmail());
-        if (!userFetched.getPassword().equals(user.getPassword()))
-            throw new DomainException("비밀번호가 일치하지 않습니다.");
-        userFetched.setPassword("");
-        return userFetched;
+    // 닉네임 중복 검사
+    @RequestMapping(value = "/checkNickname",method = RequestMethod.GET)
+    public boolean checkNickname(@RequestParam("nickname") String nickname){
+        return userService.DuplicatedNickname(nickname);
+    }
+    // 이메일 중복 검사
+    @RequestMapping(value = "/checkEmail",method = RequestMethod.GET)
+    public boolean checkEmail(@RequestParam("email") String email){
+        return userService.DuplicatedEmail(email);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public User create(@RequestBody User user) {
-        return userService.add(user);
+    // 회원 정보 수정
+    @RequestMapping(value = "/edit", method = RequestMethod.PATCH)
+    public DABOUser update(@RequestBody daboUserDto userDto) {
+        return userService.update(userDto);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public User update(@RequestBody User user) {
-        return userService.update(user);
-    }
-
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    // 회원 탈퇴 기능은 만들지 않음. 필요시 id말고 email받아서
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) {
         userService.delete(id);
     }
 
+    @RequestMapping(value = "/findPassword",method = RequestMethod.PATCH)
+    public DABOUser resetPassword(@RequestBody String email) throws Exception{
+        return userService.resetPassword(email);
+    }
 }
