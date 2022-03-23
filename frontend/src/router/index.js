@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import landing from "@/views/landing/landingPage.vue";
 import Home from "@/views/mainPage.vue";
 import badge from "@/views/badge/badgeMain.vue";
 import bloodCard from "@/views/bloodCard/bloodCardCreate.vue";
@@ -10,6 +11,8 @@ import ListBoard from "@/components/campaign/donationBoardList.vue";
 import ListItem from "@/components/campaign/donationBoardListItem.vue";
 import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
+import MyDonation from "@/components/campaign/myDonationDetail.vue";
+import DonationConfirm from "@/components/campaign/donationConfirm.vue";
 
 import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
@@ -17,9 +20,15 @@ import reservation from "@/views/reservation/reservationMain.vue";
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/landing",
+    name: "landing",
+    component: landing,
+  },
   {
     path: "/",
     name: "home",
@@ -39,6 +48,11 @@ const routes = [
         path: "signup",
         name: "signup",
         component: Signup,
+      },
+      {
+        path: "findpassword",
+        name: "findpassword",
+        component: Findpassword,
       },
     ],
   },
@@ -77,6 +91,16 @@ const routes = [
         path: "detailBoard",
         name: "detailBoard",
         component: DetailBoard,
+      },
+      {
+        path: "myDonation",
+        name: "myDonation",
+        component: MyDonation,
+      },
+      {
+        path: "donationConfirm",
+        name: "donationConfirm",
+        component: DonationConfirm,
       },
     ],
   },
