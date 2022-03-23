@@ -4,7 +4,13 @@ import Home from "@/views/mainPage.vue";
 import badge from "@/views/badge/badgeMain.vue";
 import bloodCard from "@/views/bloodCard/bloodCardCreate.vue";
 import daboWallet from "@/views/daboWallet/daboWalletMain.vue";
-import donationBoard from "@/views/donationBoard/donationBoardCreate.vue";
+
+import donationBoard from "@/views/donationBoard/donationBoardPage.vue";
+import ListBoard from "@/components/campaign/donationBoardList.vue";
+import ListItem from "@/components/campaign/donationBoardListItem.vue";
+import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
+import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
+
 import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
 
@@ -51,6 +57,28 @@ const routes = [
     path: "/donationboard",
     name: "donationBoard",
     component: donationBoard,
+    children: [
+      {
+        path: "listBoard",
+        name: "listBoard",
+        component: ListBoard,
+      },
+      {
+        path: "listItem",
+        name: "listItem",
+        component: ListItem,
+      },
+      {
+        path: "createBoard",
+        name: "createBoard",
+        component: CreateBoard,
+      },
+      {
+        path: "detailBoard",
+        name: "detailBoard",
+        component: DetailBoard,
+      },
+    ],
   },
   {
     path: "/dabowallet",
