@@ -1,5 +1,5 @@
 <template>
-  <div>reser</div>
+  <router-view></router-view>
 </template>
 
 <script>
