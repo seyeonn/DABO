@@ -17,7 +17,11 @@ import DaboDonation from "@/components/campaign/daboDonation.vue";
 import DaboConfirm from "@/components/campaign/daboConfirm.vue";
 
 import ranking from "@/views/ranking/rankingMain.vue";
+
 import reservation from "@/views/reservation/reservationMain.vue";
+import SearchMap from "@/components/reservation/searchMap.vue";
+import NowReservation from "@/components/reservation/nowReservation.vue";
+import ReservationHistory from "@/components/reservation/reservationHistory.vue";
 
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
@@ -63,6 +67,23 @@ const routes = [
     path: "/reservation",
     name: "reservation",
     component: reservation,
+    children: [
+      {
+        path: "searchMap",
+        name: "searchMap",
+        component: SearchMap,
+      },
+      {
+        path: "nowReservation",
+        name: "nowReservation",
+        component: NowReservation,
+      },
+      {
+        path: "reservationHistory",
+        name: "reservationHistory",
+        component: ReservationHistory,
+      },
+    ]
   },
   {
     path: "/ranking",
