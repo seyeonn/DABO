@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-page">
     <div class="main-header">
       <div class="btn-alert">
         <button><img src="@/assets/bell.png" /></button>
@@ -30,9 +30,118 @@
         </div>
         <div class="detail-show"><button>자세히 보기</button></div>
       </div>
-      <div class="div-donation"></div>
-      <div class="div-ranking"></div>
-      <div class="div-bloodreserve"></div>
+      <div class="div-donation">
+        <div class="contents-title">
+          <div><p>마음을 기부해보세요</p></div>
+        </div>
+        <div class="contents-donation d-flex">
+          <div class="thumnail-donation"><img src="@/assets/imoge.png" /></div>
+          <div>
+            <div class="donation-title"><p>캠페인 제목</p></div>
+            <div class="donation-summary">
+              <p>캠페인 요약 내용 들어가는 자리 입니다.</p>
+            </div>
+            <div class="progress-info d-flex">
+              <p>70명 기부</p>
+              <p>10시간 남음</p>
+            </div>
+            <div class="progress donation-progress">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="70"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 70%"
+              >
+                70%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="div-ranking">
+        <div class="contents-title">
+          <div><p>DABO Ranking</p></div>
+          <div class="contents-subtitle">
+            <div><p>헌혈증 기부를 통해서 NFT 뱃지를 받아보세요!</p></div>
+          </div>
+        </div>
+        <div class="contents-ranking">
+          <div class="img-medal">
+            <img src="@/assets/medal1.png" />
+            <p>1위 000</p>
+            <p></p>
+          </div>
+          <div class="img-medal d-flex">
+            <div>
+              <img src="@/assets/medal2.png" />
+              <p>2위 000</p>
+            </div>
+            <div>
+              <img src="@/assets/medal3.png" />
+              <p>3위 000</p>
+            </div>
+          </div>
+          <div class="under-rank">
+            <div class="rank d-flex">
+              <p>4위</p>
+              <p>김OO</p>
+            </div>
+            <div class="rank d-flex">
+              <p>5위</p>
+              <p>김OO</p>
+            </div>
+            <div class="rank d-flex">
+              <p>6위</p>
+              <p>김OO</p>
+            </div>
+            <div class="rank d-flex">
+              <p>7위</p>
+              <p>김OO</p>
+            </div>
+            <div class="rank d-flex">
+              <p>8위</p>
+              <p>김OO</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail-show"><button>자세히 보기</button></div>
+      </div>
+      <div class="div-bloodreserve">
+        <div class="contents-title">
+          <div><p class="font-weight-bold">혈액 보유 현황</p></div>
+        </div>
+        <div class="contents-bloodreserve">
+          <div class="col contents-title-bloodreserve d-flex">
+            <p>오늘의 혈액보유량</p>
+            <p class="font-color-red">전체 3.9일</p>
+          </div>
+          <div class="col d-flex">
+            <div class="imoge">
+              <img src="@/assets/imoge.png" />
+              <p class="font-color-red">O</p>
+              <p class="font-color-red">3.4</p>
+            </div>
+            <div class="imoge">
+              <img src="@/assets/imoge.png" />
+              <p class="font-color-red">A</p>
+              <p class="font-color-red">3.4</p>
+            </div>
+            <div class="imoge">
+              <img src="@/assets/imoge.png" />
+              <p class="font-color-red">B</p>
+              <p class="font-color-red">3.4</p>
+            </div>
+            <div class="imoge">
+              <img src="@/assets/imoge.png" />
+              <p class="font-color-red">AB</p>
+              <p class="font-color-red">5.6</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +151,9 @@ export default {};
 </script>
 
 <style>
+.main-page {
+  overflow: scroll;
+}
 .main-header {
   background-color: #e52d27;
   height: 24vh;
@@ -89,11 +201,18 @@ export default {};
   align-items: center;
   justify-content: space-between;
 }
+.contents-subtitle p {
+  font-size: small;
+  font-weight: normal;
+}
 .contents-title div {
   align-items: center;
 }
 .contents-title div p {
   margin: 0;
+}
+.contents div {
+  font-weight: bold;
 }
 .contents .div-bloodcard {
   font-weight: bold;
@@ -132,5 +251,115 @@ export default {};
 .detail-show button {
   border: none;
   background: #fff;
+}
+.contents-donation {
+  height: 20vh;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 15px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 20%),
+    0 4px 4px rgb(0 0 0 / 15%), 0 8px 8px rgb(0 0 0 / 10%);
+}
+.contents-donation > div {
+  align-self: center;
+  text-align: left;
+  margin-left: 5%;
+}
+.thumnail-donation img {
+  width: 80px;
+}
+.contents-donation .donation-title {
+  margin-right: 5%;
+}
+.contents-donation .donation-progress {
+  margin-right: 5%;
+}
+.contents-donation .progress-info {
+  justify-content: space-between;
+  margin-right: 5%;
+}
+.contents-donation .progress-info p {
+  margin: 0;
+  font-size: 10px;
+}
+.contents-donation > div .donation-summary {
+  margin-right: 5%;
+  font-weight: normal;
+}
+
+.contents-ranking {
+  height: 50vh;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 15px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 20%),
+    0 4px 4px rgb(0 0 0 / 15%), 0 8px 8px rgb(0 0 0 / 10%);
+}
+.contents-ranking div {
+  align-self: center;
+  text-align: center;
+}
+.contents-ranking p {
+  margin: 0;
+}
+.contents-ranking .img-medal {
+  justify-content: space-between;
+}
+.contents-ranking .img-medal > p {
+  margin: 0;
+}
+.contents-ranking .img-medal > img {
+  width: 30%;
+}
+.contents-ranking .img-medal > div img {
+  width: 60%;
+}
+.under-rank {
+  height: 21.5vh;
+  margin-top: 4%;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.under-rank .rank {
+  justify-content: space-between;
+  margin-left: 16%;
+  margin-right: 16%;
+}
+.div-ranking .detail-show button {
+  background-color: #f1f1f1;
+}
+.contents-bloodreserve {
+  height: 25vh;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 15px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 20%),
+    0 4px 4px rgb(0 0 0 / 15%), 0 8px 8px rgb(0 0 0 / 10%);
+}
+.contents-bloodreserve div {
+  align-self: center;
+  text-align: center;
+}
+.contents-title-bloodreserve {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  justify-content: space-between;
+}
+.contents-bloodreserve {
+  margin-bottom: 5%;
+}
+.contents-bloodreserve p {
+  margin: 0;
+}
+.contents-title-bloodreserve > p {
+  margin-top: 5%;
+}
+.font-color-red {
+  color: #e52d27;
 }
 </style>
