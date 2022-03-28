@@ -4,6 +4,7 @@ import router from "./router";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.use(BootstrapVue);
 

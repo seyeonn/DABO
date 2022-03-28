@@ -17,6 +17,11 @@ import reservation from "@/views/reservation/reservationMain.vue";
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import myDabo from "@/views/user/myDabo.vue";
+
+
+import landing from "@/views/landing/landingPage.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -95,6 +100,16 @@ const routes = [
     name: "badge",
     component: badge,
   },
+  {
+    path: "/landing",
+    name: "landing",
+    component: landing,
+  },
+  {
+    path: "/myDabo",
+    name: "myDabo",
+    component: myDabo,
+  }
 ];
 
 const router = new VueRouter({
