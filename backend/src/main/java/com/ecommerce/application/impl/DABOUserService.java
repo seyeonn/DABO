@@ -17,10 +17,10 @@ import java.util.Optional;
 @Service
 public class DABOUserService {
 
-    private final DABOUserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CommonService commonService;
-    private final MailingService mailingService;
+    private DABOUserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CommonService commonService;
+    private MailingService mailingService;
 
     @Autowired
     public DABOUserService(DABOUserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, CommonService commonService, MailingService mailingService) {
