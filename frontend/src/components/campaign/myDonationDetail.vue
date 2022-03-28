@@ -1,7 +1,10 @@
 <template>
-    <div class="myDonation-page">
-        <h4>나의 헌혈증</h4>
-        <p>총 n개 보유중</p>
+    <div>
+      <div class="dabo_header">
+        <h2 class="dabo_title">내 헌혈증 목록</h2>
+      </div>
+      <div class="myDonation-page">
+        <p class="h-p">총 n개 보유중</p>
 
         <div class="donationList">
             <p>기부할 헌혈증을 선택해주세요.</p>
@@ -33,33 +36,34 @@
             </div>
         </div>
 
-        <div>
-        <a href="#bDonation">
-        <button class="btn_red_donation" @click="bloodDonation">
-            <span>헌혈증 기부하기</span>
-        </button>
-        </a>
-        </div>
-        <div id="bDonation" class="modal-window">
-            <div>
-                    <p>총 n개의 헌혈증을 SSAFY 보건소로 전달합니다.</p>
-                    <sub>
-                        <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
-                        헌혈증은 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
-                        전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
-                    </sub>
-                    <div>
-                    <a href="#">
-                        <button class="btn_red_cancel">
-                            <span>취소하기</span>
-                        </button>
-                    </a>
-                    <button class="btn_red_modal">
-                        <span>기부하기</span>
-                    </button>
-                    </div>
-            </div>
-            
+          <div>
+          <a href="#bDonation">
+          <button class="btn_red_donation" @click="bloodDonation">
+              <span>헌혈증 기부하기</span>
+          </button>
+          </a>
+          </div>
+          <div id="bDonation" class="modal-window">
+              <div>
+                      <p>총 n개의 헌혈증을 SSAFY 보건소로 전달합니다.</p>
+                      <sub>
+                          <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
+                          헌혈증은 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
+                          전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
+                      </sub>
+                      <div>
+                      <a href="#">
+                          <button class="btn_red_cancel">
+                              <span>취소하기</span>
+                          </button>
+                      </a>
+                      <button class="btn_red_modal">
+                          <span>기부하기</span>
+                      </button>
+                      </div>
+              </div>
+              
+          </div>
         </div>
     </div>
 </template>
@@ -207,5 +211,7 @@ export default {
     color: lightgray;
   }
   
-  
+  .h-p {
+    margin-top: 10px;
+  }
 </style>
