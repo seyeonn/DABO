@@ -56,7 +56,6 @@ export default {
   src: url("assets/fonts/NicoMoji-Regular.ttf") format("truetype");
   font-weight: 400;
 }
-
 .view {
   background-color: #fff;
   border: 5px #000;

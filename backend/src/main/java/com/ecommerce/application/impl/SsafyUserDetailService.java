@@ -1,24 +1,28 @@
 package com.ecommerce.application.impl;
 
-import com.ecommerce.application.impl.UserService;
+import com.ecommerce.domain.repository.entity.DABOUser;
+import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class SsafyUserDetailService implements UserDetailsService {
     @Autowired
-    UserService userService;
+    DABOUserRepository daboUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //User user = userService.getUserByUserId(username);
-//        if(user != null) {
-//            SsafyUserDetails userDetails = new SsafyUserDetails(user);
-//            return userDetails;
-//        }
+        Optional<DABOUser> user = daboUserRepository.findDABOUserByEmail(username);
+
+        if(user != null) {
+            SsafyUserDetails userDetails = new SsafyUserDetails(user.get());
+            return userDetails;
+        }
         return null;
     }
 }
