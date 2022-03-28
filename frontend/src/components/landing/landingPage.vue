@@ -5,19 +5,19 @@
         v-for="(t, index) in title"
         :key="index"
         class="item"
-        :style="{ animationDelay: index * 200 + 'ms' }"
+        :style="{animationDelay: index*200+'ms'}"
         v-text="t"
         id="title"
-      />
-      <br />
+        />
+      <br>
       <span
         v-for="(t, index) in subtitle"
         :key="index"
         class="item"
-        :style="{ animationDelay: index * 70 + 'ms' }"
+        :style="{animationDelay: index*70+'ms'}"
         v-text="t"
         id="subtitle"
-      />
+        />
     </div>
   </div>
 </template>
@@ -26,10 +26,13 @@
 export default {
   data() {
     return {
-      title: "DABO",
-      subtitle: "Donation + ABO",
-    };
+      title: 'DABO',
+      subtitle: 'Donation + ABO',
+    }
   },
+  created(){
+    setTimeout( () => this.$router.push({ path: '/user/login'}), 4000)
+  }
 };
 </script>
 
@@ -49,9 +52,11 @@ export default {
 
 }
 .landing {
+  position: relative;
   background-color: rgb(229, 45, 39);
   height: 100vh;
   text-align: center;
+  z-index: 4;
 }
 
 .titleText {
@@ -61,17 +66,17 @@ export default {
 }
 
 .titleText span {
- font-family: "NicoMoji" !important;
+  font-family: "NicoMoji" !important;
 }
 
-
 #title {
-  font-size: 3.5rem;
-  font-family: "Lato";
+  font-size: 3rem;
+  font-family: "Lato"; 
 
 }
 
 #subtitle {
   font-size: 1rem;
 }
+
 </style>
