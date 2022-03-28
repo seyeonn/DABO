@@ -26,6 +26,8 @@ import ReservationHistory from "@/components/reservation/reservationHistory.vue"
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import myDabo from "@/views/user/myDabo.vue";
+
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
 
@@ -152,6 +154,16 @@ const routes = [
     name: "badge",
     component: badge,
   },
+  {
+    path: "/landing",
+    name: "landing",
+    component: landing,
+  },
+  {
+    path: "/myDabo",
+    name: "myDabo",
+    component: myDabo,
+  }
 ];
 
 const router = new VueRouter({
