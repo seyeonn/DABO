@@ -1,5 +1,9 @@
 <template>
-    <div class="detailBoard-page">
+    <div>
+      <div class="dabo_header">
+        <h2 class="dabo_title">캠페인 상세 보기</h2>
+      </div>
+      <div class="detailBoard-page">
         <div>
             <img src="https://i.imgur.com/httN9Bm.png" class="campaign-detail-img" alt="">
             <h4>캠페인 제목</h4>
@@ -16,6 +20,12 @@
             </div>
             <sub>n명의 후원자가 있습니다.</sub>
         </div>
+        <div class="cpn-btn">
+            <span>
+              <button class="btn_red_campaign" style="margin-right: 10px; margin-left: 7px;"><span>헌혈증 기부하기</span></button>
+              <button class="btn_red_campaign"><span>DABO로 후원하기</span></button>
+            </span>
+        </div>
         <div class="line"></div>
         <!-- 댓글 -->
         <!-- <comment-write v-if="isModifyShow && this.modifyComment != null"
@@ -31,11 +41,6 @@
         <comment-write />
         <comment-list/>
         <!-- <campagin-comment></campagin-comment> -->
-        <div>
-        <span>
-        <button class="btn_red_campaign" style="margin-right: 10px; margin-left: 7px;"><span>헌혈증 기부하기</span></button>
-        <button class="btn_red_campaign"><span>DABO로 후원하기</span></button>
-        </span>
         </div>
     </div>
 </template>
@@ -60,7 +65,7 @@ export default {
 <style>
 .detailBoard-page {
   margin: 0 auto;
-  width: 70%;
+  width: 90%;
   font-weight: bold;
 }
 .btn_red_campaign {
@@ -90,6 +95,10 @@ export default {
 .line {
   border-top: 2px solid rgb(211, 211, 211);
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+}
+.cpn-btn {
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 </style>

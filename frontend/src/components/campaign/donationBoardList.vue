@@ -1,5 +1,9 @@
 <template>
   <div class="donationBoard-page">
+    <div class="dabo_header">
+      <h2 class="dabo_title">캠페인 목록</h2>
+    </div>
+    
     <!-- 검색창 -->
     <div class="submit-form">
       <div class="input-check d-flex">
@@ -86,6 +90,16 @@ export default {
   text-align: -webkit-center;
   margin: 0 auto;
   width: 70%;
+  font-weight: bold;
+}
+.dabo_header {
+  background-color: #e52d27;
+  text-align: center;
+  height: 24vh;
+}
+.dabo_title {
+  padding-top: 10vh;
+  color: white;
   font-weight: bold;
 }
 .btn_red {
