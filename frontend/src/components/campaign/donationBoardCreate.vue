@@ -1,19 +1,24 @@
 <template>
-  <div class="createBoard-page">
-    <div class="submit-form">
-      <p class="p_title">이미지 등록하기</p>
-      <input multiple ref="image" type="file" id="files">
-      <p class="p_title">제목</p>
-      <input type="text" name="title" id="" placeholder="캠페인 제목">
-      <p class="p_title">내용</p>
-      <input type="text" name="content" id="" placeholder="캠페인 설명">
-      <p class="p_title">목표 갯수</p>
-      <input type="text" name="goal" id="" placeholder="목표 갯수" style="width: 80px; margin-right: 5px;">개
-      <p class="p_title">마감 기한</p>
-      <input type="date" name="" id="">
-      <button class="btn_red">
-        <span>캠페인 등록</span>
-      </button>
+  <div>
+    <div class="dabo_header">
+      <h2 class="dabo_title">캠페인 등록</h2>
+    </div>
+    <div class="createBoard-page">
+      <div class="submit-form">
+        <p class="p_title">이미지 등록하기</p>
+        <input multiple ref="image" type="file" id="files">
+        <p class="p_title">제목</p>
+        <input type="text" name="title" id="" placeholder="캠페인 제목">
+        <p class="p_title">내용</p>
+        <input type="text" name="content" id="" placeholder="캠페인 설명">
+        <p class="p_title">목표 갯수</p>
+        <input type="text" name="goal" id="" placeholder="목표 갯수" style="width: 80px; margin-right: 5px;">개
+        <p class="p_title">마감 기한</p>
+        <input type="date" name="" id="">
+        <button class="btn_red">
+          <span>캠페인 등록</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -27,7 +32,7 @@ export default {
 <style>
 .createBoard-page {
   margin: 0 auto;
-  width: 70%;
+  width: 90%;
   font-weight: bold;
 }
 .btn_red {
