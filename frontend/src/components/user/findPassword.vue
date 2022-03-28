@@ -1,23 +1,12 @@
 <template>
-  <div class="login-page">
-    <p class="header">Log In</p>
+  <div class="findpassword-page">
+    <p class="header">Find Password</p>
     <form>
       <div class="submit-form">
+        <input type="text" name="name" placeholder="Name" />
         <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <div class="btn_findpw">
-          <button>Forget yout password?</button>
-        </div>
-        <button class="btn_red">
-          <span>Login</span>
-        </button>
-        <div class="social-login">
-          <button class="btn_red">
-            <span>SocialLogin</span>
-          </button>
-        </div>
-        <button class="btn_red">
-          <span>SignUp</span>
+        <button class="btn_findpassword">
+          <span>Find Password</span>
         </button>
       </div>
     </form>
@@ -29,37 +18,27 @@ export default {};
 </script>
 
 <style>
-.login-page {
+.findpassword-page {
   text-align: -webkit-center;
   margin: 0 auto;
   width: 70%;
   font-weight: bold;
 }
-.btn_red {
+.btn_findpassword {
   background-color: #e52d27;
   color: #fff;
   border-radius: 30px;
   border: none;
-  margin: 1%;
+  margin-top: 30%;
   width: 100%;
   height: 35px;
   font-size: 12px;
   font-weight: bold;
 }
-.btn_findpw {
-  float: right;
-  margin-bottom: 10%;
-}
-.btn_findpw button {
-  border: none;
-  background: none;
-  font-size: 12px;
-}
 .header {
   margin-top: 10%;
   margin-bottom: 10%;
   font-size: x-large;
-  font-family: "NicoMoji" !important;
 }
 .submit-form input {
   width: 100%;
