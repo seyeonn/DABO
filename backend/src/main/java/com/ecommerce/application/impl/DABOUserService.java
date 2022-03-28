@@ -6,9 +6,7 @@ import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import com.sun.jdi.request.DuplicateRequestException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +15,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class DABOUserService {
 
     private final DABOUserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CommonService commonService;
     private final MailingService mailingService;
+
+    @Autowired
+    public DABOUserService(DABOUserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, CommonService commonService, MailingService mailingService) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.commonService = commonService;
+        this.mailingService = mailingService;
+    }
+
 
     public List<DABOUser> list() {
         List<DABOUser> list = userRepository.findAll();
