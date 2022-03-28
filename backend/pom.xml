@@ -116,13 +116,13 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<scope>4.0.4.RELEASE</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<scope>4.0.4.RELEASE</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -134,7 +134,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<scope>4.0.4.RELEASE</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -229,9 +229,6 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>2.1.4.RELEASE</version>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<build>
