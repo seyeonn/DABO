@@ -16,8 +16,6 @@ import DonationConfirm from "@/components/campaign/donationConfirm.vue";
 import DaboDonation from "@/components/campaign/daboDonation.vue";
 import DaboConfirm from "@/components/campaign/daboConfirm.vue";
 
-import ranking from "@/views/ranking/rankingMain.vue";
-
 import reservation from "@/views/reservation/reservationMain.vue";
 import SearchMap from "@/components/reservation/searchMap.vue";
 import NowReservation from "@/components/reservation/nowReservation.vue";
@@ -26,6 +24,7 @@ import ReservationHistory from "@/components/reservation/reservationHistory.vue"
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import Ranking from "@/components/user/rankingDetail.vue";
 import myDabo from "@/views/user/myDabo.vue";
 
 import Findpassword from "@/components/user/findPassword.vue";
@@ -62,6 +61,11 @@ const routes = [
         name: "findpassword",
         component: Findpassword,
       },
+      {
+        path: "ranking",
+        name: "ranking",
+        component: Ranking,
+      },
     ],
   },
 
@@ -85,12 +89,7 @@ const routes = [
         name: "reservationHistory",
         component: ReservationHistory,
       },
-    ]
-  },
-  {
-    path: "/ranking",
-    name: "ranking",
-    component: ranking,
+    ],
   },
   {
     path: "/donationboard",
@@ -163,7 +162,7 @@ const routes = [
     path: "/myDabo",
     name: "myDabo",
     component: myDabo,
-  }
+  },
 ];
 
 const router = new VueRouter({
