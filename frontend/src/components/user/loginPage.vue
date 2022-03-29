@@ -11,11 +11,9 @@
         <button class="btn_red">
           <span>Login</span>
         </button>
-        <div class="social-login">
-          <button class="btn_red">
-            <span>SocialLogin</span>
-          </button>
-        </div>
+        <button class="btn_social">
+          <img src="@/assets/kakao_login_medium_wide.png" />
+        </button>
         <button class="btn_red">
           <span>SignUp</span>
         </button>
@@ -38,13 +36,27 @@ export default {};
 .btn_red {
   background-color: #e52d27;
   color: #fff;
-  border-radius: 30px;
+  border-radius: 10px;
   border: none;
   margin: 1%;
   width: 100%;
   height: 35px;
   font-size: 12px;
   font-weight: bold;
+}
+.btn_social {
+  background-color: #fee500;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  margin: 1%;
+  width: 100%;
+  height: 35px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.btn_social img {
+  height: -webkit-fill-available;
 }
 .btn_findpw {
   float: right;
