@@ -24,6 +24,7 @@ import ReservationHistory from "@/components/reservation/reservationHistory.vue"
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import infoChange from "@/components/user/infoChange.vue";
 import Ranking from "@/components/user/rankingDetail.vue";
 import myDabo from "@/views/user/myDabo.vue";
 
@@ -32,12 +33,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/landing",
+    path: "/",
     name: "landing",
     component: landing,
   },
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: Home,
   },
@@ -60,6 +61,11 @@ const routes = [
         path: "findpassword",
         name: "findpassword",
         component: Findpassword,
+      },
+      {
+        path: "infochange",
+        name: "infoChange",
+        component: infoChange,
       },
       {
         path: "ranking",
@@ -159,7 +165,7 @@ const routes = [
     component: landing,
   },
   {
-    path: "/myDabo",
+    path: "/mydabo",
     name: "myDabo",
     component: myDabo,
   },
