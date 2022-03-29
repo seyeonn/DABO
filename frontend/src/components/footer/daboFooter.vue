@@ -3,25 +3,25 @@
     
     <div id="main">
       <nav v-bind:class="active" v-on:click.prevent style="box-shadow: 1px 1px 1px 2px grey;">
-        <a href="#" class="home" v-on:click="makeActive('home')">
+        <a href="/home" class="home" v-on:click="[makeActive('home'), toHome()]">
           <div class="homeSet" style="text-align: center;">
             <i class="fa-solid fa-house fa-3x"></i>
           </div>
           Home
         </a>
-        <a href="#" class="donation" v-on:click="makeActive('donation')">
+        <a href="#" class="donation" v-on:click="[makeActive('donation'), toDonation()]">
           <div class= "donationSet" style="text-align: center">
             <i class="fa-solid fa-comment-medical fa-3x"></i>
           </div>
           Donate
         </a>
-        <a href="#" class="reservation" v-on:click="makeActive('reservation')">
+        <a href="#" class="reservation" v-on:click="[makeActive('reservation'), toReservation()]">
           <div class="reservationSet" style="text-align: center;">
             <i class="fa-solid fa-clock fa-3x"></i>
           </div>
           Res
           </a>
-        <a href="#" class="myDABO" v-on:click="makeActive('myDABO')">
+        <a href="#" class="myDABO" v-on:click="[makeActive('myDABO'), toMyDabo()]">
           <div class="myDABOSet" style="text-align: center;">          
             <i class="fa-solid fa-user fa-3x"></i>
           </div>
@@ -43,6 +43,18 @@ export default {
   methods: {
     makeActive: function(item){
       this.active = item;
+    },
+    toHome() {
+      this.$router.push({name: 'home'})
+    },
+    toDonation() {
+      this.$router.push({name: 'listBoard'})
+    },
+    toReservation() {
+      this.$router.push({name: 'searchMap'})
+    },
+    toMyDabo() {
+      this.$router.push({name: 'myDabo'})
     }
   },
 }
@@ -85,10 +97,6 @@ nav a{
   line-height:1;
   background-color:transparent;
   vertical-align: middle;
-
-  -webkit-transition:background-color 0.25s;
-  -moz-transition:background-color 0.25s;
-  transition:background-color 0.25s;
 }
 
 nav.home .home .homeSet,

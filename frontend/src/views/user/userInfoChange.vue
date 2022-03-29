@@ -1,14 +1,14 @@
 <template>
   <div>
-    <dabo-wallet/>
+    <info-change>
   </div>
 </template>
 
 <script>
-import daboWallet from '@/components/user/daboWallet'
+import infoChange from '@/components/user/infoChange'
 export default {
   components: {
-    daboWallet
+    infoChange
   }
 }
 </script>
