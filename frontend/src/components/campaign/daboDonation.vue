@@ -1,55 +1,60 @@
 <template>
-    <div class="daboDonation-page">
-        <h4>기부 금액(DABO)</h4>
-        <p>278 DABO 보유</p>
-
-        <table class="dabo_table">
-            <tr>
-                <td>200 DABO</td>
-                <td>400 DABO</td>
-                <td>600 DABO</td>
-            </tr>
-            <tr>
-                <td>800 DABO</td>
-                <td>1000 DABO</td>
-                <td @click="textbox">직접 입력</td>
-            </tr>
-        </table>
-        <div id="dabo_input"></div>
-        <div class="dabo-line"></div>
-        <div>
-            <h3>후원 기부 금액
-                <span class="h3_span">200 DABO</span>
-            </h3>
+    <div>
+        <div class="dabo_header">
+            <h2 class="dabo_title">다보 후원</h2>
         </div>
+        <div class="daboDonation-page">
+            <h4 class="h-p">기부 금액(DABO)</h4>
+            <p>278 DABO 보유</p>
 
-        <div>
-        <a href="#bDonation">
-        <button class="btn_red_donation" @click="bloodDonation">
-            <span>DABO 기부하기</span>
-        </button>
-        </a>
-        </div>
-        <div id="bDonation" class="modal-window">
+            <table class="dabo_table">
+                <tr>
+                    <td>200 DABO</td>
+                    <td>400 DABO</td>
+                    <td>600 DABO</td>
+                </tr>
+                <tr>
+                    <td>800 DABO</td>
+                    <td>1000 DABO</td>
+                    <td @click="textbox">직접 입력</td>
+                </tr>
+            </table>
+            <div id="dabo_input"></div>
+            <div class="dabo-line"></div>
             <div>
-                    <p>200 DABO를 기부하시겠습니까?</p>
-                    <sub>
-                        <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
-                        DABO 기부는 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
-                        전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
-                    </sub>
-                    <div>
-                    <a href="#">
-                        <button class="btn_red_cancel">
-                            <span>취소하기</span>
-                        </button>
-                    </a>
-                    <button class="btn_red_modal">
-                        <span>기부하기</span>
-                    </button>
-                    </div>
+                <h3>후원 기부 금액
+                    <span class="h3_span">200 DABO</span>
+                </h3>
             </div>
-            
+
+            <div>
+            <a href="#bDonation">
+            <button class="btn_red_donation" @click="bloodDonation">
+                <span>DABO 기부하기</span>
+            </button>
+            </a>
+            </div>
+            <div id="bDonation" class="modal-window">
+                <div>
+                        <p>200 DABO를 기부하시겠습니까?</p>
+                        <sub>
+                            <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
+                            DABO 기부는 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
+                            전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
+                        </sub>
+                        <div>
+                        <a href="#">
+                            <button class="btn_red_cancel">
+                                <span>취소하기</span>
+                            </button>
+                        </a>
+                        <button class="btn_red_modal">
+                            <span>기부하기</span>
+                        </button>
+                        </div>
+                </div>
+                
+            </div>
         </div>
     </div>
 </template>

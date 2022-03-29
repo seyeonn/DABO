@@ -1,38 +1,43 @@
 <template>
-<div class="bloodHouse-page">
-    <h4>헌혈의 집 선택</h4>
-    <p>우리집 주변의 헌혈의 집을 찾아보세요.</p>
-    <div class="submit-form">
-      <div class="input-check d-flex">
-      <!-- <input type="text" name="bloodhouse" id="bloodhouse" placeholder="blood house search">
-      <button class="btn_red col-2">
-          <span>search</span>
-        </button> -->
-        <div class="content-header">
-          <b-row>
-            <b-col>
-              <div style="align: center">
-                <span
-                  class="task__tag task__tag--design"
-                  style="margin-right: 150px"
-                  >시/도</span
-                >
-                <span class="task__tag task__tag--design">구/군</span>
-              </div>
-
-              <house-search-bar></house-search-bar>
-            </b-col>
-          </b-row>
-        </div>
-        </div>
+  <div>
+    <div class="dabo_header">
+      <h2 class="dabo_title">헌혈의 집 예약</h2>
     </div>
-              <div>
-                <house-list />
-              </div>
-    
-  <!-- <section class="test"> -->
-    <div id="map"></div>
-  <!-- </section> -->
+    <div class="bloodHouse-page">
+      <h4 class="h-p">헌혈의 집 선택</h4>
+      <p>우리집 주변의 헌혈의 집을 찾아보세요.</p>
+      <div class="submit-form">
+        <div class="input-check d-flex">
+        <!-- <input type="text" name="bloodhouse" id="bloodhouse" placeholder="blood house search">
+        <button class="btn_red col-2">
+            <span>search</span>
+          </button> -->
+          <div class="content-header">
+            <b-row>
+              <b-col>
+                <div style="align: center">
+                  <span
+                    class="task__tag task__tag--design"
+                    style="margin-right: 150px"
+                    >시/도</span
+                  >
+                  <span class="task__tag task__tag--design">구/군</span>
+                </div>
+
+                <house-search-bar></house-search-bar>
+              </b-col>
+            </b-row>
+          </div>
+          </div>
+      </div>
+      <div>
+        <house-list />
+      </div>
+      
+    <!-- <section class="test"> -->
+      <div id="map"></div>
+    <!-- </section> -->
+    </div>
   </div>
 </template>
 
