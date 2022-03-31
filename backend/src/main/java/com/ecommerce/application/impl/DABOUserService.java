@@ -58,8 +58,9 @@ public class DABOUserService {
         return true;
     }
 
-    public DABOUser get(String email) {
-        Optional<DABOUser> user = userRepository.findDABOUserByEmail(email);
+    public DABOUser get() {
+        DABOUser userTemp = commonService.getLoginUser();
+        Optional<DABOUser> user = userRepository.findDABOUserByEmail(userTemp.getEmail());
         if(user.isPresent()){
             return user.get();
         }
