@@ -4,13 +4,18 @@ import com.ecommerce.application.ICampaignService;
 import com.ecommerce.config.auth.PrincipalDetails;
 import com.ecommerce.config.media.GlobalConfig;
 import com.ecommerce.domain.dto.CampaignDto;
+import com.ecommerce.domain.dto.CommentDto;
 import com.ecommerce.domain.repository.ICampaignRepository;
+import com.ecommerce.domain.repository.ICommentRepository;
 import com.ecommerce.domain.repository.entity.Campaign;
+import com.ecommerce.domain.repository.entity.Comment;
 import com.ecommerce.domain.repository.entity.DABOUser;
+import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +31,12 @@ import java.util.*;
 public class CampaignService implements ICampaignService {
 
     private final ICampaignRepository campaignRepository;
+    private final ICommentRepository commentRepository;
+    private final DABOUserRepository userRepository;
     private final GlobalConfig config;
 
+    private final CommonService commonService;
+    // 캠페인 등록
     @Transactional
     @Override
     public ResponseEntity<?> create(CampaignDto campaign) {
@@ -68,13 +77,11 @@ public class CampaignService implements ICampaignService {
             e.printStackTrace();
         }
 
-        // Get User
-//        PrincipalDetails principalDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        DABOUser userTemp = principalDetails.getUser();
-        //DABOUser user = DABOUserRepository.findByEmail(userTemp.getEmail());
+        DABOUser userTemp = commonService.getLoginUser();
+        Optional<DABOUser> user = userRepository.findDABOUserByEmail(userTemp.getEmail());
 
         Campaign newCampaign = Campaign.builder()
-                        //.user(user)
+                        .user(user.get())
                         .title(campaign.getTitle())
                         .content(campaign.getContent())
                         .target(campaign.getTarget())
@@ -86,6 +93,7 @@ public class CampaignService implements ICampaignService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // 캠페인 전체 목록 조회
     @Transactional
     public List<CampaignDto> getAllCampaign() {
 
@@ -110,6 +118,7 @@ public class CampaignService implements ICampaignService {
         return list;
     }
 
+    // 캠페인 수정
     @Transactional
     public ResponseEntity<?> updateCampaign(Long campaignId, CampaignDto campaignDto) {
 
@@ -132,6 +141,7 @@ public class CampaignService implements ICampaignService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // 캠페인 삭제
     @Transactional
     public ResponseEntity<?> deleteCampaign(Long campaignId) {
 
@@ -143,5 +153,82 @@ public class CampaignService implements ICampaignService {
             campaignRepository.delete(optCampaign.get());
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    /* ---------------- 댓글 ----------------*/
+
+    // 댓글 조회
+    public List<CommentDto> getComments(Long campaignId) {
+
+        Optional<Campaign> campaign = campaignRepository.findById(campaignId);
+        if(!campaign.isPresent()) {
+            return null;
+        }
+
+        List<CommentDto> list = new ArrayList<>();
+
+        for (Comment comment : commentRepository.findByCampaign(campaign.get())) {
+            CommentDto commentDto = new CommentDto();
+
+            commentDto.setCommentId(comment.getCommentId());
+            commentDto.setContent(comment.getContent());
+            commentDto.setCreatedAt(comment.getCreatedAt());
+            commentDto.setUsername(comment.getUser().getNickname());
+            commentDto.setCampaignId(comment.getCampaign().getCampaignId());
+
+            list.add(commentDto);
+        }
+        return list;
+    }
+
+    // 댓글 작성
+    @Transactional
+    public ResponseEntity<?> postComment(Long campaignId, CommentDto commentDto) {
+
+        DABOUser userTemp = commonService.getLoginUser();
+        Optional<DABOUser> user = userRepository.findDABOUserByEmail(userTemp.getEmail());
+
+        Optional<Campaign> campaign = campaignRepository.findById(campaignId);
+        System.out.println(campaign);
+        if(!campaign.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Comment comment = Comment.builder()
+                .content(commentDto.getContent())
+                .campaign(campaign.get())
+                .user(user.get())
+                .build();
+
+        commentRepository.save(comment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // 댓글 수정
+    @Transactional
+    public ResponseEntity<?> updateComment(Long commentId, CommentDto commentDto) {
+
+        Optional<Comment> optComment = commentRepository.findById(commentId);
+
+        if(!optComment.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Comment comment = optComment.get();
+        comment.setContent(commentDto.getContent());
+
+        commentRepository.save(comment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // 댓글 삭제
+    @Transactional
+    public ResponseEntity<?> deleteComment(Long commentId) {
+
+        commentRepository.deleteById(commentId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
