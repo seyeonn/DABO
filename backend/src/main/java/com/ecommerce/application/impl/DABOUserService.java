@@ -5,7 +5,7 @@ import com.ecommerce.domain.dto.daboUserDto;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.infrastructure.repository.DABOUserRepository;
-import com.sun.jdi.request.DuplicateRequestException;
+//import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,7 @@ public class DABOUserService {
     @Transactional
     public DABOUser add(daboUserDto userDto) {
         Optional<DABOUser> sameEmail = userRepository.findDABOUserByEmail(userDto.getEmail());
-        if(sameEmail.isPresent()) throw new DuplicateRequestException();
+//        if(sameEmail.isPresent()) throw new DuplicateRequestException();
         DABOUser dabouser = DABOUser.builder()
                 .nickname(userDto.getNickname())
                 .email(userDto.getEmail())
