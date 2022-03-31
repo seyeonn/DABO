@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,7 +31,7 @@ public class WalletController {
 	 */
 	@ApiOperation(value = "Register wallet of user")
 	@RequestMapping(value = "/wallets", method = RequestMethod.POST)
-	public Wallet register(@Valid @RequestBody Wallet wallet) {
+	public Wallet register(@RequestBody Wallet wallet) {
 		return null;
 	}
 
