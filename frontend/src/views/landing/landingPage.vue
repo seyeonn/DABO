@@ -5,16 +5,20 @@
 </template>
 
 <script>
-import landing from "@/components/landing/landingPage";
+import landing from '@/components/landing/landingPage'
 
 export default {
   data() {
-    return {};
+    return {
+
+    }
   },
   components: {
     landing,
-  },
-};
+  }
+}
 </script>
 
-<style></style>
+<style>
+
+</style>

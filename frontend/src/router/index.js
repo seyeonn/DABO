@@ -13,24 +13,32 @@ import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
 import MyDonation from "@/components/campaign/myDonationDetail.vue";
 import DonationConfirm from "@/components/campaign/donationConfirm.vue";
+import DaboDonation from "@/components/campaign/daboDonation.vue";
+import DaboConfirm from "@/components/campaign/daboConfirm.vue";
 
-import ranking from "@/views/ranking/rankingMain.vue";
 import reservation from "@/views/reservation/reservationMain.vue";
+import SearchMap from "@/components/reservation/searchMap.vue";
+import NowReservation from "@/components/reservation/nowReservation.vue";
+import ReservationHistory from "@/components/reservation/reservationHistory.vue";
 
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
 import Signup from "@/components/user/signUp.vue";
+import infoChange from "@/components/user/infoChange.vue";
+import Ranking from "@/components/user/rankingDetail.vue";
+import myDabo from "@/views/user/myDabo.vue";
+
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/landing",
+    path: "/",
     name: "landing",
     component: landing,
   },
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: Home,
   },
@@ -54,6 +62,16 @@ const routes = [
         name: "findpassword",
         component: Findpassword,
       },
+      {
+        path: "infochange",
+        name: "infoChange",
+        component: infoChange,
+      },
+      {
+        path: "ranking",
+        name: "ranking",
+        component: Ranking,
+      },
     ],
   },
 
@@ -61,11 +79,23 @@ const routes = [
     path: "/reservation",
     name: "reservation",
     component: reservation,
-  },
-  {
-    path: "/ranking",
-    name: "ranking",
-    component: ranking,
+    children: [
+      {
+        path: "searchMap",
+        name: "searchMap",
+        component: SearchMap,
+      },
+      {
+        path: "nowReservation",
+        name: "nowReservation",
+        component: NowReservation,
+      },
+      {
+        path: "reservationHistory",
+        name: "reservationHistory",
+        component: ReservationHistory,
+      },
+    ],
   },
   {
     path: "/donationboard",
@@ -102,6 +132,16 @@ const routes = [
         name: "donationConfirm",
         component: DonationConfirm,
       },
+      {
+        path: "daboDonation",
+        name: "daboDonation",
+        component: DaboDonation,
+      },
+      {
+        path: "daboConfirm",
+        name: "daboConfirm",
+        component: DaboConfirm,
+      },
     ],
   },
   {
@@ -118,6 +158,16 @@ const routes = [
     path: "/badge",
     name: "badge",
     component: badge,
+  },
+  {
+    path: "/landing",
+    name: "landing",
+    component: landing,
+  },
+  {
+    path: "/mydabo",
+    name: "myDabo",
+    component: myDabo,
   },
 ];
 
