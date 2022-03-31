@@ -29,6 +29,11 @@ public class UserController {
         Assert.notNull(userService, "userService 개체가 반드시 필요!");
         this.userService = userService;
     }
+    @RequestMapping(value = "/me",method = RequestMethod.GET)
+    public DABOUser myInfo(){
+        DABOUser user = userService.get();
+        return user;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<DABOUser> list() {

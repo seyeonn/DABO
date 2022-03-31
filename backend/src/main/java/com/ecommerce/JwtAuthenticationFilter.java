@@ -5,6 +5,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ecommerce.application.impl.DABOUserService;
 import com.ecommerce.application.impl.SsafyUserDetails;
 import com.ecommerce.domain.repository.entity.DABOUser;
+import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import com.ecommerce.util.JwtTokenUtil;
 import com.ecommerce.util.ResponseBodyWriteUtil;
 import org.apache.http.auth.AuthenticationException;
@@ -20,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -28,12 +30,12 @@ import static com.google.common.collect.Lists.newArrayList;
  */
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
-    private DABOUserService userService;
+    private DABOUserRepository userRepository;
 
     @Autowired
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, DABOUserService userService) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, DABOUserRepository userRepository) {
         super(authenticationManager);
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -75,8 +77,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (userId != null) {
+                Optional<DABOUser> found = userRepository.findDABOUserByEmail(userId);
+                if(!found.isPresent()) throw new AuthenticationException();
                 // jwt 토큰에 포함된 계정 정보(userId) 통해 실제 디비에 해당 정보의 계정이 있는지 조회.
-                 DABOUser user = userService.getUserByEmail(userId);
+                 DABOUser user = found.get();
                  System.out.println("jwtAuth :"+ user);
                  if(user != null) {
 //                    // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성.
