@@ -1,9 +1,22 @@
 <template>
   <div class="view">
     <router-view />
+      <footer>
+        <div class="DABO-footer">
+          <footerBar/>
+        </div>
+      </footer>
   </div>
 </template>
 
+<script>
+import footerBar from '@/components/footer/daboFooter'
+export default {
+  components: {
+    footerBar,
+  }
+}
+</script>
 <style>
 * {
   font-family: "Arita", "Lato" !important;
@@ -43,11 +56,25 @@
   src: url("assets/fonts/NicoMoji-Regular.ttf") format("truetype");
   font-weight: 400;
 }
-
 .view {
   background-color: #fff;
   border: 5px #000;
   width: 360px;
   margin: 0 auto;
+}
+
+/* footer */
+footer {
+  position: fixed;
+  bottom: 0;
+}
+footer .DABO-footer {
+  position: relative;
+  height: 100px;
+  z-index: 2;
+}
+body {
+  padding-bottom: 100px;
+  /* 생략 */
 }
 </style>

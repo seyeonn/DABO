@@ -1,9 +1,18 @@
 <template>
-  <div>wallet</div>
+  <div>
+    <dabo-wallet/>
+  </div>
 </template>
 
 <script>
-export default {};
+import daboWallet from '@/components/user/daboWallet'
+export default {
+  components: {
+    daboWallet
+  }
+}
 </script>
 
-<style></style>
+<style>
+
+</style>

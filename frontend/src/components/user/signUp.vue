@@ -1,59 +1,129 @@
 <template>
   <div class="signup-page">
     <p class="header">Sign Up</p>
-
-    <div class="submit-form">
-      <input type="text" name="name" placeholder="Name" />
-      <div class="input-check">
-        <input type="text" name="nickname" placeholder="NickName" />
-        <button class="btn_input btn_red col-2">
-          <span>check</span>
-        </button>
-      </div>
-      <div class="input-bloodtype">
-        <span>Blood Type</span>
-        <div class="form_radio_btn d-flex">
+    <form class="form" @submit.prevent="submitForm">
+      <div class="submit-form">
+        <input type="text" name="name" placeholder="Name" v-model="name" />
+        <div class="input-check">
           <input
-            type="radio"
-            id="contactChoice1"
-            name="contact"
-            value="A"
-            checked
+            type="text"
+            name="nickname"
+            placeholder="NickName"
+            v-model="nickname"
           />
-          <label for="contactChoice1">A</label>
-
-          <input type="radio" id="contactChoice2" name="contact" value="B" />
-          <label for="contactChoice2">B</label>
-
-          <input type="radio" id="contactChoice3" name="contact" value="AB" />
-          <label for="contactChoice3">AB</label>
-
-          <input type="radio" id="contactChoice4" name="contact" value="O" />
-          <label for="contactChoice4">O</label>
+          <button class="btn_input btn_red col-2">
+            <span>check</span>
+          </button>
         </div>
-      </div>
+        <div class="input-bloodtype">
+          <span>Blood Type</span>
+          <div class="form_radio_btn d-flex">
+            <input
+              type="radio"
+              v-model="bloodtype"
+              id="contactChoice1"
+              name="contact"
+              value="A"
+            />
+            <label for="contactChoice1">A</label>
 
-      <div class="input-check d-flex">
-        <input class="" type="email" name="email" placeholder="Email" />
-        <button class="btn_input btn_red col-2">
-          <span>check</span>
+            <input
+              type="radio"
+              v-model="bloodtype"
+              id="contactChoice2"
+              name="contact"
+              value="B"
+            />
+            <label for="contactChoice2">B</label>
+
+            <input
+              type="radio"
+              v-model="bloodtype"
+              id="contactChoice3"
+              name="contact"
+              value="AB"
+            />
+            <label for="contactChoice3">AB</label>
+
+            <input
+              type="radio"
+              v-model="bloodtype"
+              id="contactChoice4"
+              name="contact"
+              value="O"
+            />
+            <label for="contactChoice4">O</label>
+          </div>
+        </div>
+
+        <div class="input-check d-flex">
+          <input
+            class=""
+            type="email"
+            v-model="email"
+            name="email"
+            placeholder="Email"
+          />
+          <button class="btn_input btn_red col-2">
+            <span>check</span>
+          </button>
+        </div>
+        <input
+          type="password"
+          v-model="password"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          type="passwordChk"
+          v-model="passwordConfirm"
+          name="passwordChk"
+          placeholder="Password Check"
+        />
+        <button type="submit" class="btn_red">
+          <span>SignUp</span>
         </button>
       </div>
-      <input type="password" name="password" placeholder="Password" />
-      <input
-        type="passwordChk"
-        name="passwordChk"
-        placeholder="Password Check"
-      />
-      <button class="btn_red">
-        <span>SignUp</span>
-      </button>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      name: "",
+      nickname: "",
+      bloodtype: "",
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    };
+  },
+  methods: {
+    async submitForm() {
+      const userData = {
+        name: this.name,
+        nickname: this.nickname,
+        bloodType: this.bloodtype,
+        email: this.email,
+        password: this.password,
+        passwordConfirm: this.passwordConfirm,
+      };
+
+      console.log(userData);
+
+      const response = await axios
+        .post("http://localhost:9090/api/user/signUp", userData)
+        .then((res) => {
+          console.log(res);
+          this.$router.push("user/login");
+        });
+      console.log(response);
+    },
+  },
+};
 </script>
 
 <style>
