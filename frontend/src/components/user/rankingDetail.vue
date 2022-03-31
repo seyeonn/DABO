@@ -6,7 +6,7 @@
         <button class="btn-plus"><img src="@/assets/question.png" /></button>
       </div>
     </div>
-    <div class="contents-ranking">
+    <div class="contents-rank">
       <div class="imoge"><img src="@/assets/medal3.png" /></div>
       <div>
         <p>27 badge<br />52 Point</p>
@@ -24,8 +24,9 @@ export default {};
 .contents-title {
   font-weight: bold;
 }
-.contents-ranking {
-  height: 20vh;
+.contents-rank {
+  text-align: center;
+  height: 25vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;

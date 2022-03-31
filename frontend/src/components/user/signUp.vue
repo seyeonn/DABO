@@ -114,10 +114,12 @@ export default {
 
       console.log(userData);
 
-      const response = await axios.post(
-        "http://localhost:9090/api/user/signUp",
-        userData
-      );
+      const response = await axios
+        .post("http://localhost:9090/api/user/signUp", userData)
+        .then((res) => {
+          console.log(res);
+          this.$router.push("user/login");
+        });
       console.log(response);
     },
   },
