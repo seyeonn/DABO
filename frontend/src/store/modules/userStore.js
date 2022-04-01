@@ -3,6 +3,7 @@ const userStore = {
     userId: "",
     userName: "",
     token: "",
+    walletAddress: null
   },
   mutations: {
     login: function (state, payload) {
@@ -10,8 +11,12 @@ const userStore = {
       state.userName = payload.userName;
       state.token = payload.token;
     },
+    setWalletAddress(state, address) {
+      state.walletAddress = address;
+    },
     loginCheck: function (state) {
       if (!state.token) {
+        // eslint-disable-next-line no-undef
         router
           .push({
             name: "login",
