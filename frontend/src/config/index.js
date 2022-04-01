@@ -1,7 +1,7 @@
 /**
  * DABO 개발환경 상수들입니다.
  */
- const API_BASE_URL = "http://127.0.0.1:8000";
+ const API_BASE_URL = "http://127.0.0.1:9090";
  const BLOCKCHAIN_URL = "http://127.0.0.1:8545";
  const BLOCKCHAIN_WEBSOCKET_URL = "ws://127.0.0.1:8545";
  const ITEM_INVENTORY_CONTRACT_ADDRESS =
