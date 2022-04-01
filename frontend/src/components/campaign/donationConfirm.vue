@@ -6,7 +6,7 @@
         
         <div class="check_text">
            <p>헌혈증 전달이 완료되었습니다.</p>
-            <button class="btn_red_check">
+            <button class="btn_red_check" @click="goHome()">
                 <span>Home 으로</span>
             </button>
         </div>
@@ -15,7 +15,11 @@
 
 <script>
 export default {
-    
+    methods: {
+        goHome() {
+            this.$router.push({name: 'home'})
+        }
+    }
 }
 </script>
 
