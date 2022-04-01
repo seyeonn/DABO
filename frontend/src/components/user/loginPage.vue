@@ -3,9 +3,14 @@
     <p class="header">Log In</p>
 
     <div class="submit-form">
-      <input v-model="email" type="email" name="email" placeholder="Email" />
       <input
-        v-model="password"
+        v-model="userData.email"
+        type="email"
+        name="email"
+        placeholder="Email"
+      />
+      <input
+        v-model="userData.password"
         type="password"
         name="password"
         placeholder="Password"
@@ -15,7 +20,7 @@
           Forget yout password?
         </button>
       </div>
-      <button @click="loginSubmit()" class="btn_red">
+      <button @click="login()" class="btn_red">
         <span>Login</span>
       </button>
       <button class="btn_social">
@@ -30,28 +35,47 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 export default {
-  data() {
+  data: function () {
     return {
-      email: "",
-      password: "",
+      userData: {
+        email: "",
+        password: "",
+      },
     };
   },
   methods: {
-    loginSubmit: function () {
-      console.log("로그인");
-      axios
-        .post(`http://localhost:9090/api/user/login`, {
-          email: this.email,
-          password: this.password,
-        })
+    ...mapActions(["loginGetToken"]),
+    login() {
+      console.log("로그인 실행");
+      if (this.userData.email === "") {
+        alert("아이디 미입력");
+        return false;
+      } else if (this.userData.password === "") {
+        alert("패스워드 미입력");
+        return false;
+      }
+
+      axios({
+        method: "post",
+        url: `http://localhost:9090/api/user/login`,
+        data: this.userData,
+      })
         .then((res) => {
-          if (res.status === 200) {
-            // 로그인 성공시 처리해줘야할 부분
-            console.log(res);
-            // this.$store.commit("login", res.data);
-            // this.$router.push("/");
+          if (res.status == 200) {
+            console.log("로그인 성공");
+            alert("로그인 성공");
+            this.$emit("login");
+            this.loginGetToken(res.data.accessToken);
+            this.$router.push({ name: "home" });
+          } else {
+            alert(res.data.message);
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("로그인 실패");
         });
     },
   },
