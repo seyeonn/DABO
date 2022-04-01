@@ -107,9 +107,6 @@ export default {
 
 /* profile */
 .circle {
-    box-shadow: 2px 2px 5px rgb(193, 193, 193);
-}
-.circle {
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -119,6 +116,8 @@ export default {
     font-size: 4em;
     color: white;
     background-color: #F06464;
+    box-shadow: 2px 2px 5px rgb(193, 193, 193);
+
 }
 #wrapper {
     display: flex;
@@ -172,7 +171,7 @@ export default {
   margin-left: 5%;
 }
 .detail-show {
-  position: absolute;
+  position: flex;
   right: 10%;
   transform: translate(0px, -24px);
   font-size: small;

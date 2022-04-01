@@ -107,7 +107,7 @@
             </div>
           </div>
         </div>
-        <div class="detail-show"><button>자세히 보기</button></div>
+        <div class="detail-show"><button @click="goRanking()">자세히 보기</button></div>
       </div>
       <div class="div-bloodreserve">
         <div class="contents-title">
@@ -147,7 +147,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goRanking() {
+      this.$router.push({name: 'ranking'})
+    }
+  }
+};
 </script>
 
 <style>
