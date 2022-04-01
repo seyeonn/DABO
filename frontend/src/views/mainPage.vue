@@ -152,9 +152,15 @@
 export default {
   methods: {
     goRanking() {
+<<<<<<< HEAD
       this.$router.push({ name: "ranking" });
     },
   },
+=======
+      this.$router.push({name: 'ranking'})
+    }
+  }
+>>>>>>> origin-dabo/develop
 };
 </script>
 
