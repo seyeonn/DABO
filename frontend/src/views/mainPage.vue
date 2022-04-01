@@ -5,8 +5,8 @@
         <button><img src="@/assets/bell.png" /></button>
       </div>
       <div class="d-flex header-contents">
-        <div class="greeting">
-          <p>OO님 <br />안녕하세요!</p>
+        <div class="main-greeting">
+          <p>{{ $store.state.userInfo.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
           <button><img src="@/assets/profile.png" /></button>
@@ -147,7 +147,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  setup() {},
+};
 </script>
 
 <style>
@@ -177,7 +179,7 @@ export default {};
 .header-contents {
   justify-content: center;
 }
-.greeting {
+.main-greeting {
   margin-right: 15%;
   font-weight: bold;
   font-size: 30px;
