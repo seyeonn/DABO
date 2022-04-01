@@ -122,7 +122,7 @@ export default {
         .post("http://localhost:9090/api/user/signUp", userData)
         .then((res) => {
           console.log(res);
-          this.$router.push("user/login");
+          this.$router.push("login");
         });
       console.log(response);
     },

@@ -57,7 +57,7 @@
                               <span>취소하기</span>
                           </button>
                       </a>
-                      <button class="btn_red_modal">
+                      <button class="btn_red_modal" @click="checkConfirm()">
                           <span>기부하기</span>
                       </button>
                       </div>
@@ -78,6 +78,9 @@ export default {
     methods: {
         bloodDonation: function() {
 
+        },
+        checkConfirm() {
+          this.$router.push({name: 'donationConfirm', params: ''})
         }
     }
 }
