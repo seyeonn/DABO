@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Sub PJT Ⅲ 추가과제 관련 클래스
+ * 주소 클래스
  */
 public class Address {
     private String id;
