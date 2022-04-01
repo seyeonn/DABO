@@ -22,7 +22,7 @@
         </div>
         <div class="cpn-btn">
             <span>
-              <button class="btn_red_campaign" style="margin-right: 10px; margin-left: 7px;"><span>헌혈증 기부하기</span></button>
+              <button class="btn_red_campaign" style="margin-right: 10px; margin-left: 7px;" @click="goDonationDetail()"><span>헌혈증 기부하기</span></button>
               <button class="btn_red_campaign"><span>DABO로 후원하기</span></button>
             </span>
         </div>
@@ -58,6 +58,11 @@ export default {
     components: {
         CommentWrite,
         CommentList
+    },
+    methods: {
+      goDonationDetail() {
+        this.$router.push({name: 'myDonation', params: ''})
+      }
     }
 }
 </script>
