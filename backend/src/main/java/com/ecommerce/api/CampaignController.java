@@ -49,6 +49,15 @@ public class CampaignController {
         return campaignService.getAllCampaign();
     }
 
+    // 캠페인 상세 조회
+    @ApiOperation(value = "캠페인 상세 조회", notes = "캠페인 상세 조회")
+    @GetMapping(value = "/listBoard/{campaign_id}")
+    public CampaignDto getBoard(@PathVariable("campaign_id") Long campaignId) {
+        logger.info("getBoard - 호출");
+
+        return campaignService.getCampaign(campaignId);
+    }
+
     // 캠페인 수정
     @ApiOperation(value = "캠페인 수정", notes = "캠페인 수정")
     @PutMapping(value = "/detailBoard/{campaign_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
