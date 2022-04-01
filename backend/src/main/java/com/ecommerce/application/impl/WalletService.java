@@ -3,6 +3,9 @@ package com.ecommerce.application.impl;
 import com.ecommerce.application.ICashContractService;
 import com.ecommerce.application.IEthereumService;
 import com.ecommerce.application.IWalletService;
+import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.entity.Address;
 import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
 import org.slf4j.Logger;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * TODO Sub PJT Ⅱ 과제 1, 과제 3
@@ -40,36 +44,74 @@ public class WalletService implements IWalletService
 	}
 
 	/**
-	 * 사용자 id로 지갑을 조회한다.
-	 * @param userId
-	 * @return
-	 */
-	@Override
-	public Wallet get(final long userId)
-	{
-		return null;
-	}
-
-	/**
-	 * 지갑을 DB에 등록한다.
-	 * @param wallet
-	 * @return
-	 */
-	@Override
-	public Wallet register(final Wallet wallet)
-	{
-		return null;
-	}
-
-	/**
+	 * 지갑 조회
 	 * DB에 저장된 지갑주소의 정보와 이더리움의 잔액 정보를 동기화한다.
 	 * @param walletAddress
 	 * @return Wallet
 	 */
 	@Override
+	public Wallet getAndSyncBalance(final String walletAddress)
+	{
+		Wallet wallet = walletRepository.get(walletAddress);
+		if(wallet == null)
+			throw new NotFoundException(walletAddress + " 해당 주소 지갑을 찾을 수 없습니다.");
+
+		// ether balance only
+		/*
+		BigDecimal currentBalance = new BigDecimal(this.ethereumService.getBalance(walletAddress));
+		if(!wallet.getBalance().equals(currentBalance)) {
+			wallet = this.syncBalance(walletAddress, currentBalance);
+			wallet.setBalance(currentBalance);
+		}
+		*/
+
+		// ether + cash balance
+		Address address = this.ethereumService.getAddress(walletAddress);
+		int cashBalance = this.cashContractService.getBalance(walletAddress);
+		if(!wallet.getBalance().equals(new BigDecimal(address.getBalance())) || wallet.getCash()!= cashBalance) {
+			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()), cashBalance);
+			wallet.setBalance(new BigDecimal(address.getBalance()));
+			wallet.setCash(cashBalance);
+		}
+
+		return wallet;
+	}
+
+	@Override
+	public Wallet get(final long userId)
+	{
+		Wallet wallet = this.walletRepository.get(userId);
+		if(wallet == null)
+			throw new NotFoundException(userId + " 해당 회원의 주소 지갑을 찾을 수 없습니다.");
+
+		return getAndSyncBalance(wallet.getAddress());
+	}
+
+	@Override
+	public Wallet register(final Wallet wallet)
+	{
+		long id = this.walletRepository.create(wallet);
+		return this.walletRepository.get(id);
+	}
+
+	@Override
 	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final int cash)
 	{
-		return null;
+		int affected = this.walletRepository.updateBalance(walletAddress, balance, cash);
+		if(affected == 0)
+			throw new ApplicationException("잔액 갱신 처리가 반영되지 않았습니다.");
+
+		return this.walletRepository.get(walletAddress);
+	}
+
+	@Override
+	public Wallet updateRequestNo(final String walletAddress)
+	{
+		int affected = this.walletRepository.updateRequestNo(walletAddress);
+		if(affected == 0)
+			throw new ApplicationException("충전회수갱신 처리가 반영되지 않았습니다.");
+
+		return this.walletRepository.get(walletAddress);
 	}
 
 	/**
@@ -80,6 +122,29 @@ public class WalletService implements IWalletService
 	 */
 	@Override
 	public Wallet requestEth(String walletAddress) {
-		return null;
+		Wallet wallet = this.getAndSyncBalance(walletAddress);
+		if (wallet == null || !wallet.canRequestEth()) {
+			throw new ApplicationException("[1] 충전할 수 없습니다!");
+		}
+
+		try {
+			String txHash = this.ethereumService.requestEth(walletAddress);
+			if(txHash == null || txHash.equals(""))
+				throw new ApplicationException("충전 회수 갱신 트랜잭션을 보낼 수 없습니다!");
+			log.info("received txhash: " + txHash);
+
+			this.updateRequestNo(walletAddress);
+
+			return this.getAndSyncBalance(walletAddress);
+		}
+		catch (Exception e) {
+			throw new ApplicationException("[2] 충전할 수 없습니다!");
+		}
+	}
+
+	@Override
+	public List<Wallet> list()
+	{
+		return this.walletRepository.list();
 	}
 }
