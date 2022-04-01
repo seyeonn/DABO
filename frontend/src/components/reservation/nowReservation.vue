@@ -25,7 +25,7 @@
             <input type="radio" class="blood_type" name="blood_type" value="">혈소판
             <input type="radio" class="blood_type" name="blood_type" value="">혈장+혈소판
             
-            <button class="btn_red">
+            <button class="btn_red" @click="checkRes()">
                 <span>예약하기</span>
             </button>
         </div>
@@ -34,7 +34,11 @@
 
 <script>
 export default {
-
+    methods: {
+        checkRes() {
+            this.$router.push({name: 'reservationHistory', params: ''})
+        }
+    }
 }
 </script>
 

@@ -8,7 +8,7 @@
     <div class="submit-form">
       <div class="input-check d-flex">
       <input type="text" name="campaign" id="campaignSearch" placeholder="campaign search">
-      <button class="btn_red col-2">
+      <button class="btn_red col-2" @click="goCreata()">
           <span>search</span>
         </button>
         </div>
@@ -20,7 +20,7 @@
       </div> -->
       <div class="container">
         <div class="campaign_item">
-        <div class="row">
+        <div class="row" @click="goDetail()">
             <div class="col-4">
               <img src="https://i.imgur.com/httN9Bm.png" class="campaign-img" alt="">
             </div>
@@ -81,6 +81,14 @@ export default {
   },
   components: {
     //CampaignListItem
+  },
+  methods: {
+    goDetail() {
+      this.$router.push({name: 'detailBoard', params: ''})
+    },
+    goCreata() {
+      this.$router.push({name: 'createBoard', params: ''})
+    }
   }
 };
 </script>
