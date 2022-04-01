@@ -1,6 +1,7 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IWalletService;
+import com.ecommerce.domain.exception.NotFoundException;
 import com.ecommerce.domain.repository.entity.Wallet;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @CrossOrigin(origins = "*")
@@ -25,18 +28,25 @@ public class WalletController {
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
+	 *
 	 * 지갑 등록
 	 * @param wallet
 	 */
 	@ApiOperation(value = "Register wallet of user")
 	@RequestMapping(value = "/wallets", method = RequestMethod.POST)
-	public Wallet register(@RequestBody Wallet wallet) {
-		return null;
+	public Wallet register(@Valid @RequestBody Wallet wallet) {
+		logger.debug(wallet.getAddress());
+		logger.debug(String.valueOf(wallet.getOwnerId()));
+
+		this.walletService.register(wallet);
+		Wallet newWallet = walletService.getAndSyncBalance(wallet.getAddress());
+		if(newWallet == null)
+			throw new NotFoundException(wallet.getAddress() + " 해당 주소 지갑을 찾을 수 없습니다.");
+
+		return newWallet;
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 지갑 조회 by address
 	 * @param address 지갑 주소
 	 */
