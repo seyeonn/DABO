@@ -4,7 +4,7 @@ const path = require("path")
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  outputDir: '../backend/bf/src/main/resources/dist',
+  outputDir: '../backend/src/main/resources/dist',
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({
