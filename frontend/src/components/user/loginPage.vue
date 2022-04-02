@@ -36,6 +36,7 @@
 <script>
 import axios from "axios";
 import { mapActions } from "vuex";
+import { API_BASE_URL } from "@/config";
 export default {
   data: function () {
     return {
@@ -59,7 +60,7 @@ export default {
 
       axios({
         method: "post",
-        url: `http://localhost:8080/api/user/login`,
+        url: API_BASE_URL + "/api/user/login",
         data: this.userData,
       })
         .then((res) => {
@@ -82,7 +83,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login-page {
   text-align: -webkit-center;
   margin: 0 auto;
