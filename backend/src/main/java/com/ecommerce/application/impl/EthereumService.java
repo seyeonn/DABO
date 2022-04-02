@@ -1,11 +1,12 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IEthereumService;
-import com.ecommerce.domain.Address;
-import com.ecommerce.domain.CommonUtil;
-import com.ecommerce.domain.CryptoUtil;
+
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.ITransactionRepository;
+import com.ecommerce.domain.repository.entity.Address;
+import com.ecommerce.domain.repository.entity.CommonUtil;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
 import com.ecommerce.domain.wrapper.EthereumTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,7 +130,7 @@ public class EthereumService implements IEthereumService {
 		}
 		address.setBalance(ethBalanceResponse.getBalance());
 
-		List<com.ecommerce.domain.Transaction> txList = this.transactionRepository.getByAddress(addr);
+		List<com.ecommerce.domain.repository.entity.Transaction> txList = this.transactionRepository.getByAddress(addr);
 
 		List<EthereumTransaction> ethTxList = new ArrayList<>();
 		txList.forEach(tx ->
