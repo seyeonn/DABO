@@ -1,5 +1,6 @@
-package com.ecommerce.application.impl;
+package com.ecommerce.config.auth;
 
+import com.ecommerce.config.auth.SsafyUserDetails;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

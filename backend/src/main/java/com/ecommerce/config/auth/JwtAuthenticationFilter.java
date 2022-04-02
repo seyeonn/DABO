@@ -1,9 +1,7 @@
-package com.ecommerce;
+package com.ecommerce.config.auth;
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.ecommerce.application.impl.DABOUserService;
-import com.ecommerce.application.impl.SsafyUserDetails;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import com.ecommerce.util.JwtTokenUtil;
