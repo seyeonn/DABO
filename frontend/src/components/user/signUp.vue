@@ -96,7 +96,7 @@
 <script>
 import axios from "axios";
 import { registerWallet } from "@/api/wallet.js";
-// import Web3 from "web3";
+import Web3 from "web3";
 import { API_BASE_URL } from "@/config";
 
 export default {
@@ -142,11 +142,11 @@ export default {
        *
        */
       
-      /*var web3 = new Web3();
+      var web3 = new Web3();
 
       var wallet = web3.eth.accounts.create("DABO_WALLET");
       this.walletAddress = wallet.address;
-      this.privateKey = wallet.privateKey;*/
+      this.privateKey = wallet.privateKey;
       
     },
 
