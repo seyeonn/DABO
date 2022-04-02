@@ -10,6 +10,7 @@
           <div class="circle">O</div>
         </div>
     </div>
+
     <div class="contents">
       <div class="div-wallet">
         <div class="contents-title d-flex">
@@ -223,4 +224,5 @@ export default {
   margin-bottom: 5px;
   box-shadow: 1px 1px;
 }
+
 </style>
