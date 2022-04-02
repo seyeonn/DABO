@@ -6,7 +6,7 @@
       </div>
       <div class="d-flex header-contents">
         <div class="main-greeting">
-          <p>{{ $store.state.userInfo.nickname }} 님 <br />안녕하세요!</p>
+          <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
           <button><img src="@/assets/profile.png" /></button>
