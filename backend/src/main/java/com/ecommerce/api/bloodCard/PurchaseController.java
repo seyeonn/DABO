@@ -1,9 +1,12 @@
-package com.ecommerce.api;
+package com.ecommerce.api.bloodCard;
 
 import com.ecommerce.application.IEscrowContractService;
 import com.ecommerce.application.IPurchaseRecordContractService;
 import com.ecommerce.application.IPurchaseService;
 import com.ecommerce.domain.exception.EmptyListException;
+import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.repository.entity.PurchaseInfo;
+import com.ecommerce.domain.repository.entity.Record;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

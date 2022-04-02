@@ -1,5 +1,6 @@
 package com.ecommerce.application.impl;
 
+import com.ecommerce.config.auth.SsafyUserDetails;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -39,7 +39,7 @@ public class WalletServiceTest
 	@Transactional
 	@Test
 	public void testSyncBalance(){
-		Wallet w = this.walletService.syncBalance(testAddress, BigDecimal.valueOf(5000), 0);
+		Wallet w = this.walletService.syncBalance(testAddress, BigDecimal.valueOf(5000),BigDecimal.valueOf(5000), 0);
 
 		assert w != null;
 		assert w.getAddress().equals(testAddress);

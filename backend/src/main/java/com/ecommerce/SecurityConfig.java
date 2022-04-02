@@ -1,6 +1,6 @@
 package com.ecommerce;
 
-import com.ecommerce.application.impl.SsafyUserDetailService;
+import com.ecommerce.config.auth.SsafyUserDetailService;
 import com.ecommerce.config.auth.JwtAuthenticationFilter;
 import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
