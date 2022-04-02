@@ -17,7 +17,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .findpassword-page {
   text-align: -webkit-center;
   margin: 0 auto;
