@@ -11,6 +11,11 @@ export default new Vuex.Store({
   state: {
     accessToken: localStorage.getItem("accessToken"), // 토큰정보
     userInfo: null,
+    isSigned: false, // 로그인 여부
+    user: {
+      id: 0, // 사용자 아이디 저장
+      walletAddress: null
+    },
   },
   getters: {
     config: function (state) {
@@ -69,6 +74,20 @@ export default new Vuex.Store({
     SET_NICKNAME: function (state, nickname) {
       state.userInfo.userNickName = nickname;
     },
+    setIsSigned(state, isSigned) {
+        state.isSigned = isSigned;
+      },
+      setUserId(state, id) {
+        state.user.id = id;
+      },
+      setWalletAddress(state, address) {
+        state.user.walletAddress = address;
+      },
+      logout(state) {
+        state.isSigned = false;
+        state.user.id = 0;
+        state.user.walletAddress = null;
+      }
   },
   actions: {
     loginGetToken: function ({ commit }, token) {
