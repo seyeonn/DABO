@@ -10,6 +10,7 @@ import java.util.List;
 public interface ICampaignService {
     ResponseEntity<?> create(CampaignDto campaign) throws IOException;
     List<CampaignDto> getAllCampaign();
+    CampaignDto getCampaign(Long campaignId);
     ResponseEntity<?> updateCampaign(Long campaignId, CampaignDto campaignDto);
     ResponseEntity<?> deleteCampaign(Long campaignId);
     ResponseEntity<?> postComment(Long campaignId, CommentDto commentDto);
