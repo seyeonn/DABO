@@ -119,9 +119,10 @@ const routes = [
         component: CreateBoard,
       },
       {
-        path: "detailBoard",
+        path: "detailBoard/:campaignId",
         name: "detailBoard",
         component: DetailBoard,
+
       },
       {
         path: "myDonation",

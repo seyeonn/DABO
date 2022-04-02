@@ -110,12 +110,35 @@ public class CampaignService implements ICampaignService {
             campaignDto.setAmount(campaign.getAmount());
             campaignDto.setDeadLine(campaign.getDeadLine());
             campaignDto.setMediaUrl(campaign.getMediaUrl());
-            //campaignDto.setUsername(campaign.getUser().getNickname());
+            campaignDto.setUsername(campaign.getUser().getNickname());
 
             list.add(campaignDto);
         }
 
         return list;
+    }
+
+    // 캠페인 상세 조회
+    @Transactional
+    public CampaignDto getCampaign(Long campaignId) {
+
+        Optional<Campaign> optCampaign = campaignRepository.findById(campaignId);
+        if(!optCampaign.isPresent()) {
+            return null;
+        }
+        Campaign campaign = optCampaign.get();
+
+        CampaignDto campaignDto = new CampaignDto();
+        campaignDto.setCampaignId(campaign.getCampaignId());
+        campaignDto.setTitle(campaign.getTitle());
+        campaignDto.setContent(campaign.getContent());
+        campaignDto.setTarget(campaign.getTarget());
+        campaignDto.setAmount(campaign.getAmount());
+        campaignDto.setDeadLine(campaign.getDeadLine());
+        campaignDto.setMediaUrl(campaign.getMediaUrl());
+        campaignDto.setUsername(campaign.getUser().getNickname());
+
+        return campaignDto;
     }
 
     // 캠페인 수정
