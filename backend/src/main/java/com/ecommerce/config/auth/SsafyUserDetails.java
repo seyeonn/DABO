@@ -1,4 +1,4 @@
-package com.ecommerce.application.impl;
+package com.ecommerce.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;

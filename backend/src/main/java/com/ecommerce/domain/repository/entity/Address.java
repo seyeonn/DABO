@@ -5,9 +5,6 @@ import com.ecommerce.domain.wrapper.EthereumTransaction;
 import java.math.BigInteger;
 import java.util.List;
 
-/**
- * 주소 클래스
- */
 public class Address {
     private String id;
     private BigInteger balance;

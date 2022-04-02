@@ -1,13 +1,9 @@
-package com.ecommerce.api;
+package com.ecommerce.api.users;
 
-import com.ecommerce.application.IUserService;
 import com.ecommerce.application.impl.DABOUserService;
 import com.ecommerce.domain.dto.daboUserDto;
 import com.ecommerce.domain.repository.entity.DABOUser;
-import com.ecommerce.domain.repository.entity.User;
-import com.ecommerce.domain.exception.DomainException;
 import com.ecommerce.domain.exception.EmptyListException;
-import com.ecommerce.domain.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
