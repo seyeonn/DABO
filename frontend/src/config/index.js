@@ -1,6 +1,7 @@
 /**
- * TODO: 개발 및 배포 환경 에 맞추어 아래의 상수들을 지정합니다.
+ * DABO의 개발 환경 상수들입니다.
  */
+
  const API_BASE_URL = "http://127.0.0.1:8080";
  const BLOCKCHAIN_URL = "http://j6b106.p.ssafy.io:8545";
  const BLOCKCHAIN_WEBSOCKET_URL = "ws://j6b106.p.ssafy.io:8546";
@@ -18,3 +19,4 @@
      CASH_CONTRACT_ADDRESS,
      PURCHASE_RECORD_CONTRACT_ADDRESS,
  };
+

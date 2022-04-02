@@ -39,7 +39,7 @@ export default new Vuex.Store({
     SET_LOGIN: function (state, accessToken) {
       axios({
         method: "get",
-        url: `http://localhost:9090/api/user/me`,
+        url: `http://localhost:8080/api/user/me`,
         headers: {
           Authorization: `Bearer ` + accessToken,
         },
@@ -60,8 +60,10 @@ export default new Vuex.Store({
       state.accessToken = null;
       state.isLogin = false;
       state.myuserNumber = null;
+      state.userInfo = null;
       localStorage.removeItem("accessToken");
       localStorage.removeItem("nickName");
+
       location.reload();
     },
     SET_NICKNAME: function (state, nickname) {
