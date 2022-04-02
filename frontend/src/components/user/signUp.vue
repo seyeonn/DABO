@@ -75,7 +75,7 @@
           placeholder="Password"
         />
         <input
-          type="passwordChk"
+          type="password"
           v-model="passwordConfirm"
           name="passwordChk"
           placeholder="Password Check"
@@ -83,6 +83,11 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
+        <button v-on:click="createWallet">지갑주소 생성하기</button>
+        <p>{{ privateKey }}</p>
+        <p>{{ walletAddress }}</p>
+
+        <button v-on:click="saveWallet">서버에 저장</button>
       </div>
     </form>
   </div>
@@ -90,9 +95,9 @@
 
 <script>
 import axios from "axios";
-
-/*import { registerWallet } from "@/api/wallet.js";
-import Web3 from "web3";*/
+import { registerWallet } from "@/api/wallet.js";
+import Web3 from "web3";
+import { API_BASE_URL } from "@/config";
 
 export default {
   data() {
@@ -103,6 +108,9 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
+      privateKey: "",
+      walletAddress: "",
+      userId : 1,
     };
   },
   methods: {
@@ -119,34 +127,34 @@ export default {
       console.log(userData);
 
       const response = await axios
-        .post("http://localhost:9090/api/user/signUp", userData)
+
+        .post(API_BASE_URL + "/api/user/signUp", userData)
         .then((res) => {
           console.log(res);
-          this.$router.push("login");
+          // this.$router.push("login");
         });
       console.log(response);
     },
 
-    createWallet: function() {
+    createWallet: function () {
       /**
        * 지갑 주소와 private key를 생성
-       * 
+       *
        */
       
-      /*var web3 = new Web3();
+      var web3 = new Web3();
+
       var wallet = web3.eth.accounts.create("DABO_WALLET");
       this.walletAddress = wallet.address;
       this.privateKey = wallet.privateKey;
-      */
+      
     },
 
-
-    saveWallet: function() {
+    saveWallet: function () {
       /**
        * 생성된 사용자의 지갑 정보(주소, private key) 를 서버에 등록한다.
        */
 
-      /*
       var vm = this;
 
       registerWallet(this.userId, this.walletAddress, function(res) {
@@ -154,15 +162,18 @@ export default {
         vm.$store.commit("setWalletAddress", res.data.address);
         alert("지갑 주소가 등록되었습니다.");
 
-        // vm.$router.push("/mypage/wallet_info");
+        vm.$router.push("login");
       });
-      */
+
+      
     }
-  },
+    
+
+  } 
 };
 </script>
 
-<style>
+<style scoped>
 .signup-page {
   text-align: -webkit-center;
   margin: 0 auto;

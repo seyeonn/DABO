@@ -3,13 +3,14 @@
     <div class="main-header">
       <div class="d-flex header-contents">
         <div class="greeting">
-          <p style="font-family: 'NicoMoji' !important;">My DABO</p>
+          <p style="font-family: 'NicoMoji' !important">My DABO</p>
         </div>
       </div>
-        <div id="wrapper">
-          <div class="circle">O</div>
-        </div>
+      <div id="wrapper">
+        <div class="circle">O</div>
+      </div>
     </div>
+
     <div class="contents">
       <div class="div-wallet">
         <div class="contents-title d-flex">
@@ -20,13 +21,15 @@
         </div>
         <div class="contents-wallet d-flex">
           <div>
-            <span>DABO Token 보유 현황</span><br>
-            <span style="font-weight: lighter">XXX DABO</span><br>
-            <span>내 지갑 주소</span><br>
+            <span>DABO Token 보유 현황</span><br />
+            <span style="font-weight: lighter">XXX DABO</span><br />
+            <span>내 지갑 주소</span><br />
             <span style="font-weight: lighter">0X16xxxxxxxxxxxxxxxx</span>
           </div>
         </div>
-        <div class="detail-show"><button @click="toWallet()">자세히 보기</button></div>
+        <div class="detail-show">
+          <button @click="toWallet()">자세히 보기</button>
+        </div>
       </div>
       <div class="div-donation">
         <div class="contents-title">
@@ -35,7 +38,7 @@
         <div class="contents-donation d-flex">
           <div>
             <div class="donation-title">
-              <span>기부한 내역  (총 N회 / N개)</span>
+              <span>기부한 내역 (총 N회 / N개)</span>
             </div>
             <div class="donation-summary">
               <table>
@@ -59,25 +62,29 @@
       </div>
       <div class="myBtn">
         <button @click="toInfoChange()">회원정보 수정</button>
-        <button>로그아웃</button>
+        <button @click="doLogout()">로그아웃</button>
       </div>
-      <div>
-        
-      </div>
+      <div></div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   methods: {
+    ...mapActions(["logoutRemoveToekn"]),
+    doLogout() {
+      this.$router.push({ path: "/" });
+      this.logoutRemoveToekn();
+    },
     toInfoChange() {
-      this.$router.push({name: 'infoChange', params: ''})
+      this.$router.push({ name: "infoChange", params: "" });
     },
     toWallet() {
-      this.$router.push({name: 'daboWallet'})
-    }
-  }
+      this.$router.push({ name: "daboWallet" });
+    },
+  },
 };
 </script>
 
@@ -107,22 +114,21 @@ export default {
 
 /* profile */
 .circle {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 4em;
-    color: white;
-    background-color: #F06464;
-    box-shadow: 2px 2px 5px rgb(193, 193, 193);
-
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  color: white;
+  background-color: #f06464;
+  box-shadow: 2px 2px 5px rgb(193, 193, 193);
 }
 #wrapper {
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 5px;
 }
 /* profile end */
 
@@ -197,7 +203,8 @@ export default {
 }
 
 /* table */
-.donation-summary table th, td {
+.donation-summary table th,
+td {
   text-align: center;
   font-weight: lighter;
   font-size: 13px;
@@ -223,4 +230,5 @@ export default {
   margin-bottom: 5px;
   box-shadow: 1px 1px;
 }
+
 </style>

@@ -1,4 +1,4 @@
-package com.ecommerce.api;
+package com.ecommerce.api.users;
 
 import java.util.NoSuchElementException;
 
