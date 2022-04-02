@@ -185,7 +185,7 @@ export default {
   color: #fff;
   border-radius: 10px;
   border: none;
-  width: 100%;
+  width: 20%;
   font-size: 12px;
 }
 .header {
