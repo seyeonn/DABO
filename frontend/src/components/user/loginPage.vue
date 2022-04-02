@@ -34,9 +34,12 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import { mapActions } from "vuex";
-import { API_BASE_URL } from "@/config";
+// import { API_BASE_URL } from "@/config";
+import { loginAPI, getUserInfo } from "../../api/user.js";
+import { findByUserId as findWallet } from "../../api/wallet.js";
+
 export default {
   data: function () {
     return {
@@ -58,26 +61,82 @@ export default {
         return false;
       }
 
-      axios({
-        method: "post",
-        url: API_BASE_URL + "/api/user/login",
-        data: this.userData,
-      })
-        .then((res) => {
-          if (res.status == 200) {
-            console.log("로그인 성공");
-            alert("로그인 성공");
-            this.$emit("login");
-            this.loginGetToken(res.data.accessToken);
-            this.$router.push({ name: "home" });
-          } else {
-            alert(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("로그인 실패");
-        });
+      console.log("loginAPI START");
+      const scope = this;
+
+      loginAPI(
+        this.userData,
+        function (response) {
+          console.log(response);
+          scope.$store.commit("setIsSigned", true);
+          
+          alert("로그인 성공");
+          scope.$emit("login");
+          // this.loginGetToken(response.data.accessToken);
+          localStorage.setItem("accessToken", response.data.accessToken);
+          console.log("유저 정보를 찾습니다");
+          getUserInfo(
+            function (response) {
+              console.log("getUserInfo",response);
+              scope.$store.commit("setUserId", response.data.userId);
+              scope.$store.commit("setUserNickName", response.data.nickname);
+              alert("지갑 정보를 찾습니다");
+              findWallet(
+                response.data.userId,
+                function (response) {
+                  if (response.status == 200) {
+                    scope.$store.commit(
+                      "setWalletAddress",
+                      response.data.address
+                    );
+                  } else {
+                    alert("Unexpected status code: " + response.status);
+                  }
+                },
+                function (err) {
+                  if (err.response != 404) {
+                    console.error(err);
+                    alert("지갑 정보를 찾지 못했습니다.");
+                  }
+                }
+              );
+            },
+            function (err) {
+              if (err.response != 404) {
+                console.error(err);
+                alert("유저 정보를 찾지 못했습니다.");
+              }
+            }
+          );
+
+          scope.$router.push({ name: "home" });
+        },
+        function (error) {
+          console.error(error);
+          alert("유저 이메일 혹은 비밀번호가 일치하지 않습니다.");
+        }
+      );
+
+      // axios({
+      //   method: "post",
+      //   url: API_BASE_URL + "/api/user/login",
+      //   data: this.userData,
+      // })
+      //   .then((res) => {
+      //     if (res.status == 200) {
+      //       console.log("로그인 성공");
+      //       alert("로그인 성공");
+      //       this.$emit("login");
+      //       this.loginGetToken(res.data.accessToken);
+      //       this.$router.push({ name: "home" });
+      //     } else {
+      //       alert(res.data.message);
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     alert("로그인 실패");
+      //   });
     },
   },
 };

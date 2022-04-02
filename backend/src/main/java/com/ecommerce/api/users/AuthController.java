@@ -2,11 +2,14 @@ package com.ecommerce.api.users;
 
 import java.util.NoSuchElementException;
 
+import com.ecommerce.api.wallet.EthereumController;
 import com.ecommerce.application.impl.DABOUserService;
 import com.ecommerce.domain.dto.loginDto;
 import com.ecommerce.domain.repository.entity.DABOUser;
 import com.ecommerce.domain.repository.response.UserLoginPostRes;
 import com.ecommerce.util.JwtTokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +42,7 @@ public class AuthController {
 	
 //	@Autowired
 //	PasswordEncoder passwordEncoder;
+	public static final Logger log = LoggerFactory.getLogger(EthereumController.class);
 
 	private final DABOUserService userService;
 	private final BCryptPasswordEncoder passwordEncoder;
@@ -58,6 +62,7 @@ public class AuthController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<UserLoginPostRes> login(@RequestBody loginDto loginInfo) {
+		log.debug("Login Start");
 		String email = loginInfo.getEmail();
 		String password = loginInfo.getPassword();
 		DABOUser user ;
