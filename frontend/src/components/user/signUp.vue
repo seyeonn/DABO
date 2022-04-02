@@ -83,11 +83,18 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
-        <button v-on:click="createWallet">지갑주소 생성하기</button>
-        <p>{{ privateKey }}</p>
-        <p>{{ walletAddress }}</p>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p>
+        <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
+        <p>privatekey : {{ privateKey }}</p>
+        <p>walletAddress : {{ walletAddress }}</p>
 
-        <button v-on:click="saveWallet">서버에 저장</button>
+        <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
   </div>
@@ -110,7 +117,7 @@ export default {
       passwordConfirm: "",
       privateKey: "",
       walletAddress: "",
-      userId : 1,
+      userId: ""
     };
   },
   methods: {
@@ -125,13 +132,24 @@ export default {
       };
 
       console.log(userData);
-
+      
       const response = await axios
 
         .post(API_BASE_URL + "/api/user/signUp", userData)
-        .then((res) => {
-          console.log(res);
+        .then((response) => {
+          console.log("SignUp START")
+          console.log(response);
           // this.$router.push("login");
+          this.userId =  response.data.userId
+          
+        }).then(()=>{
+          console.log(this.userId)
+          console.log("createWallet START")
+          this.createWallet();
+        })
+        .then(()=>{
+          console.log("saveWallet START")
+          this.saveWallet();
         });
       console.log(response);
     },
@@ -158,11 +176,14 @@ export default {
       var vm = this;
 
       registerWallet(this.userId, this.walletAddress, function(res) {
-        
+        vm.$store.commit("setUserId", res.data.userId);
         vm.$store.commit("setWalletAddress", res.data.address);
         alert("지갑 주소가 등록되었습니다.");
 
         vm.$router.push("login");
+      },function(err){
+        console.log(err)
+        console.log("지갑 주소 등록 실패")
       });
 
       
