@@ -22,7 +22,7 @@
 
     <div>
       <div class="container">
-          <campaign-list-item v-for="(campaign, idx) in campaignList" :key="idx" v-bind="campaign" />
+          <campaign-list-item v-for="campaign in campaignList" :key="campaign.id" v-bind="campaign" />
         </div>
     </div>
   </div>

@@ -36,7 +36,7 @@ public class CampaignController {
     @PostMapping(value = "/createBoard")
     public ResponseEntity<?> createBoard(@ModelAttribute CampaignDto campaign) throws Exception {
         logger.info("createBoard - 호출");
-
+        System.out.println(campaign.getMedia());
         return campaignService.create(campaign);
     }
 
@@ -51,7 +51,7 @@ public class CampaignController {
 
     // 캠페인 상세 조회
     @ApiOperation(value = "캠페인 상세 조회", notes = "캠페인 상세 조회")
-    @GetMapping(value = "/listBoard/{campaign_id}")
+    @GetMapping(value = "/detailBoard/{campaign_id}")
     public CampaignDto getBoard(@PathVariable("campaign_id") Long campaignId) {
         logger.info("getBoard - 호출");
 

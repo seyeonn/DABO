@@ -23,15 +23,22 @@
 </template>
 
 <script>
+//import axios from 'axios';
+
 export default {
     props: {
         campaignId: Number,
         title: String,
-        content: String
+        content: String,
+    },
+    data() {
+        return {
+            campaign: [],
+        }
     },
     methods: {
         goDetail() {
-        this.$router.push({name: 'detailBoard', params: this.campaignId })
+            this.$router.push({name: 'detailBoard', params: {campaignId: this.campaignId} })
         },
     }
 }
