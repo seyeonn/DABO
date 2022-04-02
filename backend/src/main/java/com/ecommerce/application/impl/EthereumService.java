@@ -1,16 +1,34 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IEthereumService;
+
+import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.ITransactionRepository;
 import com.ecommerce.domain.repository.entity.Address;
+import com.ecommerce.domain.repository.entity.CommonUtil;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
+import com.ecommerce.domain.wrapper.EthereumTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionException;
+import org.web3j.tx.Transfer;
+import org.web3j.utils.Convert;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class EthereumService implements IEthereumService {
@@ -48,7 +66,16 @@ public class EthereumService implements IEthereumService {
 	 */
 	@Override
 	public BigInteger getBalance(String address){
-		return null;
+
+		EthGetBalance ethBalanceResponse = null;
+		try {
+			ethBalanceResponse = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
+		}
+		catch (InterruptedException | ExecutionException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+
+		return ethBalanceResponse.getBalance();
 	}
 
 	/**
@@ -62,7 +89,22 @@ public class EthereumService implements IEthereumService {
 	@Override
 	public String requestEth(final String address) // 특정 주소로 테스트 특정 양(5Eth) 만큼 충전해준다.
 	{
-		return null;
+		CryptoUtil cryptoUtil = CryptoUtil.of(ADMIN_ADDRESS);
+		try {
+			Credentials wCredentials = CommonUtil.getCredential(ADMIN_WALLET_FILE, PASSWORD);
+			log.info("sending tx..");
+			CompletableFuture<TransactionReceipt> transactionReceipt
+					= Transfer.sendFunds(web3j, wCredentials, address, new BigDecimal(1), Convert.Unit.ETHER).sendAsync();
+
+			TransactionReceipt txReceipt = transactionReceipt.get();
+			log.info("txReceipt received: " + txReceipt.getTransactionHash());
+
+			return txReceipt.getTransactionHash();
+		}
+		catch (IOException | InterruptedException | TransactionException | ExecutionException e) {
+			log.error(e.getMessage());
+			throw new ApplicationException(e.getMessage());
+		}
 	}
 
 	/**
@@ -75,7 +117,27 @@ public class EthereumService implements IEthereumService {
 	 */
 	@Override
 	public Address getAddress(String addr){
-		return null;
+
+		Address address = new Address();
+		address.setId(addr);
+
+		EthGetBalance ethBalanceResponse = null;
+		try {
+			ethBalanceResponse = web3j.ethGetBalance(addr, DefaultBlockParameterName.LATEST).sendAsync().get();
+		}
+		catch (InterruptedException | ExecutionException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+		address.setBalance(ethBalanceResponse.getBalance());
+
+		List<com.ecommerce.domain.repository.entity.Transaction> txList = this.transactionRepository.getByAddress(addr);
+
+		List<EthereumTransaction> ethTxList = new ArrayList<>();
+		txList.forEach(tx ->
+				ethTxList.add(EthereumTransaction.convertTransaction(tx)));
+		address.setTrans(ethTxList);
+
+		return address;
 	}
 
 }
