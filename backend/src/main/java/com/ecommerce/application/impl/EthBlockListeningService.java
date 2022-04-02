@@ -1,9 +1,10 @@
 package com.ecommerce.application.impl;
 
-import com.ecommerce.domain.EthInfo;
-import com.ecommerce.domain.Transaction;
+
 import com.ecommerce.domain.repository.IEthInfoRepository;
 import com.ecommerce.domain.repository.ITransactionRepository;
+import com.ecommerce.domain.repository.entity.EthInfo;
+import com.ecommerce.domain.repository.entity.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

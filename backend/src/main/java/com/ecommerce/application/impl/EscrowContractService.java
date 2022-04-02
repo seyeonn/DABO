@@ -2,11 +2,12 @@ package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IEscrowContractService;
 import com.ecommerce.application.IPurchaseService;
-import com.ecommerce.domain.CommonUtil;
-import com.ecommerce.domain.CryptoUtil;
-import com.ecommerce.domain.Purchase;
-import com.ecommerce.domain.PurchaseState;
+
 import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.repository.entity.CommonUtil;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
+import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.repository.entity.PurchaseState;
 import com.ecommerce.domain.wrapper.EscrowContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +67,7 @@ public class EscrowContractService implements IEscrowContractService {
     /**
      * TODO Sub PJT Ⅲ 과제 3
      * 입금 상태 조회 - checkDeposit
+     * @return
      */
     @Override
     public Purchase checkDeposit(int pid) {

@@ -1,9 +1,12 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IPurchaseRecordContractService;
-import com.ecommerce.domain.Record;
+
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.IPurchaseRepository;
+import com.ecommerce.domain.repository.entity.CommonUtil;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
+import com.ecommerce.domain.repository.entity.Record;
 import com.ecommerce.domain.wrapper.PurchaseRecordContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

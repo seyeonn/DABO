@@ -1,12 +1,12 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IPurchaseService;
-import com.ecommerce.domain.Item;
-import com.ecommerce.domain.Purchase;
-import com.ecommerce.domain.PurchaseInfo;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.IItemRepository;
 import com.ecommerce.domain.repository.IPurchaseRepository;
+import com.ecommerce.domain.repository.entity.Item;
+import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.repository.entity.PurchaseInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +77,7 @@ public class PurchaseService implements IPurchaseService {
     /**
      * TODO Sub PJT Ⅲ 과제 3
      * 구매자 관련 Purchase 조회
+     * @return
      */
     @Override
     public List<PurchaseInfo> getByBuyer(int id) {
