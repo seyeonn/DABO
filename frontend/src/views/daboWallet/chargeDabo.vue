@@ -1,14 +1,14 @@
 <template>
   <div>
-    <dabo-wallet/>
+    <charge-dabo/>
   </div>
 </template>
 
 <script>
-import daboWallet from '@/components/wallet/daboWallet'
+import chargeDabo from '@/components/wallet/chargeDabo.vue'
 export default {
   components: {
-    daboWallet
+    chargeDabo
   }
 }
 </script>

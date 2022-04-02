@@ -15,11 +15,10 @@
     </div>
     <div class="wallet-control">
       <i class="fa-solid fa-circle-plus"></i>
-      <span> 충전하기 </span>
+      <span @click="goCharge()"> 충전하기 </span>
       <i class="fa-solid fa-circle-minus"></i>
       <span> 출금하기 </span>
     </div>
-
     <div class="contents-wallet d-flex" style="height: 400px;">
       <div>
         <p style="font-weight: bold;">DABO Token 보유 현황</p>
@@ -63,6 +62,9 @@ export default {
   methods: {
     toBack() {
       this.$router.go(-1)
+    },
+    goCharge() {
+      this.$router.push({name: 'chargeDabo', params: ''})
     }
   }
 }
@@ -143,4 +145,5 @@ export default {
 .act-detail {
   font-size: 10px;
 }
+
 </style>
