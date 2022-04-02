@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.repository.entity.Purchase;
+import com.ecommerce.domain.Purchase;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IPurchaseRepository;
 import com.ecommerce.infrastructure.repository.factory.PurchaseFactory;
@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Sub PJT Ⅲ 과제 3
- */
 @Repository
 public class PurchaseRepository implements IPurchaseRepository {
     private static final Logger log = LoggerFactory.getLogger(PurchaseRepository.class);

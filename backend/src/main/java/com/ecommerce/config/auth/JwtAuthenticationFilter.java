@@ -1,4 +1,4 @@
-package com.ecommerce;
+package com.ecommerce.config.auth;
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
