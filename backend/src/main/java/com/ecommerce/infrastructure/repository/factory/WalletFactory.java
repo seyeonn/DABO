@@ -15,6 +15,7 @@ public class WalletFactory
 		wallet.setOwnerId(rs.getLong("owner_id"));
 		wallet.setAddress(rs.getString("address"));
 		wallet.setBalance(rs.getBigDecimal("balance"));
+		wallet.setPayBalance(rs.getBigDecimal("pay_balance"));
 		wallet.setReceivingCount(rs.getInt("receiving_count"));
 		wallet.setCash(rs.getInt("cash"));
 

@@ -1,8 +1,9 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.Wallet;
+
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IWalletRepository;
+import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.infrastructure.repository.factory.WalletFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -40,8 +41,7 @@ public class WalletRepository implements IWalletRepository
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
-	 * 지갑 조회
+	 * 지갑 조회 by id
 	 */
 	@Override
 	public Wallet get(final long ownerId)
@@ -57,6 +57,11 @@ public class WalletRepository implements IWalletRepository
 		}
 	}
 
+	/**
+	 * 지갑 조회 by address
+	 * @param wAddress
+	 * @return
+	 */
 	@Override
 	public Wallet get(final String wAddress)
 	{
@@ -65,14 +70,13 @@ public class WalletRepository implements IWalletRepository
 			return this.jdbcTemplate.queryForObject(sbSql.toString(),
 								new Object[] {wAddress}, (rs, rowNum) -> WalletFactory.create(rs) );
 		} catch (EmptyResultDataAccessException e) {
-			return null;
+			throw new RepositoryException(e, e.getMessage());
 		} catch (Exception e) {
 			throw new RepositoryException(e, e.getMessage());
 		}
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 지갑 등록
 	 */
 	@Override
@@ -83,6 +87,7 @@ public class WalletRepository implements IWalletRepository
 			paramMap.put("owner_id", wallet.getOwnerId());
 			paramMap.put("address", wallet.getAddress());
 			paramMap.put("balance", wallet.getBalance());
+			paramMap.put("pay_balance", wallet.getPayBalance());
 			paramMap.put("receiving_count", 0);
 			paramMap.put("cash", 0);
 
@@ -99,24 +104,22 @@ public class WalletRepository implements IWalletRepository
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 지갑 잔액 동기화
 	 */
 	@Override
-	public int updateBalance(String wAddress, BigDecimal balance, int cash) {
+	public int updateBalance(String wAddress, BigDecimal balance,BigDecimal payBalance, int cash) {
 		StringBuilder sbSql =  new StringBuilder("UPDATE wallets ");
-		sbSql.append("SET balance=?, cash=? ");
+		sbSql.append("SET balance=?, cash=?, payBalance=?");
 		sbSql.append("where address=?");
 		try {
 			return this.jdbcTemplate.update(sbSql.toString(),
-					new Object[] {balance, cash, wAddress});
+					new Object[] {balance,payBalance, cash, wAddress});
 		} catch (Exception e) {
 			throw new RepositoryException(e, e.getMessage());
 		}
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 이더 충전 요청 횟수 업데이트
 	 */
 	@Override

@@ -1,4 +1,4 @@
-package com.ecommerce.api;
+package com.ecommerce.api.wallet;
 
 import com.ecommerce.application.IEthereumService;
 import com.ecommerce.domain.exception.NotFoundException;

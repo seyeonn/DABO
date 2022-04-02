@@ -1,4 +1,4 @@
-package com.ecommerce.api;
+package com.ecommerce.api.wallet;
 
 import com.ecommerce.application.IWalletService;
 import com.ecommerce.domain.exception.EmptyListException;
@@ -8,8 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,6 +37,7 @@ public class WalletController {
 	@ApiOperation(value = "Register wallet of user")
 	@RequestMapping(value = "/wallets", method = RequestMethod.POST)
 	public Wallet register(@Valid @RequestBody Wallet wallet) {
+		logger.debug("register start");
 		logger.debug(wallet.getAddress());
 		logger.debug(String.valueOf(wallet.getOwnerId()));
 
@@ -43,6 +46,8 @@ public class WalletController {
 		if(newWallet == null)
 			throw new NotFoundException(wallet.getAddress() + " 해당 주소 지갑을 찾을 수 없습니다.");
 
+		logger.debug(newWallet.toString());
+		logger.debug("register end");
 		return newWallet;
 	}
 
@@ -71,14 +76,14 @@ public class WalletController {
 	}
 
 	/**
-	 * 이더 충전 요청
-	 * @param address 지갑 주소
+	 * 현금 충전 요청
+	 * @param amount 돈
 	 */
 	@ApiOperation(value = "Request ether")
-	@RequestMapping(value ="/wallets/{address}", method = RequestMethod.PUT)
-	public Wallet requestPay(@PathVariable String address){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+	@RequestMapping(value ="/wallets/pay/{address}", method = RequestMethod.PUT)
+	public Wallet requestPay(@PathVariable String amount){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
 
-		return this.walletService.requestEth(address);
+		return null;
 	}
 
 	/**

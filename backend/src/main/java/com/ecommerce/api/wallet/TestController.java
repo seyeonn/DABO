@@ -1,4 +1,4 @@
-package com.ecommerce.api;
+package com.ecommerce.api.wallet;
 
 
 import org.springframework.http.HttpStatus;
