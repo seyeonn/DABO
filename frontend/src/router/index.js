@@ -149,13 +149,18 @@ const routes = [
     path: "/dabowallet",
     name: "daboWallet",
     component: daboWallet,
-    children: [
-      {
-        path: "chargedabo",
-        name: "chargeDabo",
-        component: chargeDabo,
-      },
-    ]
+    // children: [
+    //   {
+    //     path: "/chargedabo",
+    //     name: "chargedabo",
+    //     component: chargeDabo,
+    //   },
+    // ]
+  },
+  {
+    path: "/dabowallet/chargedabo",
+    name: "chargedabo",
+    component: chargeDabo
   },
   {
     path: "/bloodcard",

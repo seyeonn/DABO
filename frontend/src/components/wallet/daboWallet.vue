@@ -64,7 +64,7 @@ export default {
       this.$router.go(-1)
     },
     goCharge() {
-      this.$router.push({name: 'chargeDabo', params: ''})
+      this.$router.push({path: 'dabowallet/chargeDabo'})
     }
   }
 }
