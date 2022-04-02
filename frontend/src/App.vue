@@ -1,21 +1,21 @@
 <template>
   <div class="view">
     <router-view />
-      <footer>
-        <div class="DABO-footer">
-          <footerBar/>
-        </div>
-      </footer>
+    <footer>
+      <div class="DABO-footer">
+        <footerBar />
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import footerBar from '@/components/footer/daboFooter'
+import footerBar from "@/components/footer/daboFooter";
 export default {
   components: {
     footerBar,
-  }
-}
+  },
+};
 </script>
 <style>
 * {

@@ -75,7 +75,7 @@
           placeholder="Password"
         />
         <input
-          type="passwordChk"
+          type="password"
           v-model="passwordConfirm"
           name="passwordChk"
           placeholder="Password Check"
@@ -91,6 +91,7 @@
 <script>
 import axios from "axios";
 
+import { API_BASE_URL } from "@/config";
 /*import { registerWallet } from "@/api/wallet.js";
 import Web3 from "web3";*/
 
@@ -119,7 +120,7 @@ export default {
       console.log(userData);
 
       const response = await axios
-        .post("http://localhost:9090/api/user/signUp", userData)
+        .post(API_BASE_URL + "/api/user/signUp", userData)
         .then((res) => {
           console.log(res);
           this.$router.push("login");
@@ -127,12 +128,11 @@ export default {
       console.log(response);
     },
 
-    createWallet: function() {
+    createWallet: function () {
       /**
        * 지갑 주소와 private key를 생성
-       * 
+       *
        */
-      
       /*var web3 = new Web3();
       var wallet = web3.eth.accounts.create("DABO_WALLET");
       this.walletAddress = wallet.address;
@@ -140,12 +140,10 @@ export default {
       */
     },
 
-
-    saveWallet: function() {
+    saveWallet: function () {
       /**
        * 생성된 사용자의 지갑 정보(주소, private key) 를 서버에 등록한다.
        */
-
       /*
       var vm = this;
 
@@ -157,12 +155,12 @@ export default {
         // vm.$router.push("/mypage/wallet_info");
       });
       */
-    }
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .signup-page {
   text-align: -webkit-center;
   margin: 0 auto;
