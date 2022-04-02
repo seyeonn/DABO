@@ -1,6 +1,6 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.repository.entity.Wallet;
+import com.ecommerce.domain.Wallet;
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IWalletRepository;
 import com.ecommerce.infrastructure.repository.factory.WalletFactory;
@@ -39,6 +39,10 @@ public class WalletRepository implements IWalletRepository
 		}
 	}
 
+	/**
+	 * TODO Sub PJT Ⅱ 과제 1
+	 * 지갑 조회
+	 */
 	@Override
 	public Wallet get(final long ownerId)
 	{
@@ -67,6 +71,10 @@ public class WalletRepository implements IWalletRepository
 		}
 	}
 
+	/**
+	 * TODO Sub PJT Ⅱ 과제 1
+	 * 지갑 등록
+	 */
 	@Override
 	public long create(final Wallet wallet)
 	{
@@ -90,6 +98,10 @@ public class WalletRepository implements IWalletRepository
 		}
 	}
 
+	/**
+	 * TODO Sub PJT Ⅱ 과제 1
+	 * 지갑 잔액 동기화
+	 */
 	@Override
 	public int updateBalance(String wAddress, BigDecimal balance, int cash) {
 		StringBuilder sbSql =  new StringBuilder("UPDATE wallets ");
@@ -103,6 +115,10 @@ public class WalletRepository implements IWalletRepository
 		}
 	}
 
+	/**
+	 * TODO Sub PJT Ⅱ 과제 1
+	 * 이더 충전 요청 횟수 업데이트
+	 */
 	@Override
 	public int updateRequestNo(final String wAddress){
 		StringBuilder sbSql =  new StringBuilder("UPDATE wallets SET receiving_count = receiving_count + 1 ");

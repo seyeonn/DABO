@@ -1,6 +1,7 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IWalletService;
+import com.ecommerce.domain.exception.EmptyListException;
 import com.ecommerce.domain.exception.NotFoundException;
 import com.ecommerce.domain.repository.entity.Wallet;
 import io.swagger.annotations.ApiOperation;
@@ -11,7 +12,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,7 +29,6 @@ public class WalletController {
 	}
 
 	/**
-	 *
 	 * 지갑 등록
 	 * @param wallet
 	 */
@@ -53,28 +53,54 @@ public class WalletController {
 	@ApiOperation(value = "Fetch wallet by address")
 	@RequestMapping(value = "/wallets/{address}", method = RequestMethod.GET)
 	public Wallet get(@PathVariable String address) {
-		return null;
+		return walletService.getAndSyncBalance(address);
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 지갑 조회 by user's id
 	 * @param uid 사용자 id
 	 */
 	@ApiOperation(value = "Fetch wallet of user")
 	@RequestMapping(value = "/wallets/of/{uid}", method = RequestMethod.GET)
 	public Wallet getByUser(@PathVariable long uid) {
-		return null;
+		Wallet wallet = this.walletService.get(uid);
+		if(wallet == null)
+			throw new EmptyListException("[UserId] " + uid + " 해당 지갑을 찾을 수 없습니다.");
+
+		return walletService.getAndSyncBalance(wallet.getAddress());
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 이더 충전 요청
 	 * @param address 지갑 주소
 	 */
 	@ApiOperation(value = "Request ether")
 	@RequestMapping(value ="/wallets/{address}", method = RequestMethod.PUT)
-	public Wallet requestEth(@PathVariable String address){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
-		return null;
+	public Wallet requestPay(@PathVariable String address){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+
+		return this.walletService.requestEth(address);
 	}
+
+	/**
+	 *  충전 요청
+	 * @param address 지갑 주소
+	 */
+	@ApiOperation(value = "Request ether")
+	@RequestMapping(value ="/wallets/{address}", method = RequestMethod.PUT)
+	public Wallet requestEth(@PathVariable String address){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+
+		return this.walletService.requestEth(address);
+	}
+
+	@ApiOperation(value = "Fetch all wallets")
+	@RequestMapping(value = "/wallets", method = RequestMethod.GET)
+	public List<Wallet> list() {
+		List<Wallet> list = walletService.list();
+
+		if (list == null || list.isEmpty() )
+			throw new EmptyListException("NO DATA");
+
+		return list;
+	}
+
 }

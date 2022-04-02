@@ -1,8 +1,8 @@
 package com.ecommerce.api;
 
 import com.ecommerce.application.IEthereumService;
-import com.ecommerce.domain.repository.entity.Address;
 import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.entity.Address;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
