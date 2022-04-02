@@ -3,10 +3,10 @@ package com.ecommerce.application.impl;
 import com.ecommerce.application.ICashContractService;
 import com.ecommerce.application.IEthereumService;
 import com.ecommerce.application.IWalletService;
+import com.ecommerce.domain.Address;
+import com.ecommerce.domain.Wallet;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.exception.NotFoundException;
-import com.ecommerce.domain.repository.entity.Address;
-import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +17,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * TODO Sub PJT Ⅱ 과제 1, 과제 3
- * 과제 1: 지갑 관련 기능 구현
+ * TODO
+ * Sub PJT Ⅱ
+ * 과제1: 지갑 관련 기능 구현
  * 1) 지갑 등록, 2) 지갑 조회, 3) 충전
- * 과제 3: 지갑 관련 기능 확장 구현
+ * 과제3: 지갑 관련 기능 확장 구현
  * 1) 지갑 토큰 잔액 조회 추가
- *
- * IWalletService를 implements 하여 구현합니다.
  */
 @Service
 public class WalletService implements IWalletService
@@ -52,9 +51,7 @@ public class WalletService implements IWalletService
 	@Override
 	public Wallet getAndSyncBalance(final String walletAddress)
 	{
-		log.debug("getAndSyncBalance Start");
 		Wallet wallet = walletRepository.get(walletAddress);
-		log.debug(wallet.toString());
 		if(wallet == null)
 			throw new NotFoundException(walletAddress + " 해당 주소 지갑을 찾을 수 없습니다.");
 
@@ -71,7 +68,7 @@ public class WalletService implements IWalletService
 		Address address = this.ethereumService.getAddress(walletAddress);
 		int cashBalance = this.cashContractService.getBalance(walletAddress);
 		if(!wallet.getBalance().equals(new BigDecimal(address.getBalance())) || wallet.getCash()!= cashBalance) {
-			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()),wallet.getPayBalance(), cashBalance);
+			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()), cashBalance);
 			wallet.setBalance(new BigDecimal(address.getBalance()));
 			wallet.setCash(cashBalance);
 		}
@@ -92,15 +89,14 @@ public class WalletService implements IWalletService
 	@Override
 	public Wallet register(final Wallet wallet)
 	{
-
 		long id = this.walletRepository.create(wallet);
 		return this.walletRepository.get(id);
 	}
 
 	@Override
-	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final BigDecimal payBalance,final int cash)
+	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final int cash)
 	{
-		int affected = this.walletRepository.updateBalance(walletAddress, balance,payBalance, cash);
+		int affected = this.walletRepository.updateBalance(walletAddress, balance, cash);
 		if(affected == 0)
 			throw new ApplicationException("잔액 갱신 처리가 반영되지 않았습니다.");
 
@@ -150,4 +146,5 @@ public class WalletService implements IWalletService
 	{
 		return this.walletRepository.list();
 	}
+
 }
