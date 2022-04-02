@@ -3,6 +3,7 @@ package com.ecommerce.domain.repository.entity;
 import lombok.Data;
 import org.springframework.util.Assert;
 import org.web3j.protocol.core.methods.response.EthBlock;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -27,7 +28,8 @@ public class Transaction {
     private int v;
     private LocalDateTime storedAt;
 
-    public Transaction() { }
+    public Transaction()
+    { }
 
     public Transaction(final EthBlock.TransactionResult txResult)
     {

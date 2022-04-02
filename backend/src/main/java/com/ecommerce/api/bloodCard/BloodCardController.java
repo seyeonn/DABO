@@ -1,4 +1,4 @@
-package com.ecommerce.api;
+package com.ecommerce.api.bloodCard;
 
 import com.ecommerce.application.impl.BloodCardService;
 import com.ecommerce.domain.repository.entity.BloodCard;
