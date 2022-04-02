@@ -35,7 +35,7 @@
 
 <script>
 // import axios from "axios";
-// import { mapActions } from "vuex";
+import { mapActions } from "vuex";
 // import { API_BASE_URL } from "@/config";
 import { loginAPI, getUserInfo } from "../../api/user.js";
 import { findByUserId as findWallet } from "../../api/wallet.js";
@@ -50,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["loginGetToken"]),
     login() {
       console.log("로그인 실행");
       if (this.userData.email === "") {
@@ -71,13 +72,14 @@ export default {
           
           alert("로그인 성공");
           scope.$emit("login");
-
+          // this.loginGetToken(response.data.accessToken);
           localStorage.setItem("accessToken", response.data.accessToken);
           console.log("유저 정보를 찾습니다");
           getUserInfo(
             function (response) {
               console.log("getUserInfo",response);
               scope.$store.commit("setUserId", response.data.userId);
+              scope.$store.commit("setUserNickName", response.data.nickname);
               alert("지갑 정보를 찾습니다");
               findWallet(
                 response.data.userId,
