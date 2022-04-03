@@ -43,6 +43,9 @@ public class Campaign {
     @Column(name="media_url")
     private String mediaUrl;
 
+    @Column(name="wallet_address")
+    private String walletAddress;
+
 //    @Builder.Default
 //    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
 //    @JsonIgnoreProperties({"feed"})

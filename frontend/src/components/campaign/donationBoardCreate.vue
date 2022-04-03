@@ -41,7 +41,8 @@ export default {
         amount: 0,
         target: "",
         deadline: "",
-        mediaUrl: ""
+        mediaUrl: "",
+        walletAddress: ""
       }
     
     }
@@ -55,7 +56,8 @@ export default {
         amount: this.amount,
         target: this.target,
         deadline: this.deadline,
-        mediaUrl: this.mediaUrl
+        mediaUrl: this.mediaUrl,
+        walletAddress: this.walletAddress
       };
 
       console.log(campaginData);
