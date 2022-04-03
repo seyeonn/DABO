@@ -16,22 +16,14 @@
                         <th>헌혈 일자</th>
                         <th>혈핵원명</th>
                     </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="" id="">
-                        </td>
-                        <td>18-15963</td>
-                        <td>21.03.22</td>
-                        <td>SSAFY 헌혈의 집</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="" id="">
-                        </td>
-                        <td>18-15922</td>
-                        <td>21.03.02</td>
-                        <td>SSAFY 헌혈의 집</td>
-                    </tr>
+                    <tbody id="bloodCard">
+                      <tr v-for="(bloodCard, idx) in bloodCards" :key="idx">
+                        <td><input type="checkbox" v-model="bloodCardCheck[idx]"></td>
+                        <td>{{bloodCard.bloodCardNumber}}</td>
+                        <td>{{bloodCard.donationDate}}</td>
+                        <td>{{bloodCard.bloodHouse}}</td>
+                      </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -52,6 +44,10 @@
                           전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
                       </sub>
                       <div>
+                        <span>비빌키를 입력 하세요</span>
+                        <input type="text" v-model="privateKey">
+                      </div>
+                      <div>
                       <a href="#">
                           <button class="btn_red_cancel">
                               <span>취소하기</span>
@@ -69,19 +65,67 @@
 </template>
 
 <script>
+import { findByBloodCard , bloodCardChageState} from "@/api/bloodCard.js";
+import {bloodCardSend} from "@/utils/bloodCardDonation.js";
+
 export default {
     data() {
         return {
-
+          bloodCardCheck : [],
+          bloodCards : [{}],
+          privateKey : "",
         }
     },
     methods: {
-        bloodDonation: function() {
+      bloodDonation: function() {
 
-        },
-        checkConfirm() {
-          this.$router.push({name: 'donationConfirm', params: ''})
+      },
+      checkConfirm() {
+        const vm = this;
+        let bloodCardId = 0;
+        for(var i = 0; i<this.bloodCardCheck.length; i++){
+          if(vm.bloodCardCheck[i]){
+            bloodCardId = vm.bloodCards[i].bloodCardId;
+            bloodCardSend(
+              this.$store.state.user.walletAddress,
+              vm.privateKey,
+              function(){
+                bloodCardChageState(
+                  bloodCardId,
+                  "힘",
+                  "10",
+                  function(){
+                    console.log("성공");
+                    vm.$router.push({name: 'donationConfirm', params: ''})
+                  },
+                  function(err){
+                    console.err(err);
+                  }
+                )
+              },
+              function(err){
+                console.error(err);
+              }
+            )
+            
+          }
         }
+        
+      },
+      BloodCardGet(){
+        const vm = this;
+        findByBloodCard(
+          function(response){
+            vm.bloodCards = response.data;
+          },
+          function(err){
+            console.log(err);
+          }
+        )
+      }
+    },
+    mounted() {
+      this.BloodCardGet();
     }
 }
 </script>
