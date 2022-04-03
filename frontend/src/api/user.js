@@ -1,18 +1,14 @@
 import { createInstance } from "./index.js";
 
 const instance = createInstance();
-// function signup(email, name, password, success, fail) {
-//     const user = {
-//       email: email,
-//       name: name,
-//       password: password
-//     };
+function signup(body, success, fail) {
+    
 
-//     instance
-//       .post("/api/users", JSON.stringify(user))
-//       .then(success)
-//       .catch(fail);
-//   }
+    instance
+      .post("/api/user/signUp", JSON.stringify(body))
+      .then(success)
+      .catch(fail);
+  }
 
 function loginAPI(body, success, fail) {
   instance
@@ -33,4 +29,4 @@ function getUserInfo( success, fail){
 }
 
 
-export { loginAPI,getUserInfo };
+export { loginAPI,getUserInfo,signup };
