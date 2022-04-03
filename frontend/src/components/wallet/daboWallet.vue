@@ -23,7 +23,7 @@
       <div>
         <p style="font-weight: bold;">DABO Token 보유 현황</p>
         <span style="font-size: 40px;">{{this.wallet.cash}} DABO</span>
-        <p id="dabo-krw"><i class="fa-solid fa-won-sign"></i> 27,680 KRW</p>
+        <p id="dabo-krw"><i class="fa-solid fa-won-sign"></i> {{this.wallet.cash}} KRW</p>
         <span style="font-weight: bold">내 지갑 주소</span>
         <span style="margin-left: 150px;">
           <i class="fa-solid fa-copy"></i>복사하기
