@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class BloodCardDonationRes {
-    private String transactionCardFromId;
-    private String transactionCardToId;
-    private String bloodCardId;
-    private String transactionCardDate;
+    private long transactionCardFromId;
+    private long transactionCardToId;
+    private long bloodCardId;
+    private String userName;
     private String transactionCardMessage;
 }
