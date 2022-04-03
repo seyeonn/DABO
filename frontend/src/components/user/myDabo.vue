@@ -16,7 +16,7 @@
         <div class="contents-title d-flex">
           <div><p>내 지갑</p></div>
           <div class="d-flex">
-            <button>충전하기</button>
+            <button @click="toCharge()">충전하기</button>
           </div>
         </div>
         <div class="contents-wallet d-flex">
@@ -84,11 +84,14 @@ export default {
     toWallet() {
       this.$router.push({ name: "daboWallet" });
     },
+    toCharge() {
+      this.$router.push({ name: 'chargedabo', params: ''})
+    }
   },
 };
 </script>
 
-<style>
+<style scoped>
 .main-page {
   overflow: scroll;
 }

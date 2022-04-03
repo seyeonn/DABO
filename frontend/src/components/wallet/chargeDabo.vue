@@ -15,10 +15,10 @@
       <!-- wallet -->
       <div class="contents-wallet d-flex">
         <div>
-          <span>DABO Token 보유 현황</span><br>
-          <span style="font-weight: lighter">{{ $store.state.wallet.cash }} DABO</span><br>
-          <span>내 지갑 주소</span><br>
-          <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
+          <span style="font-weight: bold;">DABO Token 보유 현황</span><br>
+          <span style="font-weight: lighter;">{{ $store.state.wallet.cash }} DABO</span><br>
+          <span style="font-weight: bold;">내 지갑 주소</span><br>
+          <span style="font-weight: lighter;">{{ $store.state.user.walletAddress }}</span>
         </div>
       </div>
 
@@ -51,9 +51,9 @@
         </div>
       </div>
 
-      <!-- <button class="btn_red col-2" @click="goCreata()">
-        <span>충전하기</span>
-      </button> -->
+      <button class="btn_red" @click="goCreata()">
+        <span @click="toPayDabo()">DABO 충전하기</span>
+      </button>
       
       
       <br/>
@@ -106,7 +106,10 @@ export default {
     }
   },
   methods: {
-     onPayment() {
+    toPayDabo() {
+      this.$router.push({name: 'paydabo', params: this.data})
+    },
+    onPayment() {
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
       IMP.init('imp00423345');
@@ -226,7 +229,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .charge-page {
   overflow: scroll;
 }
@@ -247,12 +250,14 @@ export default {
   color: white;
 }
 .greeting p {
-  margin-left: 50px;
+  margin-left: 0px;
+  margin-top: 30px;
 }
 
 .contents p {
   text-align: center;
   font-size: 20px;
+  margin-top: 20px;
 }
 
 .contents .div-wallet {
@@ -295,11 +300,11 @@ export default {
 }
 
 .form_radio_group .form_radio_group-item:first-child label {
-	border-radius: 6px 0 0 6px;
+	/* border-radius: 6px 0 0 6px; */
 }
 .form_radio_group .form_radio_group-item:last-child label {
-	border-radius: 0 6px 6px 0;
-	border-right: 1px solid #999;
+	/* border-radius: 0 6px 6px 0; */
+	/* border-right: 1px solid #999; */
 }
 
 /* Checked */
@@ -319,9 +324,10 @@ export default {
   color: #fff;
   border-radius: 10px;
   border: none;
-  width: 100%;
+  width: 30%;
   height: 35px;
   font-size: 12px;
   float: right;
+  margin-top: 50px;
 }
 </style>
