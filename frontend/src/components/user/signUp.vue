@@ -93,7 +93,7 @@
         <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
         <p>privatekey : {{ privateKey }}</p>
         <p>walletAddress : {{ walletAddress }}</p>
-
+        <button @click="goToLogin">로그인창으로~!</button>
         <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
@@ -131,6 +131,9 @@ export default {
     };
   },
   methods: {
+    goToLogin(){
+      this.$router.push("login");
+    },
     async submitForm() {
       const userData = {
         name: this.name,
@@ -211,7 +214,7 @@ export default {
         this.walletAddress,
         function() {
           // scope.isCharging = false;
-          alert("이더가 충전 되었습니다.");
+          console.log("이더가 충전 되었습니다.");
           scope.fetchWalletInfo();
         },
         function() {
