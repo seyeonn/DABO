@@ -35,7 +35,7 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/rank", method = RequestMethod.GET)
     public List<DABOUser> list() {
         List<DABOUser> userList = userService.list();
 
@@ -46,19 +46,19 @@ public class UserController {
     }
 
     // 회원가입
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public DABOUser create(@RequestBody daboUserDto userDto) {
         System.out.println("userDto = " + userDto);
         DABOUser user = userService.add(userDto);
         return user;
     }
     // 닉네임 중복 검사
-    @RequestMapping(value = "/checkNickname",method = RequestMethod.GET)
+    @RequestMapping(value = "/check_nickname",method = RequestMethod.GET)
     public boolean checkNickname(@RequestParam("nickname") String nickname){
         return userService.DuplicatedNickname(nickname);
     }
     // 이메일 중복 검사
-    @RequestMapping(value = "/checkEmail",method = RequestMethod.GET)
+    @RequestMapping(value = "/check_email",method = RequestMethod.GET)
     public boolean checkEmail(@RequestParam("email") String email){
         return userService.DuplicatedEmail(email);
     }
@@ -75,7 +75,7 @@ public class UserController {
         userService.delete(id);
     }
 
-    @RequestMapping(value = "/findPassword",method = RequestMethod.PATCH)
+    @RequestMapping(value = "/find_password",method = RequestMethod.PATCH)
     public DABOUser resetPassword(@RequestBody String email) throws Exception{
         return userService.resetPassword(email);
     }
