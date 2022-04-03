@@ -22,31 +22,32 @@
         </div>
       </div>
 
+      <br/>
       <!-- select dabo -->
       <div class="form_radio_group">
         <div class="form_radio_group-item">
           <input id="radio-1" type="radio" name="radio" value="1" v-model="selectDabo" checked>
-          <label for="radio-1">100 DABO</label>
+          <label for="radio-1">10000 DABO</label>
         </div>
         <div class="form_radio_group-item">
           <input id="radio-2" type="radio" name="radio" value="2" v-model="selectDabo">
-          <label for="radio-2">200 DABO</label>
+          <label for="radio-2">20000 DABO</label>
         </div>
         <div class="form_radio_group-item">
           <input id="radio-3" type="radio" name="radio" value="3" v-model="selectDabo">
-          <label for="radio-3">300 DABO</label>
+          <label for="radio-3">30000 DABO</label>
         </div>
         <div class="form_radio_group-item">
           <input id="radio-4" type="radio" name="radio" value="4" v-model="selectDabo">
-          <label for="radio-4">400 DABO</label>
+          <label for="radio-4">40000 DABO</label>
         </div>
         <div class="form_radio_group-item">
           <input id="radio-5" type="radio" name="radio" value="5" v-model="selectDabo">
-          <label for="radio-5">500 DABO</label>
+          <label for="radio-5">50000 DABO</label>
         </div>
         <div class="form_radio_group-item">
           <input id="radio-6" type="radio" name="radio" value="6" v-model="selectDabo">
-          <label for="radio-6">600 DABO</label>
+          <label for="radio-6">60000 DABO</label>
         </div>
       </div>
 
@@ -59,10 +60,10 @@
       <br/>
       <p> 밑에 테스트용 버튼들입니다. payDabo연결해주시면 거기에다가 붙혀놓을 수 있습니다~!</p>
       <br/>
-      <button>100 DABO 충전 Test </button>
+      <button @click="chargeCash">10000 DABO 충전 Test </button>
       <br/>
       <br/>
-      <button>결제 시스템 사용 DABO 충전 TEst </button>
+      <button @click="onPayment">결제 시스템 사용 DABO 충전 TEst </button>
       <br/>
       <br/>
 
@@ -115,7 +116,7 @@ export default {
         pg: 'html5_inicis',                           // PG사
         pay_method: 'card',                           // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-        amount: 1000,                                 // 결제금액
+        amount: this.cashChargeAmount * 10000,                                 // 결제금액
         name: 'DABO Token 충전',                  // 주문명
         buyer_name: this.user.nickname,                           // 구매자 이름
         buyer_tel: '01012341234',                     // 구매자 전화번호
@@ -139,10 +140,10 @@ export default {
       if (success) {
         
         alert('결제 성공 -> 캐쉬를 충전하겠습니다');
-        // this.chargeCash();
+        this.chargeCash();
       } else {
         alert(`결제 실패: ${error_msg}`);
-        this.chargeCash()
+        // this.chargeCash()
       }
     },
     fetchWalletInfo() {
