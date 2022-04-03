@@ -94,7 +94,7 @@ public class EthereumService implements IEthereumService {
 			Credentials wCredentials = CommonUtil.getCredential(ADMIN_WALLET_FILE, PASSWORD);
 			log.info("sending tx..");
 			CompletableFuture<TransactionReceipt> transactionReceipt
-					= Transfer.sendFunds(web3j, wCredentials, address, new BigDecimal(1), Convert.Unit.ETHER).sendAsync();
+					= Transfer.sendFunds(web3j, wCredentials, address, new BigDecimal(5), Convert.Unit.ETHER).sendAsync();
 
 			TransactionReceipt txReceipt = transactionReceipt.get();
 			log.info("txReceipt received: " + txReceipt.getTransactionHash());
