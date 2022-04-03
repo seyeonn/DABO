@@ -48,7 +48,6 @@ export default {
           this.campaignList = res.data;
         });
       console.log(response);
-    
   },
   components: {
     CampaignListItem
