@@ -65,7 +65,6 @@ public class EscrowContractService implements IEscrowContractService {
     }
 
     /**
-     * TODO Sub PJT Ⅲ 과제 3
      * 입금 상태 조회 - checkDeposit
      * @return
      */

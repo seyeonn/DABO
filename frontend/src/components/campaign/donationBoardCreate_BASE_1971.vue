@@ -30,7 +30,6 @@
 
 <script>
 import axios from "axios";
-import {API_BASE_URL} from "@/config/index.js"
 
 export default {
   data() {
@@ -42,8 +41,7 @@ export default {
         amount: 0,
         target: "",
         deadline: "",
-        mediaUrl: "",
-        walletAddress: ""
+        mediaUrl: ""
       }
     
     }
@@ -57,14 +55,13 @@ export default {
         amount: this.amount,
         target: this.target,
         deadline: this.deadline,
-        mediaUrl: this.mediaUrl,
-        walletAddress: this.walletAddress
+        mediaUrl: this.mediaUrl
       };
 
       console.log(campaginData);
 
       const response = await axios
-        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData)
+        .post("http://localhost:9090/donationBoard/createBoard", campaginData)
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");

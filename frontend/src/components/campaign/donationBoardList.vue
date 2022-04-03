@@ -32,6 +32,8 @@
 <script>
 import CampaignListItem from '@/components/campaign/donationBoardListItem'
 import axios from 'axios';
+import {API_BASE_URL} from "@/config/index.js"
+
 export default {
   name: 'donationBoardList', 
   data: function() {
@@ -41,13 +43,12 @@ export default {
   },
   created() {
       const response = axios
-        .get("http://localhost:9090/donationBoard/listBoard")
+        .get(API_BASE_URL+"/donationBoard/listBoard")
         .then((res) => {
           console.log(res.data);
           this.campaignList = res.data;
         });
       console.log(response);
-    
   },
   components: {
     CampaignListItem
