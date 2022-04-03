@@ -75,16 +75,6 @@ public class WalletController {
 		return walletService.getAndSyncBalance(wallet.getAddress());
 	}
 
-	/**
-	 * 현금 충전 요청
-	 * @param amount 돈
-	 */
-	@ApiOperation(value = "Request ether")
-	@RequestMapping(value ="/wallets/pay/{address}", method = RequestMethod.PUT)
-	public Wallet requestPay(@PathVariable String amount){ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
-
-		return null;
-	}
 
 	/**
 	 *  충전 요청
