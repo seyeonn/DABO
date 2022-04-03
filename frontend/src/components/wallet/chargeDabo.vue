@@ -53,7 +53,18 @@
       <!-- <button class="btn_red col-2" @click="goCreata()">
         <span>충전하기</span>
       </button> -->
+      
+      
+      <br/>
+      <br/>
+      <p> 밑에 테스트용 버튼들입니다. payDabo연결해주시면 거기에다가 붙혀놓을 수 있습니다~!</p>
+      <br/>
       <button>100 DABO 충전 Test </button>
+      <br/>
+      <br/>
+      <button>결제 시스템 사용 DABO 충전 TEst </button>
+      <br/>
+      <br/>
 
     </div>
 
