@@ -87,6 +87,8 @@ public class CampaignService implements ICampaignService {
                         .target(campaign.getTarget())
                         .amount(campaign.getAmount())
                         .deadLine(campaign.getDeadLine())
+                        .mediaUrl(campaign.getMediaUrl())
+                        .walletAddress(campaign.getWalletAddress())
                         .build();
         campaignRepository.save(newCampaign);
 
