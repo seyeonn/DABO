@@ -31,7 +31,6 @@
 <script>
 import axios from "axios";
 import {API_BASE_URL} from "@/config/index.js"
-
 export default {
   data() {
     return {
@@ -42,8 +41,7 @@ export default {
         amount: 0,
         target: "",
         deadline: "",
-        mediaUrl: "",
-        walletAddress: ""
+        mediaUrl: ""
       }
     
     }
@@ -57,8 +55,7 @@ export default {
         amount: this.amount,
         target: this.target,
         deadline: this.deadline,
-        mediaUrl: this.mediaUrl,
-        walletAddress: this.walletAddress
+        mediaUrl: this.mediaUrl
       };
 
       console.log(campaginData);
