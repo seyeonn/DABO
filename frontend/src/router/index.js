@@ -160,11 +160,11 @@ const routes = [
     //   },
     // ]
   },
-  {
-    path: "/testDabo",
-    name: "testDabo",
-    component: testDabo,
-  },
+  // {
+  //   path: "/testDabo",
+  //   name: "testDabo",
+  //   component: testDabo,
+  // },
   {
     path: "/dabowallet/chargedabo",
     name: "chargedabo",
