@@ -28,6 +28,8 @@ import infoChange from "@/components/user/infoChange.vue";
 import Ranking from "@/components/user/rankingDetail.vue";
 import myDabo from "@/views/user/myDabo.vue";
 import chargeDabo from "@/views/daboWallet/chargeDabo.vue";
+import payDabo from "@/views/daboWallet/payDabo.vue";
+import chargeConfirm from "@/views/daboWallet/chargeConfirm.vue";
 
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
@@ -162,6 +164,16 @@ const routes = [
     path: "/dabowallet/chargedabo",
     name: "chargedabo",
     component: chargeDabo
+  },
+  {
+    path: "/dabowallet/paydabo",
+    name: "paydabo",
+    component: payDabo
+  },
+  {
+    path: "/dabowallet/chargeconfirm",
+    name: "chargeconfirm",
+    component: chargeConfirm
   },
   {
     path: "/bloodcard",

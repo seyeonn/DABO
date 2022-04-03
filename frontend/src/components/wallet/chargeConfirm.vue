@@ -5,7 +5,7 @@
         </div>
         
         <div class="check_text">
-            <p>Dabo 충전이 완료되었습니다.</p>
+            <p>DABO 충전이 완료되었습니다.</p>
             <button class="btn_red_check" @click="goHome()">
                 <span>Home 으로</span>
             </button>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .check_icon {
     height: 170px;
     padding-left: 120px;

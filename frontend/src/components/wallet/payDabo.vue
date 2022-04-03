@@ -9,18 +9,19 @@
     </div>
 
     <div class="payInfo">
-      <button style="font-weight: bold;">DABO 개수</button>
+      <button style="font-weight: bold;">DABO 개수</button>&nbsp;
       <button  style="color: #f08986">200 DABO</button>
-      <hr class="fade">
-      <button style="font-weight: bold;">결제 금액</button>
+      <br>
+      <button style="font-weight: bold;">결제 금액</button>&nbsp;
       <button  style="color: #f08986">20000 원</button>
     </div>
 
+    <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
-
       <div class="myBtn">
         <button @click="checkPay()">신용카드 결제</button>
       </div>
+    </div>
     <div class="contents">
 
 
@@ -135,7 +136,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.greeting p {
+  margin-right: 40px;
+  margin-top: 30px;
+}
+
 .charge-page {
   overflow: scroll;
 }
@@ -167,31 +173,35 @@ export default {
   background-color: white;
   color: black;
   border: none;
-  border-radius: 5px 5px;
+  border-radius: 10px 10px;
   width: 90%;
   margin-top: 10px;
   margin-bottom: 5px;
   box-shadow: 1px 1px;
+  font-weight: bold;
 }
 
 
 .payInfo {
   text-align: center;
+  margin-top: 50px;
 }
 .payInfo button {
-  background: white;
-  border: none;
+  display: inline-block;
+  margin: auto;
+  background-color: white;
   color: black;
-  border-radius: 8px;
+  border: none;
+  border-radius: 3px 3px;
+  width: 30%;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  box-shadow: 1px 1px;
+  font-weight: bold;
 }
 
-.fade {
-  height: 1px;
-  background-image: linear-gradient(
-    90deg,
-    hsla(0, 0%, 100%, 0),
-    hsla(0, 0%, 100%, 0.5) 50%,
-    hsla(0, 0%, 100%, 0) 100%);
+.payable {
+  margin-top: 50px;
+  margin-left: 20px;
 }
-
 </style>
