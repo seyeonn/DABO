@@ -1,7 +1,6 @@
 package com.ecommerce.domain.repository.entity;
 
 /**
- * Sub PJT Ⅲ
  * 상품 구매 상태 표시를 위한 States
  */
 public enum PurchaseState {
