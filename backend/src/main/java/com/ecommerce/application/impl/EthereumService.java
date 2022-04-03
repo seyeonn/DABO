@@ -59,7 +59,6 @@ public class EthereumService implements IEthereumService {
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * 이더리움으로부터 해당 주소의 잔액을 조회한다.
 	 * @param address
 	 * @return BigInteger
@@ -79,7 +78,6 @@ public class EthereumService implements IEthereumService {
 	}
 
 	/**
-	 * TODO Sub PJT Ⅱ 과제 1
 	 * [주소]로 시스템에서 정한 양 만큼 이더를 송금한다.
 	 * 이더를 송금하는 트랜잭션을 생성, 전송한 후 결과인
 	 * String형의 트랜잭션 hash 값을 반환한다.
@@ -108,7 +106,6 @@ public class EthereumService implements IEthereumService {
 	}
 
 	/**
-	 * TODO Sub PJT Ⅲ 추가과제
 	 * 이더리움으로부터 해당 주소의 잔액을 조회하고
 	 * 동기화한 트랜잭션 테이블로부터 Address 정보의 trans 필드를 완성하여
 	 * 정보를 반환한다.
