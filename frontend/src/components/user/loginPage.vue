@@ -85,6 +85,8 @@ export default {
                 response.data.userId,
                 function (response) {
                   if (response.status == 200) {
+                    console.log("지갑 정보 찾기 성공")
+                    console.log(response)
                     scope.$store.commit(
                       "setWalletAddress",
                       response.data.address
