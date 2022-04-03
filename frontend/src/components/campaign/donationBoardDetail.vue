@@ -59,8 +59,7 @@ export default {
           title: ''
         }
     },
-    created() {
-      
+    created() { 
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
