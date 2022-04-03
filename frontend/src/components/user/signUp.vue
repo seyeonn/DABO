@@ -93,7 +93,7 @@
         <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
         <p>privatekey : {{ privateKey }}</p>
         <p>walletAddress : {{ walletAddress }}</p>
-
+        <button @click="goToLogin">로그인창으로~!</button>
         <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
@@ -105,7 +105,8 @@ import axios from "axios";
 import { registerWallet } from "@/api/wallet.js";
 import Web3 from "web3";
 import { API_BASE_URL } from "@/config";
-
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 export default {
   data() {
     return {
@@ -117,10 +118,22 @@ export default {
       passwordConfirm: "",
       privateKey: "",
       walletAddress: "",
-      userId: ""
+      userId: "",
+      wallet: {
+        id: 0,
+        ownerId: null,
+        address: "",
+        balance: 0,
+        payBalance : 0,
+        cash: 0,
+        receivingCount: 0,
+      },
     };
   },
   methods: {
+    goToLogin(){
+      this.$router.push("login");
+    },
     async submitForm() {
       const userData = {
         name: this.name,
@@ -150,6 +163,9 @@ export default {
         .then(()=>{
           console.log("saveWallet START")
           this.saveWallet();
+        }).then(()=>{
+          // console.log("chargeETH START")
+          // this.chargeETH();
         });
       console.log(response);
     },
@@ -179,15 +195,46 @@ export default {
         vm.$store.commit("setUserId", res.data.userId);
         vm.$store.commit("setWalletAddress", res.data.address);
         alert("지갑 주소가 등록되었습니다.");
-
-        vm.$router.push("login");
+        vm.chargeETH();
+        // vm.$router.push("login");
       },function(err){
         console.log(err)
         console.log("지갑 주소 등록 실패")
       });
 
       
-    }
+    },
+    chargeETH() {
+      /**
+       * cash 충전을 위한 이더 충전
+       */
+      // if(this.wallet.balance <= 1)
+      const scope = this;
+      walletService.chargeEther(
+        this.walletAddress,
+        function() {
+          // scope.isCharging = false;
+          console.log("이더가 충전 되었습니다.");
+          scope.fetchWalletInfo();
+        },
+        function() {
+          alert("이더 충전에 실패했습니다.");
+          // scope.isCharging = false;
+        }
+      );
+    },
+    fetchWalletInfo() {
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+      });
+    },
     
 
   } 
