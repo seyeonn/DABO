@@ -49,6 +49,7 @@
 import CommentWrite from "@/components/campaign/comment/commentWrite.vue";
 import CommentList from "@/components/campaign/comment/commentList.vue";
 import axios from 'axios';
+import { API_BASE_URL } from "../../config";
 
 export default {
     name: "detailBoard",
@@ -59,10 +60,9 @@ export default {
           title: ''
         }
     },
-    created() {
-      
+    created() { 
       axios
-        .get(`http://localhost:9090/donationBoard/detailBoard/${this.$route.params.campaignId}`)
+        .get(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
           console.log(res.data);
           this.content = res.data.content;
