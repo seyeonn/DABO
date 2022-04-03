@@ -17,6 +17,15 @@ export default new Vuex.Store({
       nickname:"",
       walletAddress: null,
     },
+    wallet: {
+      id: 0,
+      ownerId: null,
+      address: "",
+      balance: 0,
+      payBalance: 0,
+      cash: 0,
+      receivingCount: 0,
+    },
   },
   getters: {
     config: function (state) {
@@ -86,6 +95,9 @@ export default new Vuex.Store({
     },
     setWalletAddress(state, address) {
       state.user.walletAddress = address;
+    },
+    setWallet(state, wallet) {
+      state.wallet = wallet;
     },
     logout(state) {
       state.isSigned = false;
