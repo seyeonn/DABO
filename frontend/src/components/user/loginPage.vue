@@ -87,6 +87,7 @@ export default {
                   if (response.status == 200) {
                     console.log("지갑 정보 찾기 성공")
                     console.log(response)
+                    localStorage.setItem("walletAddress", response.data.address);
                     scope.$store.commit(
                       "setWalletAddress",
                       response.data.address
