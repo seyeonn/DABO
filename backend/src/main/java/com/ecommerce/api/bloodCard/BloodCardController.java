@@ -52,6 +52,7 @@ public class BloodCardController {
         Long userId = userDetails.getUser().getUserId();
         List<BloodCard> bloodCard = bloodCardService.getBloodCard(userId);
         if(bloodCard != null){
+            System.out.println("전자헌혈증 조회 성공" + bloodCard);
             return ResponseEntity.status(200).body(bloodCard);
         }
         return ResponseEntity.status(500).body(null);

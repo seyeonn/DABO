@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 /**
- * TODO
- * Sub PJT Ⅲ
  * 이력 컨트랙트 데이터를 위한 클래스
  */
 @Data
