@@ -30,8 +30,7 @@
 
 <script>
 import axios from "axios";
-import { API_BASE_URL } from "../../config";
-
+import {API_BASE_URL} from "@/config/index.js"
 export default {
   data() {
     return {
@@ -64,7 +63,7 @@ export default {
       console.log(campaginData);
 
       const response = await axios
-        .post(API_BASE_URL + "/donationBoard/createBoard", campaginData)
+        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData)
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
