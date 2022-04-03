@@ -111,7 +111,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .wallet-header {
   background-color: #e52d27;
   height: 2.5em;
