@@ -6,8 +6,11 @@ import com.ecommerce.application.IWalletService;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.exception.NotFoundException;
 import com.ecommerce.domain.repository.entity.Address;
+import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
+import com.ecommerce.infrastructure.repository.TransactionBloodCardHistoryRepository;
+import com.ecommerce.infrastructure.repository.TransactionDonationHistoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +20,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * TODO Sub PJT Ⅱ 과제 1, 과제 3
- * 과제 1: 지갑 관련 기능 구현
- * 1) 지갑 등록, 2) 지갑 조회, 3) 충전
- * 과제 3: 지갑 관련 기능 확장 구현
- * 1) 지갑 토큰 잔액 조회 추가
- *
  * IWalletService를 implements 하여 구현합니다.
  */
 @Service
@@ -33,6 +30,9 @@ public class WalletService implements IWalletService
 	private IWalletRepository walletRepository;
 	private IEthereumService ethereumService;
 	private ICashContractService cashContractService;
+
+	@Autowired
+	TransactionDonationHistoryRepository transactionDonationHistoryRepository;
 
 	@Autowired
 	public WalletService(IWalletRepository walletRepository,
@@ -79,6 +79,11 @@ public class WalletService implements IWalletService
 		return wallet;
 	}
 
+	/**
+	 * userId로 지갑을 가져온다.
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public Wallet get(final long userId)
 	{
@@ -89,6 +94,11 @@ public class WalletService implements IWalletService
 		return getAndSyncBalance(wallet.getAddress());
 	}
 
+	/**
+	 * 지갑을 등록한다
+	 * @param wallet
+	 * @return
+	 */
 	@Override
 	public Wallet register(final Wallet wallet)
 	{
@@ -97,6 +107,14 @@ public class WalletService implements IWalletService
 		return this.walletRepository.get(id);
 	}
 
+	/**
+	 * 지갑을 동기화시킨다.
+	 * @param walletAddress
+	 * @param balance
+	 * @param payBalance
+	 * @param cash
+	 * @return
+	 */
 	@Override
 	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final BigDecimal payBalance,final int cash)
 	{
@@ -107,6 +125,11 @@ public class WalletService implements IWalletService
 		return this.walletRepository.get(walletAddress);
 	}
 
+	/**
+	 * 이더 충전 횟수를 update 한다.
+	 * @param walletAddress
+	 * @return
+	 */
 	@Override
 	public Wallet updateRequestNo(final String walletAddress)
 	{
@@ -118,8 +141,7 @@ public class WalletService implements IWalletService
 	}
 
 	/**
-	 * [지갑주소]로 이더를 송금하는 충전 기능을 구현한다.
-	 * 무한정 충전을 요청할 수 없도록 조건을 두어도 좋다.
+	 * [지갑주소]로 이더를 송금한다.
 	 * @param walletAddress
 	 * @return Wallet
 	 */
@@ -145,9 +167,33 @@ public class WalletService implements IWalletService
 		}
 	}
 
+	/**
+	 * 지갑 리스트를 불러온다
+	 * @return
+	 */
 	@Override
 	public List<Wallet> list()
 	{
 		return this.walletRepository.list();
+	}
+
+	/**
+	 * Donation or Token 충전 시의 기록을 저장한다.
+	 * @param transactionDonationHistory
+	 * @return
+	 */
+	@Override
+	public TransactionDonationHistory createDonation(TransactionDonationHistory transactionDonationHistory) {
+		return transactionDonationHistoryRepository.save(transactionDonationHistory);
+	}
+
+	/**
+	 * address로 Donation History를 불러온다.
+	 * @param address
+	 * @return
+	 */
+	@Override
+	public List<TransactionDonationHistory> getDonationList(String address) {
+		return transactionDonationHistoryRepository.findByAddress(address);
 	}
 }

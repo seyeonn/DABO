@@ -1,5 +1,6 @@
 package com.ecommerce.application;
 
+import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,4 +25,8 @@ public interface IWalletService
 	Wallet requestEth(String walletAddress);
 
 	List<Wallet> list();
+
+	TransactionDonationHistory createDonation(TransactionDonationHistory transactionDonationHistory);
+	List<TransactionDonationHistory> getDonationList(String address);
+
 }
