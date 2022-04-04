@@ -54,7 +54,6 @@ export default {
       this.campaign.mediaUrl = file;
     },
     async submitForm() {
-
       const formData = new FormData();
       formData.append("title", this.campaign.title);
       formData.append("content", this.campaign.content);
@@ -67,7 +66,6 @@ export default {
       console.log(formData);
 
       const response = await axios
-
         .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
            headers: {
                "Content-Type": "multipart/form-data",
