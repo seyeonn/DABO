@@ -1,6 +1,6 @@
-import { createInstance } from "./index.js";
+import { tokenInstance } from "./tokenIndex.js";
 
-const instance = createInstance();
+const instance = tokenInstance();
 
 function findByBloodCard(success, fail){
     instance
@@ -24,14 +24,8 @@ function bloodCardChageState(bloodCardId, transactionCardMessage, transactionCar
 }
 
 function createBloodCard(body, success, fail){
-    const accessToken = localStorage.getItem("accessToken");
-    const config = {
-        headers: {
-          Authorization:  `Bearer ${accessToken}`
-        }
-    };
     instance
-    .post("api/bc/create", JSON.stringify(body),config)
+    .post("api/bc/create", JSON.stringify(body))
     .then(success)
     .catch(fail);
 }
