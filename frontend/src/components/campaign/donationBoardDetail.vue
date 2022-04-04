@@ -38,8 +38,13 @@
           :comment="comment"
           @modify-comment="onModifyComment"
         /> -->
-        <comment-write />
-        <comment-list/>
+        <comment-write @setCampaignId="setCampaignId"/>
+        <comment-list
+         v-for="comment in comments"
+          :key="comment.id"
+          v-bind="comment"
+          :comment="comment"
+        />
         <!-- <campagin-comment></campagin-comment> -->
         </div>
     </div>
@@ -57,7 +62,8 @@ export default {
         return {
           campaign: [],
           content: '',
-          title: ''
+          title: '',
+          comments: [],
         }
     },
     created() { 
@@ -69,6 +75,14 @@ export default {
           this.title = res.data.title;
           console.log(this.campaign);
         });
+
+      axios
+        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
+        .then((res) => {
+          console.log(res.data);
+          this.comments = res.data;
+          console.log(this.comments);
+        });
     },
     components: {
         CommentWrite,
@@ -77,6 +91,9 @@ export default {
     methods: {
       goDonationDetail() {
         this.$router.push({name: 'myDonation', params: ''})
+      },
+      setCampaignId(campaignId) {
+        this.campaignId = campaignId;
       }
     }
 }

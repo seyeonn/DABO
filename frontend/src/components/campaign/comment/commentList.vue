@@ -3,25 +3,18 @@
     <div class="container">
         <div class="campaign_item">
             <div class="row">
-                <div class="col-3">
-                    <img src="https://i.imgur.com/httN9Bm.png" class="comment-img" alt="">
-                </div>
-                <div class="col-9">
                     <div class="content">
                         <p class="c2">
-                        <!-- {{ comment.userid }} -->
-                        <!-- <span class="c3">({{ comment.memotime }})</span> -->
-                        김싸피
-                        <span class="c3">2022.03.23</span>
+                        {{ username }}
+                        <span class="c3">({{ createdAt }})</span>
                         </p>
                     </div>
                     <!-- <div class="content" v-html="enterToBr(comment.comment)"></div> -->
-                    <div class="content">힘내세요!</div>
+                    <div class="content">{{ content }}</div>
                     <div class="cbtn">
                         <label @click="modifyCommentView">수정</label> |
                         <label @click="deleteComment">삭제</label>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -32,12 +25,17 @@
 export default {
     data() {
         return {
-
+          comment: [],
         }
     },
     props: {
+      username: String,
+      createdAt: String,
+      content: String
     },
-    methods: {}
+    methods: {
+
+    }
 }
 </script>
 
