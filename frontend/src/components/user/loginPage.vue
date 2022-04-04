@@ -92,6 +92,7 @@ export default {
                       "setWalletAddress",
                       response.data.address
                     );
+                    scope.$store.commit("setWallet", response.data)
                   } else {
                     alert("Unexpected status code: " + response.status);
                   }
