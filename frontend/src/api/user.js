@@ -1,6 +1,6 @@
-import { createInstance } from "./index.js";
+import { loginInstance } from "./index.js";
 
-const instance = createInstance();
+const instance = loginInstance();
 function signup(body, success, fail) {
     
 
