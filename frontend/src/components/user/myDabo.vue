@@ -22,7 +22,7 @@
         <div class="contents-wallet d-flex">
           <div>
             <span>DABO Token 보유 현황</span><br />
-            <span style="font-weight: lighter">XXX DABO</span><br />
+            <span style="font-weight: lighter">{{ $store.state.wallet.cash }} DABO</span><br />
             <span>내 지갑 주소</span><br />
             <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
           </div>
