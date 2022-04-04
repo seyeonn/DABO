@@ -49,3 +49,39 @@ export function bloodCardSend(
     })
     .catch(fail);
 }
+
+export function bloodCardRegister(
+  bloodCardId,
+  privateKey,
+  success,
+  fail
+){
+  var web3 = new Web3(new Web3.providers.HttpProvider(BLOCKCHAIN_URL));
+  var contract = createFactoryContract(web3);
+  var bloodCardCall = contract.methods.registerItem(
+    bloodCardId,
+    '0',
+  );
+
+  var encodedABI = bloodCardCall.encodeABI();
+  var tx = {
+    to: ITEM_INVENTORY_CONTRACT_ADDRESS,
+    gas: 2000000,
+    data: encodedABI,
+  };
+
+  web3.eth.accounts
+    .signTransaction(tx, privateKey)
+    .then(signed => {
+      web3.eth.sendSignedTransaction(signed.rawTransaction)
+        .then(success)
+        .catch(fail);
+    })
+    .catch((error) => {
+      if (fail) {
+        fail(error);
+      } else {
+        console.error(error);
+      }
+    });
+}
