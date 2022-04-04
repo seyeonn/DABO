@@ -141,6 +141,7 @@ public class CampaignService implements ICampaignService {
         campaignDto.setDeadLine(campaign.getDeadLine());
         campaignDto.setMediaUrl(campaign.getMediaUrl());
         campaignDto.setUsername(campaign.getUser().getNickname());
+        campaignDto.setUserId(campaign.getUser().getUserId());
         campaignDto.setWalletAddress(campaign.getWalletAddress());
 
         return campaignDto;

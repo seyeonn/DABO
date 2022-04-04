@@ -69,6 +69,7 @@ import { findByBloodCard , bloodCardChageState} from "@/api/bloodCard.js";
 import {bloodCardSend} from "@/utils/bloodCardDonation.js";
 
 export default {
+  
     data() {
         return {
           bloodCardCheck : [],
@@ -93,7 +94,7 @@ export default {
                 bloodCardChageState(
                   bloodCardId,
                   "힘",
-                  "16",
+                  vm.$route.query.userId,
                   function(){
                     vm.$router.push({name: 'donationConfirm', params: ''})
                   },
