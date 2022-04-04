@@ -185,7 +185,7 @@ export default {
 
       const response = await axios
 
-        .post(API_BASE_URL + "/api/user/signUp", userData)
+        .post(API_BASE_URL + "/api/user/signup", userData)
         .then((response) => {
           console.log("SignUp START");
           console.log(response);
