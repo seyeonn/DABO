@@ -26,7 +26,6 @@ public class EthereumController {
     }
 
     /**
-     * TODO Sub PJT Ⅲ 추가과제
      * 이더리움 트랜잭션 동기화 데이터로 제공할 수 있는 추가 api의 예 - 주소로 관련 정보 가져오기
      * @param addr
      * @return

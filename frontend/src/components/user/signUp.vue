@@ -83,6 +83,18 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p>
+        <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
+        <p>privatekey : {{ privateKey }}</p>
+        <p>walletAddress : {{ walletAddress }}</p>
+        <button @click="goToLogin">로그인창으로~!</button>
+        <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
   </div>
@@ -90,11 +102,11 @@
 
 <script>
 import axios from "axios";
-
+import { registerWallet } from "@/api/wallet.js";
+import Web3 from "web3";
 import { API_BASE_URL } from "@/config";
-/*import { registerWallet } from "@/api/wallet.js";
-import Web3 from "web3";*/
-
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 export default {
   data() {
     return {
@@ -104,9 +116,24 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
+      privateKey: "",
+      walletAddress: "",
+      userId: "",
+      wallet: {
+        id: 0,
+        ownerId: null,
+        address: "",
+        balance: 0,
+        payBalance : 0,
+        cash: 0,
+        receivingCount: 0,
+      },
     };
   },
   methods: {
+    goToLogin(){
+      this.$router.push("login");
+    },
     async submitForm() {
       const userData = {
         name: this.name,
@@ -117,13 +144,38 @@ export default {
         passwordConfirm: this.passwordConfirm,
       };
       console.log(userData);
+<<<<<<< HEAD
+=======
+      
+>>>>>>> origin-dabo/develop
       const response = await axios
+
         .post(API_BASE_URL + "/api/user/signUp", userData)
+<<<<<<< HEAD
         .then((res) => {
           console.log(res);
           this.createWallet();
           this.saveWallet();
           this.$router.push("login");
+=======
+        .then((response) => {
+          console.log("SignUp START")
+          console.log(response);
+          // this.$router.push("login");
+          this.userId =  response.data.userId
+          
+        }).then(()=>{
+          console.log(this.userId)
+          console.log("createWallet START")
+          this.createWallet();
+        })
+        .then(()=>{
+          console.log("saveWallet START")
+          this.saveWallet();
+        }).then(()=>{
+          // console.log("chargeETH START")
+          // this.chargeETH();
+>>>>>>> origin-dabo/develop
         });
       console.log(response);
     },
@@ -134,11 +186,13 @@ export default {
        * 지갑 주소와 private key를 생성
        *
        */
-      /*var web3 = new Web3();
+      
+      var web3 = new Web3();
+
       var wallet = web3.eth.accounts.create("DABO_WALLET");
       this.walletAddress = wallet.address;
       this.privateKey = wallet.privateKey;
-      */
+      
     },
 
     saveWallet: function () {
@@ -146,19 +200,56 @@ export default {
       /**
        * 생성된 사용자의 지갑 정보(주소, private key) 를 서버에 등록한다.
        */
-      /*
+
       var vm = this;
 
       registerWallet(this.userId, this.walletAddress, function(res) {
-        
+        vm.$store.commit("setUserId", res.data.userId);
         vm.$store.commit("setWalletAddress", res.data.address);
         alert("지갑 주소가 등록되었습니다.");
-
-        // vm.$router.push("/mypage/wallet_info");
+        vm.chargeETH();
+        // vm.$router.push("login");
+      },function(err){
+        console.log(err)
+        console.log("지갑 주소 등록 실패")
       });
-      */
+
+      
     },
-  },
+    chargeETH() {
+      /**
+       * cash 충전을 위한 이더 충전
+       */
+      // if(this.wallet.balance <= 1)
+      const scope = this;
+      walletService.chargeEther(
+        this.walletAddress,
+        function() {
+          // scope.isCharging = false;
+          console.log("이더가 충전 되었습니다.");
+          scope.fetchWalletInfo();
+        },
+        function() {
+          alert("이더 충전에 실패했습니다.");
+          // scope.isCharging = false;
+        }
+      );
+    },
+    fetchWalletInfo() {
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+      });
+    },
+    
+
+  } 
 };
 </script>
 
@@ -177,7 +268,7 @@ export default {
   color: #fff;
   border-radius: 10px;
   border: none;
-  width: 100%;
+  width: 20%;
   font-size: 12px;
 }
 .header {

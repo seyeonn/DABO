@@ -10,12 +10,13 @@
         <div class="circle">O</div>
       </div>
     </div>
+
     <div class="contents">
       <div class="div-wallet">
         <div class="contents-title d-flex">
           <div><p>내 지갑</p></div>
           <div class="d-flex">
-            <button>충전하기</button>
+            <button @click="toCharge()">충전하기</button>
           </div>
         </div>
         <div class="contents-wallet d-flex">
@@ -23,7 +24,7 @@
             <span>DABO Token 보유 현황</span><br />
             <span style="font-weight: lighter">XXX DABO</span><br />
             <span>내 지갑 주소</span><br />
-            <span style="font-weight: lighter">0X16xxxxxxxxxxxxxxxx</span>
+            <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
           </div>
         </div>
         <div class="detail-show">
@@ -83,11 +84,14 @@ export default {
     toWallet() {
       this.$router.push({ name: "daboWallet" });
     },
+    toCharge() {
+      this.$router.push({ name: 'chargedabo', params: ''})
+    }
   },
 };
 </script>
 
-<style>
+<style scoped>
 .main-page {
   overflow: scroll;
 }
@@ -229,4 +233,5 @@ td {
   margin-bottom: 5px;
   box-shadow: 1px 1px;
 }
+
 </style>

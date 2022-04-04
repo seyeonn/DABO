@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import daboWallet from '@/components/user/daboWallet'
+import daboWallet from '@/components/wallet/daboWallet'
 export default {
   components: {
     daboWallet
