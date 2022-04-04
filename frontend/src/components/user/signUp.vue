@@ -92,7 +92,7 @@
         <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
-    <button @click = "onShowModal">Modal Test</button>
+    <!-- <button @click = "onShowModal">Modal Test</button> -->
     <Modal v-if="showModal" @close="showModal = false">
       <!-- header slot starts -->
       <h3 slot="header">
@@ -103,6 +103,7 @@
       <div slot="body" style="word-break:break-all">
         <br/>
         <br/>
+        <button @click="copyPrivateKey">비밀키 복사(css 다시 손볼게요)</button>
         <p style="text-align : left">[비밀키](❗반드시 저장❗)</p>
         {{ privateKey }}
         <p style="text-align : left">[지갑 주소]</p>
@@ -139,7 +140,7 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      privateKey: "",
+      privateKey: "123",
       walletAddress: "",
       userId: "",
       wallet: {
@@ -154,6 +155,16 @@ export default {
     };
   },
   methods: {
+    copyPrivateKey(){
+      
+        this.$copyText(this.privateKey).then(function (e) {
+          alert('Copied')
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+    },
     onShowModal(){
       // alert("Click");
       this.showModal = true;
@@ -188,13 +199,13 @@ export default {
         })
         .then(() => {
           console.log("saveWallet START");
-          // this.saveWallet();
+          this.saveWallet();
         })
         .then(() => {
-          this.onShowModal()
+          this.onShowModal();
           // console.log("chargeETH START")
           // this.chargeETH();
-        });
+        })
       console.log(response);
     },
 
@@ -248,9 +259,11 @@ export default {
           // scope.isCharging = false;
           console.log("이더가 충전 되었습니다.");
           scope.fetchWalletInfo();
+          // this.onShowModal();
         },
-        function () {
-          alert("이더 충전에 실패했습니다.");
+        function (err) {
+          console.log(err)
+          console.log("이더 충전에 실패했습니다.");
           // scope.isCharging = false;
         }
       );
