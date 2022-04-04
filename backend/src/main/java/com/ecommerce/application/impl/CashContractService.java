@@ -1,6 +1,9 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.ICashContractService;
+import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.repository.entity.CommonUtil;
+import com.ecommerce.domain.repository.entity.CryptoUtil;
 import com.ecommerce.domain.wrapper.CashContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +38,29 @@ public class CashContractService implements ICashContractService {
     @Autowired
     private Web3j web3j;
 
-    /**
-     * TODO Sub PJT Ⅱ 과제 3
-     * 토큰 잔액 조회
-     * @param eoa
-     * @return
-     */
+    private void getCredentials(){
+        if(this.credentials != null) return;
+        CryptoUtil cryptoUtil = CryptoUtil.of(ADMIN_ADDRESS);
+        this.credentials = CommonUtil.getCredential(WALLET_RESOURCE, PASSWORD);
+    }
+
+    private void loadContract() {
+        if(this.credentials == null)
+            getCredentials();
+        this.cashContract = CashContract.load(ERC20_TOKEN_CONTRACT, web3j, this.credentials, contractGasProvider);
+    }
+
     @Override
     public int getBalance(String eoa) {
-        return -1;
+        try {
+            if(this.cashContract == null)
+                loadContract();
+
+            log.debug(eoa);
+            return this.cashContract.balanceOf(eoa).send().intValue();
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            throw new ApplicationException(e.getMessage());
+        }
     }
 }

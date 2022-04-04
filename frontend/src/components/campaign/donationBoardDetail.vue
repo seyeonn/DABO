@@ -6,8 +6,8 @@
       <div class="detailBoard-page">
         <div>
             <img src="https://i.imgur.com/httN9Bm.png" class="campaign-detail-img" alt="">
-            <h4>캠페인 제목</h4>
-            <p>캠페인 설명</p>
+            <h4>{{ title }}</h4>
+            <p>{{ content }}</p>
             <div>
                 <div class="small font-weight-bold">
                     <span class="ratio">20%</span> 
@@ -48,12 +48,27 @@
 <script>
 import CommentWrite from "@/components/campaign/comment/commentWrite.vue";
 import CommentList from "@/components/campaign/comment/commentList.vue";
+import axios from 'axios';
+import {API_BASE_URL} from "@/config/index.js"
 
 export default {
+    name: "detailBoard",
     data() {
         return {
-
+          campaign: [],
+          content: '',
+          title: ''
         }
+    },
+    created() { 
+      axios
+        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
+        .then((res) => {
+          console.log(res.data);
+          this.content = res.data.content;
+          this.title = res.data.title;
+          console.log(this.campaign);
+        });
     },
     components: {
         CommentWrite,
