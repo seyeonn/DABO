@@ -15,21 +15,20 @@
     </div>
     <div class="wallet-control">
       <i class="fa-solid fa-circle-plus"></i>
-      <span> 충전하기 </span>
+      <span @click="goCharge()"> 충전하기 </span>
       <i class="fa-solid fa-circle-minus"></i>
       <span> 출금하기 </span>
     </div>
-
     <div class="contents-wallet d-flex" style="height: 400px;">
       <div>
         <p style="font-weight: bold;">DABO Token 보유 현황</p>
-        <span style="font-size: 40px;">XXX DABO</span>
-        <p id="dabo-krw"><i class="fa-solid fa-won-sign"></i> 27,680 KRW</p>
+        <span style="font-size: 40px;">{{this.wallet.cash}} DABO</span>
+        <p id="dabo-krw"><i class="fa-solid fa-won-sign"></i> {{this.wallet.cash}} KRW</p>
         <span style="font-weight: bold">내 지갑 주소</span>
         <span style="margin-left: 150px;">
           <i class="fa-solid fa-copy"></i>복사하기
         </span><br>
-        <span>0X16xxxxxxxxxxxxxxxx</span>
+        <span>{{ $store.state.user.walletAddress }}</span>
         <p style="font-weight: bold; font-size: 20px; margin-top: 5%">DABO Token 활동</p>
         <!-- v-for 변환 예정 -->
         <div class="wallet-act">
@@ -59,16 +58,60 @@
 </template>
 
 <script>
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
+
 export default {
+  data() {
+    return {
+      wallet: {
+        id: 0,
+        ownerId: null,
+        address: "",
+        balance: 0,
+        payBalance : 0,
+        cash: 0,
+        receivingCount: 0,
+      },
+      userId: this.$store.state.user.id,
+      walletAddress: this.$store.state.user.walletAddress,
+    };
+  },
   methods: {
     toBack() {
       this.$router.go(-1)
-    }
-  }
+    },
+    goCharge() {
+      this.$router.push({path: 'dabowallet/chargeDabo'})
+    },
+    fetchWalletInfo() {
+      /**
+       * 지갑 조회
+       */
+      console.log("지갑을 조회합니다")
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        console.log(data)
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+        vm.$store.commit("setWallet", data)
+
+      });
+    },
+    
+  },
+  mounted() {
+    this.fetchWalletInfo();
+  },
 }
 </script>
 
-<style>
+<style scoped>
 .wallet-header {
   background-color: #e52d27;
   height: 2.5em;
@@ -143,4 +186,5 @@ export default {
 .act-detail {
   font-size: 10px;
 }
+
 </style>

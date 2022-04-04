@@ -109,7 +109,7 @@ public class WalletRepository implements IWalletRepository
 	@Override
 	public int updateBalance(String wAddress, BigDecimal balance,BigDecimal payBalance, int cash) {
 		StringBuilder sbSql =  new StringBuilder("UPDATE wallets ");
-		sbSql.append("SET balance=?, cash=?, payBalance=?");
+		sbSql.append("SET balance=?, cash=?, pay_balance=? ");
 		sbSql.append("where address=?");
 		try {
 			return this.jdbcTemplate.update(sbSql.toString(),
