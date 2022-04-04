@@ -66,7 +66,7 @@ export default {
           comments: [],
         }
     },
-    created() { 
+    async created() { 
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
@@ -76,7 +76,7 @@ export default {
           console.log(this.campaign);
         });
 
-      axios
+      await axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
         .then((res) => {
           console.log(res.data);

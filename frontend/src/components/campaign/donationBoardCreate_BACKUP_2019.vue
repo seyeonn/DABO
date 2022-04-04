@@ -54,7 +54,21 @@ export default {
       this.campaign.mediaUrl = file;
     },
     async submitForm() {
+<<<<<<< HEAD
+       console.log(this.campaign.title);
+      const campaginData = {
+        campaignId : this.campaign.campaignId,
+        title: this.campaign.title,
+        content: this.campaign.content,
+        amount: this.amount,
+        target: this.target,
+        deadline: this.deadline,
+        mediaUrl: this.mediaUrl,
+        walletAddress: this.walletAddress
+      };
 
+      console.log(campaginData);
+=======
       const formData = new FormData();
       formData.append("title", this.campaign.title);
       formData.append("content", this.campaign.content);
@@ -65,15 +79,35 @@ export default {
       formData.append("deadline", this.campaign.deadline);
       formData.append("walletAddress", this.campaign.walletAddress);
       console.log(formData);
+>>>>>>> 4fc8ec9a1b21f23e832cffb552f65ac15c5469e0
+
+      const formData = new FormData();
+      
+        formData.append('title', this.campagin.title);
+        formData.append("content", this.campagin.content);
+        formData.append("mediaUrl", this.campagin.mediaUrl);
+        formData.append("amount", this.campagin.amount);
+        formData.append("target", this.campagin.target);
+        formData.append("deadline", this.campagin.deadline);
+        formData.append("walletAddress", this.campagin.walletAddress);
+
 
       const response = await axios
-
+<<<<<<< HEAD
+        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("accessToken"),
+            }
+        })
+=======
         .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
            headers: {
                "Content-Type": "multipart/form-data",
                Authorization: `Bearer `+localStorage.getItem("accessToken"),
              },
          })
+>>>>>>> 4fc8ec9a1b21f23e832cffb552f65ac15c5469e0
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
