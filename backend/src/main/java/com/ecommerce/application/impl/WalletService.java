@@ -90,8 +90,7 @@ public class WalletService implements IWalletService
 		Wallet wallet = this.walletRepository.get(userId);
 		if(wallet == null)
 			throw new NotFoundException(userId + " 해당 회원의 주소 지갑을 찾을 수 없습니다.");
-
-		return getAndSyncBalance(wallet.getAddress());
+		return wallet;
 	}
 
 	/**

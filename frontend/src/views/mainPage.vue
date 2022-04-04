@@ -25,10 +25,15 @@
         <div class="contents-bloodcard d-flex">
           <div class="imoge"><img src="@/assets/imoge.png" /></div>
           <div>
-            <p>나의 헌혈증은 3개 입니다.<br />나의 기부 뱃지는 2개 입니다.</p>
+            <p>
+              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.<br />나의 기부 뱃지는
+              2개 입니다.
+            </p>
           </div>
         </div>
-        <div class="detail-show"><button>자세히 보기</button></div>
+        <div class="detail-show">
+          <button @click="goBloodcardList">자세히 보기</button>
+        </div>
       </div>
       <div class="div-donation">
         <div class="contents-title">
@@ -149,10 +154,46 @@
 </template>
 
 <script>
+import { findByBloodCard } from "@/api/bloodCard.js";
+import { getDonationBoard } from "@/api/campaign.js";
 export default {
+  data() {
+    return {
+      bloodcardCnt: "",
+    };
+  },
+  created() {
+    this.getBloodcardCnt();
+    this.getDonationContents();
+  },
   methods: {
+    getBloodcardCnt() {
+      const vm = this;
+      findByBloodCard(
+        function (response) {
+          vm.bloodcardCnt = response.data.length;
+        },
+        function (err) {
+          console.log(err);
+        }
+      );
+    },
+    getDonationContents() {
+      //const vm = this;
+      getDonationBoard(
+        function (response) {
+          console.log(response.data);
+        },
+        function (err) {
+          console.log(err);
+        }
+      );
+    },
     goRanking() {
       this.$router.push({ name: "ranking" });
+    },
+    goBloodcardList() {
+      this.$router.push({ name: "bloodcardList" });
     },
   },
 };
