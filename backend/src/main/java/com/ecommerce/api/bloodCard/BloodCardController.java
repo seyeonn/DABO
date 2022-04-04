@@ -35,6 +35,7 @@ public class BloodCardController {
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         Long userId = userDetails.getUser().getUserId();
         BloodCard bloodCard = bloodCardService.createBloodCard(bloodCardPostReq, userId);
+        System.out.println("전자헌혈증 생성");
         if(bloodCard != null){
             return ResponseEntity.status(200).body(bloodCard);
         }
