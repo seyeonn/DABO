@@ -22,7 +22,16 @@ function bloodCardChageState(bloodCardId, transactionCardMessage, transactionCar
     .then(success)
     .catch(fail);
 }
+
+function createBloodCard(body, success, fail){
+    instance
+    .post("api/bc/create", JSON.stringify(body))
+    .then(success)
+    .catch(fail);
+}
+
 export{
     findByBloodCard,
-    bloodCardChageState
+    bloodCardChageState,
+    createBloodCard
 }
