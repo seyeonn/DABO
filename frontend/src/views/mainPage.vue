@@ -319,10 +319,10 @@ export default {
   margin: 0;
 }
 .contents-ranking .img-medal > img {
-  width: 30%;
+  width: 25%;
 }
 .contents-ranking .img-medal > div img {
-  width: 60%;
+  width: 39%;
 }
 .under-rank {
   height: 21.5vh;
