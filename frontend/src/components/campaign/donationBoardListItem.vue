@@ -1,7 +1,7 @@
 <template>
 <div  class="campaign_item" @click="goDetail()">
     <div class="col-4">
-        <img src="" alt="">
+        <img :src="'http://localhost:8080'+campaign.mediaUrl" alt="">
     </div>
         <div class="col-8">
             
