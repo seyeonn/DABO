@@ -2,6 +2,7 @@ package com.ecommerce.domain.repository.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @ToString(callSuper = true)
 @EqualsAndHashCode()
+@EntityListeners(value = AuditingEntityListener.class)
 public class Comment {
 
     @Id
