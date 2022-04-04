@@ -72,7 +72,7 @@ public class WalletController {
 		Wallet wallet = this.walletService.get(uid);
 		if(wallet == null)
 			throw new EmptyListException("[UserId] " + uid + " 해당 지갑을 찾을 수 없습니다.");
-		return wallet;
+		return walletService.getAndSyncBalance(wallet.getAddress());
 	}
 
 
