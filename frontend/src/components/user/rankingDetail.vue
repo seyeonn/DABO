@@ -44,6 +44,9 @@ export default {};
 }
 .contents-title {
   font-weight: bold;
+  justify-content: space-between;
+  margin-left: 6%;
+  margin-right: 6%;
 }
 .contents-myrank {
   text-align: center;
