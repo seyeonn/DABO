@@ -65,15 +65,17 @@ export default {
           title: '',
           walletAddressOfBoard:'',
           comments: [],
+          userId: ""
         }
     },
     async created() { 
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
-          console.log(res.data);
           this.content = res.data.content;
           this.title = res.data.title;
+          this.userId = res.data.userId;
+          console.log(this.userId);
           this.walletAddressOfBoard = res.data.walletAddress;
           console.log(this.campaign);
         });
@@ -92,7 +94,9 @@ export default {
     },
     methods: {
       goDonationDetail() {
-        this.$router.push({name: 'myDonation',params:''})
+        const vm = this;
+        console.log(vm.userId);
+        this.$router.push({name: 'myDonation', query: {'userId':vm.userId}})
       },
       setCampaignId(campaignId) {
         this.campaignId = campaignId;
