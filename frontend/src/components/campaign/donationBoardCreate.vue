@@ -31,6 +31,8 @@
 <script>
 import axios from "axios";
 import {API_BASE_URL} from "@/config/index.js"
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 
 export default {
   data() {
@@ -44,11 +46,34 @@ export default {
         deadline: "",
         mediaUrl: null,
         walletAddress: ""
-      }
+      },
+      userId: this.$store.state.user.id,
+      userWalletAddress: this.$store.state.user.walletAddress,
+      
     
     }
   },
   methods: {
+    fetchWalletInfo() {
+      /**
+       * 지갑 조회
+       */
+      console.log("userWalletAddress",this.userWalletAddress);
+      console.log("지갑을 조회합니다")
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        console.log(data)
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+        vm.$store.commit("setWallet", data)
+
+      });
+    },
     handleFileChange(event) {
       const file = event.target.files[0];
       this.campaign.mediaUrl = file;
@@ -63,7 +88,8 @@ export default {
       formData.append("amount", this.campaign.amount);
       formData.append("target", this.campaign.target);
       formData.append("deadline", this.campaign.deadline);
-      formData.append("walletAddress", this.campaign.walletAddress);
+      formData.append("walletAddress", this.userWalletAddress);
+      console.log("submiForm walletAddress : " ,this.userWalletAddress)
       console.log(formData);
 
       const response = await axios
@@ -80,7 +106,11 @@ export default {
         });
       console.log(response);
     }
-  }
+  },
+  mounted() {
+    
+    this.fetchWalletInfo();
+  },
 };
 </script>
 
