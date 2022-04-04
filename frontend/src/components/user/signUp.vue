@@ -83,12 +83,12 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p>
         <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
         <p>privatekey : {{ privateKey }}</p>
@@ -124,14 +124,14 @@ export default {
         ownerId: null,
         address: "",
         balance: 0,
-        payBalance : 0,
+        payBalance: 0,
         cash: 0,
         receivingCount: 0,
       },
     };
   },
   methods: {
-    goToLogin(){
+    goToLogin() {
       this.$router.push("login");
     },
     async submitForm() {
@@ -144,25 +144,26 @@ export default {
         passwordConfirm: this.passwordConfirm,
       };
       console.log(userData);
-      
+
       const response = await axios
 
         .post(API_BASE_URL + "/api/user/signUp", userData)
         .then((response) => {
-          console.log("SignUp START")
+          console.log("SignUp START");
           console.log(response);
           // this.$router.push("login");
-          this.userId =  response.data.userId
-          
-        }).then(()=>{
-          console.log(this.userId)
-          console.log("createWallet START")
+          this.userId = response.data.userId;
+        })
+        .then(() => {
+          console.log(this.userId);
+          console.log("createWallet START");
           this.createWallet();
         })
-        .then(()=>{
-          console.log("saveWallet START")
+        .then(() => {
+          console.log("saveWallet START");
           this.saveWallet();
-        }).then(()=>{
+        })
+        .then(() => {
           // console.log("chargeETH START")
           // this.chargeETH();
         });
@@ -175,13 +176,12 @@ export default {
        * 지갑 주소와 private key를 생성
        *
        */
-      
+
       var web3 = new Web3();
 
       var wallet = web3.eth.accounts.create("DABO_WALLET");
       this.walletAddress = wallet.address;
       this.privateKey = wallet.privateKey;
-      
     },
 
     saveWallet: function () {
@@ -192,18 +192,21 @@ export default {
 
       var vm = this;
 
-      registerWallet(this.userId, this.walletAddress, function(res) {
-        vm.$store.commit("setUserId", res.data.userId);
-        vm.$store.commit("setWalletAddress", res.data.address);
-        alert("지갑 주소가 등록되었습니다.");
-        vm.chargeETH();
-        // vm.$router.push("login");
-      },function(err){
-        console.log(err)
-        console.log("지갑 주소 등록 실패")
-      });
-
-      
+      registerWallet(
+        this.userId,
+        this.walletAddress,
+        function (res) {
+          vm.$store.commit("setUserId", res.data.userId);
+          vm.$store.commit("setWalletAddress", res.data.address);
+          alert("지갑 주소가 등록되었습니다.");
+          vm.chargeETH();
+          // vm.$router.push("login");
+        },
+        function (err) {
+          console.log(err);
+          console.log("지갑 주소 등록 실패");
+        }
+      );
     },
     chargeETH() {
       /**
@@ -213,12 +216,12 @@ export default {
       const scope = this;
       walletService.chargeEther(
         this.walletAddress,
-        function() {
+        function () {
           // scope.isCharging = false;
           console.log("이더가 충전 되었습니다.");
           scope.fetchWalletInfo();
         },
-        function() {
+        function () {
           alert("이더 충전에 실패했습니다.");
           // scope.isCharging = false;
         }
@@ -226,7 +229,7 @@ export default {
     },
     fetchWalletInfo() {
       const vm = this;
-      walletService.findByUserId(this.userId, function(response) {
+      walletService.findByUserId(this.userId, function (response) {
         const data = response.data;
         const web3 = createWeb3();
         data["balance"] = web3.utils.fromWei(
@@ -236,9 +239,7 @@ export default {
         vm.wallet = data;
       });
     },
-    
-
-  } 
+  },
 };
 </script>
 
