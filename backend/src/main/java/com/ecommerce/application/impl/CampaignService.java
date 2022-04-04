@@ -114,6 +114,7 @@ public class CampaignService implements ICampaignService {
             campaignDto.setDeadLine(campaign.getDeadLine());
             campaignDto.setMediaUrl(campaign.getMediaUrl());
             campaignDto.setUsername(campaign.getUser().getNickname());
+            campaignDto.setWalletAddress(campaign.getWalletAddress());
 
             list.add(campaignDto);
         }
@@ -141,6 +142,7 @@ public class CampaignService implements ICampaignService {
         campaignDto.setDeadLine(campaign.getDeadLine());
         campaignDto.setMediaUrl(campaign.getMediaUrl());
         campaignDto.setUsername(campaign.getUser().getNickname());
+        campaignDto.setWalletAddress(campaign.getWalletAddress());
 
         return campaignDto;
     }
@@ -265,5 +267,37 @@ public class CampaignService implements ICampaignService {
         commentRepository.deleteById(commentId);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public List<CampaignDto> getUrgentCampaign() {
+
+        List<CampaignDto> list = new ArrayList<>();
+
+        for(Campaign campaign : campaignRepository.findAll()) {
+
+            CampaignDto campaignDto = new CampaignDto();
+
+            campaignDto.setCampaignId(campaign.getCampaignId());
+            campaignDto.setTitle(campaign.getTitle());
+            campaignDto.setContent(campaign.getContent());
+            campaignDto.setTarget(campaign.getTarget());
+            campaignDto.setAmount(campaign.getAmount());
+            campaignDto.setDeadLine(campaign.getDeadLine());
+            campaignDto.setMediaUrl(campaign.getMediaUrl());
+            campaignDto.setUsername(campaign.getUser().getNickname());
+            campaignDto.setWalletAddress(campaign.getWalletAddress());
+            list.add(campaignDto);
+        }
+        Collections.sort(list, (o1, o2) -> {
+            int a = Integer.parseInt(o1.getDeadLine().substring(3,4)+o1.getDeadLine().substring(5,7)+o1.getDeadLine().substring(8,10));
+            int b = Integer.parseInt(o2.getDeadLine().substring(3,4)+o2.getDeadLine().substring(5,7)+o2.getDeadLine().substring(8,10));
+            if(a-b<0){
+                return -1;
+            }
+            return 1;
+        });
+
+        return list;
     }
 }

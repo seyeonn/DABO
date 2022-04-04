@@ -42,7 +42,7 @@ public class UserController {
     }
 
     // 회원가입
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public DABOUser create(@RequestBody daboUserDto userDto) {
         System.out.println("userDto = " + userDto);
         DABOUser user = userService.add(userDto);
