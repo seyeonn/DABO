@@ -3,6 +3,7 @@ package com.ecommerce.api.wallet;
 import com.ecommerce.application.IWalletService;
 import com.ecommerce.domain.exception.EmptyListException;
 import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -73,6 +74,26 @@ public class WalletController {
 			throw new EmptyListException("[UserId] " + uid + " 해당 지갑을 찾을 수 없습니다.");
 
 		return walletService.getAndSyncBalance(wallet.getAddress());
+	}
+
+
+	/**
+	 * Donation/Token 거래 기록을 저장한다.
+	 * @param transactionDonationHistory
+	 * @return
+	 */
+	@ApiOperation(value = "Register Donation History")
+	@RequestMapping(value = "/wallets/donation", method = RequestMethod.POST)
+	public TransactionDonationHistory createDonation(@Valid @RequestBody TransactionDonationHistory transactionDonationHistory) {
+		return walletService.createDonation(transactionDonationHistory);
+	}
+
+
+
+	@ApiOperation(value = "Get Donation History of User")
+	@RequestMapping(value = "/wallets/donation/of/{address}", method = RequestMethod.GET)
+	public List<TransactionDonationHistory> getDonationByAddress(@PathVariable String address) {
+		return walletService.getDonationList(address);
 	}
 
 

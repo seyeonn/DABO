@@ -16,9 +16,16 @@ public class TransactionDonationHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(name="id", example="1")
     private long id;
-    private LocalDate created_at = LocalDate.now();
 
-    //0: token 충전 /1: 기부 / 2:
-    @ApiModelProperty(name="state", example="1")
-    private int state;
+    private LocalDate created_at = LocalDate.now();
+    @ApiModelProperty(name="state", example="충전")
+    private String state;
+    @ApiModelProperty(name="amount", example="10000")
+    private long amount;
+    @ApiModelProperty(name="transactionDonationFromAddress", example="0x")
+    private String transactionDonationFromAddress;
+    @ApiModelProperty(name="transactionDonationToAddress", example="0x")
+    private String transactionDonationToAddress;
+    @ApiModelProperty(name="contractAddress", example="0x")
+    private String contractAddress;
 }
