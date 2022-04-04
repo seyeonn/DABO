@@ -23,9 +23,9 @@
       <button @click="login()" class="btn_red">
         <span>Login</span>
       </button>
-      <button class="btn_social">
+      <!-- <button class="btn_social">
         <img src="@/assets/kakao_login_medium_wide.png" />
-      </button>
+      </button> -->
       <button @click="$router.push({ name: 'signup' })" class="btn_red">
         <span>SignUp</span>
       </button>
