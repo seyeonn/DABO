@@ -39,4 +39,7 @@ public class CampaignDto {
 
     @ApiParam(value="지갑 주소")
     private String walletAddress;
+
+    @ApiParam(value = "작성자 ID")
+    private Long userId;
 }
