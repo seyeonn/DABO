@@ -117,6 +117,7 @@ public class CampaignService implements ICampaignService {
 
             list.add(campaignDto);
         }
+        Collections.reverse(list);
 
         return list;
     }
@@ -141,6 +142,8 @@ public class CampaignService implements ICampaignService {
         campaignDto.setMediaUrl(campaign.getMediaUrl());
         campaignDto.setUsername(campaign.getUser().getNickname());
         campaignDto.setUserId(campaign.getUser().getUserId());
+        campaignDto.setWalletAddress(campaign.getWalletAddress());
+        
         return campaignDto;
     }
 
@@ -204,6 +207,7 @@ public class CampaignService implements ICampaignService {
 
             list.add(commentDto);
         }
+        Collections.reverse(list);
         return list;
     }
 
