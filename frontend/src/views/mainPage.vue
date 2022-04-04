@@ -164,7 +164,7 @@ export default {
   },
   created() {
     this.getBloodcardCnt();
-    this.getDonationBoard();
+    this.getDonationContents();
   },
   methods: {
     getBloodcardCnt() {
@@ -178,10 +178,11 @@ export default {
         }
       );
     },
-    getDonationBoard() {
+    getDonationContents() {
+      //const vm = this;
       getDonationBoard(
         function (response) {
-          console.log(response);
+          console.log(response.data);
         },
         function (err) {
           console.log(err);
