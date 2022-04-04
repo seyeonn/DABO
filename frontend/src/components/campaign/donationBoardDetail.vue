@@ -5,7 +5,7 @@
       </div>
       <div class="detailBoard-page">
         <div>
-            <img src="https://i.imgur.com/httN9Bm.png" class="campaign-detail-img" alt="">
+            <img :src="'http://localhost:8080'+campaign.mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
             <p>{{ content }}</p>
             <div>

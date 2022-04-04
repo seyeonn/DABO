@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DABOUserService {
@@ -32,7 +33,9 @@ public class DABOUserService {
 
 
     public List<DABOUser> list() {
-        List<DABOUser> list = userRepository.findAll();
+        List<DABOUser> list = userRepository.findAll().stream()
+                .sorted((a, b) -> (int) (b.getPoint()-a.getPoint()))
+                .collect(Collectors.toList());
 
         if(!list.isEmpty()){
             return list;

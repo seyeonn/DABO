@@ -11,9 +11,9 @@
             placeholder="NickName"
             v-model="nickname"
           />
-          <button class="btn_input btn_check btn_red col-2">
+          <div class="btn_input btn_check btn_red ">
             <span>check</span>
-          </button>
+          </div>
         </div>
         <div class="input-bloodtype">
           <span>Blood Type</span>
@@ -64,9 +64,9 @@
             name="email"
             placeholder="Email"
           />
-          <button class="btn_input btn_check btn_red col-2">
+          <div class="btn_input btn_check btn_red col-2">
             <span>check</span>
-          </button>
+          </div>
         </div>
         <input
           type="password"
@@ -83,21 +83,40 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p>
+        
+        <!-- <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p> -->
         <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
-        <p>privatekey : {{ privateKey }}</p>
-        <p>walletAddress : {{ walletAddress }}</p>
-        <button @click="goToLogin">로그인창으로~!</button>
+        <!-- <p>privatekey : {{ privateKey }}</p> -->
+        <!-- <p>walletAddress : {{ walletAddress }}</p> -->
+        <!-- <button @click="goToLogin">로그인창으로~!</button> -->
         <!-- <button v-on:click="saveWallet">서버에 저장</button> -->
       </div>
     </form>
+    <!-- <button @click = "onShowModal">Modal Test</button> -->
+    <Modal v-if="showModal" @close="showModal = false">
+      <!-- header slot starts -->
+      <h3 slot="header">
+        DABO 지갑 생성을<br/>축하합니다!
+        <!-- <i class="fas fa-times closeModalBtn" @click="showModal = false"></i> -->
+      </h3>
+
+      <div slot="body" style="word-break:break-all">
+        <br/>
+        <br/>
+        <button @click="copyPrivateKey">비밀키 복사(css 다시 손볼게요)</button>
+        <p style="text-align : left">[비밀키](❗반드시 저장❗)</p>
+        {{ privateKey }}
+        <p style="text-align : left">[지갑 주소]</p>
+        {{ walletAddress }}
+      </div>
+      <div slot="footer">
+        <button class="btn_red" @click="goToLogin">
+                Go To Login
+        </button>
+      </div>
+    </Modal>
   </div>
+  
 </template>
 
 <script>
@@ -107,16 +126,21 @@ import Web3 from "web3";
 import { API_BASE_URL } from "@/config";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
+import Modal from "@/components/user/walletModal.vue"
 export default {
+  components:{
+    Modal
+  },
   data() {
     return {
+      showModal: false,
       name: "",
       nickname: "",
       bloodtype: "",
       email: "",
       password: "",
       passwordConfirm: "",
-      privateKey: "",
+      privateKey: "123",
       walletAddress: "",
       userId: "",
       wallet: {
@@ -131,6 +155,20 @@ export default {
     };
   },
   methods: {
+    copyPrivateKey(){
+      
+        this.$copyText(this.privateKey).then(function (e) {
+          alert('Copied')
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+    },
+    onShowModal(){
+      // alert("Click");
+      this.showModal = true;
+    },
     goToLogin() {
       this.$router.push("login");
     },
@@ -164,9 +202,10 @@ export default {
           this.saveWallet();
         })
         .then(() => {
+          this.onShowModal();
           // console.log("chargeETH START")
           // this.chargeETH();
-        });
+        })
       console.log(response);
     },
 
@@ -220,9 +259,11 @@ export default {
           // scope.isCharging = false;
           console.log("이더가 충전 되었습니다.");
           scope.fetchWalletInfo();
+          // this.onShowModal();
         },
-        function () {
-          alert("이더 충전에 실패했습니다.");
+        function (err) {
+          console.log(err)
+          console.log("이더 충전에 실패했습니다.");
           // scope.isCharging = false;
         }
       );
@@ -252,13 +293,14 @@ export default {
 }
 .btn_check {
   width: 20% !important;
+  font-size: 12px;
 }
 .btn_red {
   background-color: #e52d27;
   color: #fff;
   border-radius: 10px;
   border: none;
-  width: 20%;
+  width: 100%;
   font-size: 12px;
 }
 .header {

@@ -7,7 +7,7 @@
       <form class="form" @submit.prevent="submitForm">
       <div class="submit-form">
         <p class="p_title">이미지 등록하기</p>
-        <input multiple ref="image" name="mediaUrl" type="file" id="files" @change="handleFileChange($event)">
+        <input multiple ref="image" name="mediaUrl" type="file" id="files">
         <p class="p_title">제목</p>
         <input type="text" name="title" v-model="campaign.title" id="" placeholder="캠페인 제목">
         <p class="p_title">내용</p>
@@ -42,38 +42,29 @@ export default {
         amount: 0,
         target: "",
         deadline: "",
-        mediaUrl: null,
+        mediaUrl: "",
         walletAddress: ""
       }
     
     }
   },
   methods: {
-    handleFileChange(event) {
-      const file = event.target.files[0];
-      this.campaign.mediaUrl = file;
-    },
     async submitForm() {
+      const campaginData = {
+        campaignId : this.campaignId,
+        title: this.title,
+        content: this.content,
+        amount: this.amount,
+        target: this.target,
+        deadline: this.deadline,
+        mediaUrl: this.mediaUrl,
+        walletAddress: this.walletAddress
+      };
 
-      const formData = new FormData();
-      formData.append("title", this.campaign.title);
-      formData.append("content", this.campaign.content);
-      console.log(this.campaign.mediaUrl);
-      formData.append("media", this.campaign.mediaUrl);
-      formData.append("amount", this.campaign.amount);
-      formData.append("target", this.campaign.target);
-      formData.append("deadline", this.campaign.deadline);
-      formData.append("walletAddress", this.campaign.walletAddress);
-      console.log(formData);
+      console.log(campaginData);
 
       const response = await axios
-
-        .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
-           headers: {
-               "Content-Type": "multipart/form-data",
-               Authorization: `Bearer `+localStorage.getItem("accessToken"),
-             },
-         })
+        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData)
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
