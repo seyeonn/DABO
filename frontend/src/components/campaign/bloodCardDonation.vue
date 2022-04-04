@@ -4,7 +4,7 @@
         <h2 class="dabo_title">내 헌혈증 목록</h2>
       </div>
       <div class="myDonation-page">
-        <p class="h-p">총 n개 보유중</p>
+        <p class="h-p">총 {{bloodCards.length}}개 보유중</p>
 
         <div class="donationList">
             <p>기부할 헌혈증을 선택해주세요.</p>
@@ -37,7 +37,7 @@
           </div>
           <div id="bDonation" class="modal-window">
               <div>
-                      <p>총 n개의 헌혈증을 SSAFY 보건소로 전달합니다.</p>
+                      <p>총 {{bloodCardCnt}}개의 헌혈증을 전달합니다.</p>
                       <sub>
                           <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
                           헌혈증은 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
@@ -75,11 +75,18 @@ export default {
           bloodCardCheck : [],
           bloodCards : [{}],
           privateKey : "",
+          bloodCardCnt : 0,
         }
     },
     methods: {
       bloodDonation: function() {
-
+        const vm = this;
+        vm.bloodCardCnt = 0;
+        for(var i = 0; i<this.bloodCardCheck.length; i++){
+          if(vm.bloodCardCheck[i]){
+            vm.bloodCardCnt++;
+          }
+        }
       },
       checkConfirm() {
         const vm = this;
@@ -87,6 +94,7 @@ export default {
         for(var i = 0; i<this.bloodCardCheck.length; i++){
           if(vm.bloodCardCheck[i]){
             bloodCardId = vm.bloodCards[i].bloodCardId;
+            
             bloodCardSend(
               this.$store.state.user.walletAddress,
               vm.privateKey,
