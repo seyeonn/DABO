@@ -50,10 +50,11 @@ export default {
   },
   methods: {
     async submitForm() {
+       console.log(this.campaign.title);
       const campaginData = {
-        campaignId : this.campaignId,
-        title: this.title,
-        content: this.content,
+        campaignId : this.campaign.campaignId,
+        title: this.campaign.title,
+        content: this.campaign.content,
         amount: this.amount,
         target: this.target,
         deadline: this.deadline,
@@ -63,8 +64,24 @@ export default {
 
       console.log(campaginData);
 
+      const formData = new FormData();
+      
+        formData.append('title', this.campagin.title);
+        formData.append("content", this.campagin.content);
+        formData.append("mediaUrl", this.campagin.mediaUrl);
+        formData.append("amount", this.campagin.amount);
+        formData.append("target", this.campagin.target);
+        formData.append("deadline", this.campagin.deadline);
+        formData.append("walletAddress", this.campagin.walletAddress);
+
+
       const response = await axios
-        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData)
+        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("accessToken"),
+            }
+        })
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
