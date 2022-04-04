@@ -143,7 +143,7 @@ public class CampaignService implements ICampaignService {
         campaignDto.setUsername(campaign.getUser().getNickname());
         campaignDto.setUserId(campaign.getUser().getUserId());
         campaignDto.setWalletAddress(campaign.getWalletAddress());
-        
+
         return campaignDto;
     }
 
