@@ -23,7 +23,7 @@
         <div class="cpn-btn">
             <span>
               <button class="btn_red_campaign" style="margin-right: 10px; margin-left: 7px;" @click="goDonationDetail()"><span>헌혈증 기부하기</span></button>
-              <button class="btn_red_campaign"><span>DABO로 후원하기</span></button>
+              <button class="btn_red_campaign" @click="goDaboDonationDetail()"><span>DABO로 후원하기</span></button>
             </span>
         </div>
         <div class="line"></div>
@@ -63,16 +63,20 @@ export default {
           campaign: [],
           content: '',
           title: '',
+          walletAddressOfBoard:'',
           comments: [],
+          userId: ""
         }
     },
     async created() { 
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
-          console.log(res.data);
           this.content = res.data.content;
           this.title = res.data.title;
+          this.userId = res.data.userId;
+          console.log(this.userId);
+          this.walletAddressOfBoard = res.data.walletAddress;
           console.log(this.campaign);
         });
 
@@ -90,10 +94,15 @@ export default {
     },
     methods: {
       goDonationDetail() {
-        this.$router.push({name: 'myDonation', params: ''})
+        const vm = this;
+        console.log(vm.userId);
+        this.$router.push({name: 'myDonation', query: {'userId':vm.userId}})
       },
       setCampaignId(campaignId) {
         this.campaignId = campaignId;
+      },
+      goDaboDonationDetail(){
+        this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard}})
       }
     }
 }

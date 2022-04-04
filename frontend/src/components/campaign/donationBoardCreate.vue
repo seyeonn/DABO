@@ -17,7 +17,7 @@
         <p class="p_title">목표 DABO</p>
         <input type="text" name="target" v-model="campaign.target" id="" placeholder="목표 DABO" style="width: 80px; margin-right: 5px;">DABO
         <p class="p_title">마감 기한</p>
-        <input type="date" name="deadline" v-model="campaign.deadline" id="">
+        <input type="date" name="deadline" v-model="campaign.deadline" id="input_date">
         <button type="submit" class="btn_red">
           <span>캠페인 등록</span>
         </button>
@@ -31,6 +31,8 @@
 <script>
 import axios from "axios";
 import {API_BASE_URL} from "@/config/index.js"
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 
 export default {
   data() {
@@ -41,30 +43,55 @@ export default {
         content: "",
         amount: 0,
         target: "",
-        deadline: "",
+        deadline: new Date(),
         mediaUrl: null,
         walletAddress: ""
-      }
+      },
+      userId: this.$store.state.user.id,
+      userWalletAddress: this.$store.state.user.walletAddress,
+      
     
     }
   },
   methods: {
+    fetchWalletInfo() {
+      /**
+       * 지갑 조회
+       */
+      console.log("userWalletAddress",this.userWalletAddress);
+      console.log("지갑을 조회합니다")
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        console.log(data)
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+        vm.$store.commit("setWallet", data)
+
+      });
+    },
     handleFileChange(event) {
       const file = event.target.files[0];
       this.campaign.mediaUrl = file;
     },
     async submitForm() {
+      if(this.campaign.mediaUrl === null){
+        alert("이미지를 등록해주세요")
+      }
 
       const formData = new FormData();
+      const deadline = document.querySelector("#input_date").value;
       formData.append("title", this.campaign.title);
       formData.append("content", this.campaign.content);
-      console.log(this.campaign.mediaUrl);
       formData.append("media", this.campaign.mediaUrl);
       formData.append("amount", this.campaign.amount);
       formData.append("target", this.campaign.target);
-      formData.append("deadline", this.campaign.deadline);
-      formData.append("walletAddress", this.campaign.walletAddress);
-      console.log(formData);
+      formData.append("deadLine", deadline);
+      formData.append("walletAddress", this.userWalletAddress);
 
       const response = await axios
 
@@ -80,7 +107,11 @@ export default {
         });
       console.log(response);
     }
-  }
+  },
+  mounted() {
+    
+    this.fetchWalletInfo();
+  },
 };
 </script>
 
