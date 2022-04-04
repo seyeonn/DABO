@@ -11,7 +11,7 @@ import ListBoard from "@/components/campaign/donationBoardList.vue";
 import ListItem from "@/components/campaign/donationBoardListItem.vue";
 import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
-import MyDonation from "@/components/campaign/myDonationDetail.vue";
+import MyDonation from "@/components/campaign/bloodCardDonation.vue";
 import DonationConfirm from "@/components/campaign/donationConfirm.vue";
 import DaboDonation from "@/components/campaign/daboDonation.vue";
 import DaboConfirm from "@/components/campaign/daboConfirm.vue";

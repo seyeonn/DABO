@@ -31,14 +31,14 @@ public class BloodCardController {
             @ApiResponse(code = 200, message = "성공", response = BloodCardPostReq.class),
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
-    public ResponseEntity<? extends BaseResponseBody> createBloodCard(@ApiIgnore Authentication authentication, @RequestBody BloodCardPostReq bloodCardPostReq){
+    public ResponseEntity<BloodCard> createBloodCard(@ApiIgnore Authentication authentication, @RequestBody BloodCardPostReq bloodCardPostReq){
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         Long userId = userDetails.getUser().getUserId();
         BloodCard bloodCard = bloodCardService.createBloodCard(bloodCardPostReq, userId);
         if(bloodCard != null){
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200,"success"));
+            return ResponseEntity.status(200).body(bloodCard);
         }
-        return ResponseEntity.status(500).body(BaseResponseBody.of(500,"error"));
+        return ResponseEntity.status(500).body(null);
     }
 
     @GetMapping("/search")
