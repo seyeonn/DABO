@@ -36,7 +36,7 @@ public class CampaignController {
     @PostMapping(value = "/createBoard")
     public ResponseEntity<?> createBoard(@ModelAttribute CampaignDto campaign) throws Exception {
         logger.info("createBoard - 호출");
-        System.out.println(campaign.getMedia());
+        System.out.println(campaign.getDeadLine());
         return campaignService.create(campaign);
     }
 
@@ -47,6 +47,15 @@ public class CampaignController {
         logger.info("listBoard - 호출");
 
         return campaignService.getAllCampaign();
+    }
+
+    // 캠페인 조회(시간 적게 남은 순서)
+    @ApiOperation(value = "캠페인 전체 조회", notes = "캠페인 전체 조회")
+    @GetMapping(value = "/urgentBoard")
+    public List<CampaignDto> urgentBoard() {
+        logger.info("urgentBoard - 호출");
+
+        return campaignService.getUrgentCampaign();
     }
 
     // 캠페인 상세 조회

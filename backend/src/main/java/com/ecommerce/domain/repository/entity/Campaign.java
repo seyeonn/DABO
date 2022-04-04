@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -46,9 +48,8 @@ public class Campaign {
     @Column(name="wallet_address")
     private String walletAddress;
 
-//    @Builder.Default
-//    @OneToMany(mappedBy = "feed",cascade = CascadeType.ALL)
-//    @JsonIgnoreProperties({"feed"})
-//    private List<Comment> comments = new ArrayList<>();
-
+    @Builder.Default
+    @OneToMany(mappedBy = "campaign",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"campaign"})
+    private List<Comment> comments = new ArrayList<>();
 }
