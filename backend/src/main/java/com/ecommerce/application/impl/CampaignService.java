@@ -117,6 +117,7 @@ public class CampaignService implements ICampaignService {
 
             list.add(campaignDto);
         }
+        Collections.reverse(list);
 
         return list;
     }
@@ -204,6 +205,7 @@ public class CampaignService implements ICampaignService {
 
             list.add(commentDto);
         }
+        Collections.reverse(list);
         return list;
     }
 

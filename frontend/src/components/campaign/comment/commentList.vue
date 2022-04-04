@@ -6,7 +6,7 @@
                     <div class="content">
                         <p class="c2">
                         {{ username }}
-                        <span class="c3">({{ createdAt }})</span>
+                        <span class="c3">({{ createdAt[0]+"-"+createdAt[1]+"-"+createdAt[2]+" "+createdAt[3]+":"+createdAt[4]+":"+createdAt[5]}})</span>
                         </p>
                     </div>
                     <!-- <div class="content" v-html="enterToBr(comment.comment)"></div> -->
