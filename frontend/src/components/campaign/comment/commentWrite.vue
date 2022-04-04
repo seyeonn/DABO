@@ -3,23 +3,15 @@
         <!-- <div v-if="this.modifyComment != null" class="regist_form"> -->
         <div>
             <form class="form" @submit.prevent="submitForm">
-            <textarea name="content" id="" v-model="comment.content" class="text_comment" cols="30" rows="3"></textarea>
-            <div class="btn_div">
+            <textarea name="content" id="content" v-model="content" class="text_comment" cols="30" rows="3"></textarea>
+            
                 <button
                 class="btn_red_comment"
-                style="margin-left: 5px;"
-                @click="updateCommentCancel"
+                 type="submit"
                 >
-                취소
-                </button>
-                <button
-                class="btn_red_comment"
-                @click="updateComment"
-                >
-                <!-- 수정 -->
                 등록
                 </button>
-            </div>
+            
             </form>
         </div>
 
@@ -42,8 +34,8 @@
 </template>
 
 <script>
-//import axios from "axios";
-//import { API_BASE_URL } from "../../config";
+import axios from "axios";
+import {API_BASE_URL} from "@/config/index.js"
 
 export default {
     data() {
@@ -53,30 +45,31 @@ export default {
                 content: "",
                 username: "",
                 crearedAt: "",
-                campiagnId: ""
+                campaignId: 0
             }
         }
     },
+    props: {
+        campaignId: Number
+    },
     methods: {
-        async SubmitForm() {
+       async submitForm() {
             const commentData = {
-                commentId: this.commentId,
                 content: this.content,
                 createdAt: this.crearedAt,
-                username: this.username,
-                campiagnId: this.campiagnId
+                campaignId: this.$route.params.campaignId
             };
 
             console.log(commentData);
 
-    //         const response = await axios
-    //             .post(API_BASE_URL + `/detailBoard/${this.campaignId}/comments`, commentData)
-    //             .then((res) => {
-    //             console.log(res);
-    //             this.$router.push(`/detailBoard/${this.campaignId}`);
-    //     });
-    //   console.log(response);
-        }
+            const response = await axios
+                .post(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData)
+                .then((res) => {
+                console.log(res);
+                //this.$router.push(`donationBoard/detailBoard/${this.$route.params.campaignId}`);
+        });
+      console.log(response);
+       },
     }
 }
 </script>
@@ -84,7 +77,7 @@ export default {
 <style>
 .commentInput-page {
   margin: 0 auto;
-  height: 120px;
+  height: 90px;
   font-weight: bold;
 }
 .btn_red_comment {

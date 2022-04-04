@@ -208,13 +208,13 @@ public class CampaignService implements ICampaignService {
 
     // 댓글 작성
     @Transactional
-    public ResponseEntity<?> postComment(Long campaignId, CommentDto commentDto) {
+    public ResponseEntity<?> postComment(CommentDto commentDto) {
 
         DABOUser userTemp = commonService.getLoginUser();
         Optional<DABOUser> user = userRepository.findDABOUserByEmail(userTemp.getEmail());
 
-        Optional<Campaign> campaign = campaignRepository.findById(campaignId);
-        System.out.println(campaign);
+        Optional<Campaign> campaign = campaignRepository.findById(commentDto.getCampaignId());
+
         if(!campaign.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
