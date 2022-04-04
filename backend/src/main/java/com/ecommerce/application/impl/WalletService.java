@@ -76,7 +76,7 @@ public class WalletService implements IWalletService
 			wallet.setCash(cashBalance);
 		}
 
-		return wallet;
+		return getAndSyncBalance(wallet.getAddress());
 	}
 
 	/**
