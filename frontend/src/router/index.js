@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import landing from "@/views/landing/landingPage.vue";
 import Home from "@/views/mainPage.vue";
 import badge from "@/views/badge/badgeMain.vue";
-import bloodCard from "@/views/bloodCard/bloodCardCreate.vue";
+
 import daboWallet from "@/views/daboWallet/daboWalletMain.vue";
 
 import donationBoard from "@/views/donationBoard/donationBoardPage.vue";
@@ -20,6 +20,10 @@ import reservation from "@/views/reservation/reservationMain.vue";
 import SearchMap from "@/components/reservation/searchMap.vue";
 import NowReservation from "@/components/reservation/nowReservation.vue";
 import ReservationHistory from "@/components/reservation/reservationHistory.vue";
+
+import bloodCard from "@/views/bloodCard/bloodCard.vue";
+import bloodcardList from "@/components/bloodcard/bloodcardList.vue";
+import bloodcardCreate from "@/components/bloodcard/bloodcardCreate.vue";
 
 import user from "@/views/user/userPage.vue";
 import Login from "@/components/user/loginPage.vue";
@@ -124,7 +128,6 @@ const routes = [
         path: "detailBoard/:campaignId",
         name: "detailBoard",
         component: DetailBoard,
-
       },
       {
         path: "myDonation",
@@ -168,22 +171,34 @@ const routes = [
   {
     path: "/dabowallet/chargedabo",
     name: "chargedabo",
-    component: chargeDabo
+    component: chargeDabo,
   },
   {
     path: "/dabowallet/paydabo",
     name: "paydabo",
-    component: payDabo
+    component: payDabo,
   },
   {
     path: "/dabowallet/chargeconfirm",
     name: "chargeconfirm",
-    component: chargeConfirm
+    component: chargeConfirm,
   },
   {
     path: "/bloodcard",
     name: "bloodCard",
     component: bloodCard,
+    children: [
+      {
+        path: "list",
+        name: "bloodcardList",
+        component: bloodcardList,
+      },
+      {
+        path: "create",
+        name: "bloodcardCreate",
+        component: bloodcardCreate,
+      },
+    ],
   },
   {
     path: "/badge",
