@@ -90,6 +90,7 @@ export default {
       formData.append("deadline", this.campaign.deadline);
       formData.append("walletAddress", this.userWalletAddress);
       console.log("submiForm walletAddress : " ,this.userWalletAddress)
+      console.log(this.userWalletAddress);
       console.log(formData);
 
       const response = await axios
