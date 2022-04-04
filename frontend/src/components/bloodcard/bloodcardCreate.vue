@@ -106,7 +106,7 @@ export default {
             response.data.bloodCardId,
             vm.privateKey,
             function(){
-              // 다음 페이지 router 등록
+              vm.$router.push({name: 'bloodcardList'})
             },
             function(err){
               console.log(err);
