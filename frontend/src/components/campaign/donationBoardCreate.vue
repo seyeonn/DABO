@@ -17,7 +17,7 @@
         <p class="p_title">목표 DABO</p>
         <input type="text" name="target" v-model="campaign.target" id="" placeholder="목표 DABO" style="width: 80px; margin-right: 5px;">DABO
         <p class="p_title">마감 기한</p>
-        <input type="date" name="deadline" v-model="campaign.deadline" id="">
+        <input type="date" name="deadline" v-model="campaign.deadline" id="input_date">
         <button type="submit" class="btn_red">
           <span>캠페인 등록</span>
         </button>
@@ -43,7 +43,7 @@ export default {
         content: "",
         amount: 0,
         target: "",
-        deadline: "",
+        deadline: new Date(),
         mediaUrl: null,
         walletAddress: ""
       },
@@ -79,19 +79,19 @@ export default {
       this.campaign.mediaUrl = file;
     },
     async submitForm() {
+      if(this.campaign.mediaUrl === null){
+        alert("이미지를 등록해주세요")
+      }
 
       const formData = new FormData();
+      const deadline = document.querySelector("#input_date").value;
       formData.append("title", this.campaign.title);
       formData.append("content", this.campaign.content);
-      console.log(this.campaign.mediaUrl);
       formData.append("media", this.campaign.mediaUrl);
       formData.append("amount", this.campaign.amount);
       formData.append("target", this.campaign.target);
-      formData.append("deadline", this.campaign.deadline);
+      formData.append("deadLine", deadline);
       formData.append("walletAddress", this.userWalletAddress);
-      console.log("submiForm walletAddress : " ,this.userWalletAddress)
-      console.log(this.userWalletAddress);
-      console.log(formData);
 
       const response = await axios
 
