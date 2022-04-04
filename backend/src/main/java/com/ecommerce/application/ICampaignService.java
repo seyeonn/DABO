@@ -17,4 +17,5 @@ public interface ICampaignService {
     List<CommentDto> getComments(Long campaignId);
     ResponseEntity<?> updateComment(Long commentId, CommentDto commentDto);
     ResponseEntity<?> deleteComment(Long commentId);
+    List<CampaignDto> getUrgentCampaign();
 }
