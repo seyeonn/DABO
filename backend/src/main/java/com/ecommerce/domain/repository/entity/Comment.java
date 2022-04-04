@@ -1,6 +1,7 @@
 package com.ecommerce.domain.repository.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ public class Comment {
     @JoinColumn(name = "campaign_c_id")
     private Campaign campaign;
 
+    @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 }

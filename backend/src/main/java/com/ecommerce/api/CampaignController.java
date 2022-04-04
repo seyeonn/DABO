@@ -84,8 +84,8 @@ public class CampaignController {
     // 댓글 작성
     @ApiOperation(value = "캠페인 댓글 작성", notes = "캠페인에 댓글을 작성하여 추가합니다.")
     @PostMapping("/detailBoard/{campaign_id}/comments")
-    public ResponseEntity<?> postComment(@PathVariable("campaign_id") Long campaignId, @RequestBody CommentDto commentDto) {
-        return campaignService.postComment(campaignId, commentDto);
+    public ResponseEntity<?> postComment(@RequestBody CommentDto commentDto) {
+        return campaignService.postComment(commentDto);
     }
 
     // 댓글 수정
