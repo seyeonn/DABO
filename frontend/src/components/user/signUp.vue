@@ -11,7 +11,7 @@
             placeholder="NickName"
             v-model="nickname"
           />
-          <button class="btn_input btn_red col-2">
+          <button class="btn_input btn_check btn_red col-2">
             <span>check</span>
           </button>
         </div>
@@ -64,7 +64,7 @@
             name="email"
             placeholder="Email"
           />
-          <button class="btn_input btn_red col-2">
+          <button class="btn_input btn_check btn_red col-2">
             <span>check</span>
           </button>
         </div>
@@ -143,7 +143,6 @@ export default {
         password: this.password,
         passwordConfirm: this.passwordConfirm,
       };
-
       console.log(userData);
       
       const response = await axios
@@ -171,6 +170,7 @@ export default {
     },
 
     createWallet: function () {
+      console.log("createWallet");
       /**
        * 지갑 주소와 private key를 생성
        *
@@ -185,6 +185,7 @@ export default {
     },
 
     saveWallet: function () {
+      console.log("saveWallet");
       /**
        * 생성된 사용자의 지갑 정보(주소, private key) 를 서버에 등록한다.
        */
@@ -248,6 +249,9 @@ export default {
   width: 70%;
   font-weight: bold;
 }
+.btn_check {
+  width: 20% !important;
+}
 .btn_red {
   background-color: #e52d27;
   color: #fff;
@@ -281,7 +285,7 @@ export default {
 .btn_input {
   position: absolute;
   right: 1%;
-  top: 5px;
+  top: 8px;
   height: 29px;
 }
 
