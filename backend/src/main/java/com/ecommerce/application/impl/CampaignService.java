@@ -43,9 +43,9 @@ public class CampaignService implements ICampaignService {
         MultipartFile multipartFile = campaign.getMedia();
 
         // 파일 없음 || 파일이 비어있음
-        if(multipartFile == null || multipartFile.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        if(multipartFile == null || multipartFile.isEmpty()){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
 
         // 현재 날짜 폴더만들어서 저장
         String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
@@ -220,6 +220,13 @@ public class CampaignService implements ICampaignService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        if(!user.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        System.out.println(commentDto.getUsername());
+        System.out.println(commentDto.getContent());
+
+        System.out.println(user.get());
         Comment comment = Comment.builder()
                 .content(commentDto.getContent())
                 .campaign(campaign.get())

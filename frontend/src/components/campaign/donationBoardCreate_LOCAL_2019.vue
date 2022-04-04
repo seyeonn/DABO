@@ -7,7 +7,7 @@
       <form class="form" @submit.prevent="submitForm">
       <div class="submit-form">
         <p class="p_title">이미지 등록하기</p>
-        <input multiple ref="image" name="mediaUrl" type="file" id="files" @change="handleFileChange($event)">
+        <input multiple ref="image" name="mediaUrl" type="file" id="files">
         <p class="p_title">제목</p>
         <input type="text" name="title" v-model="campaign.title" id="" placeholder="캠페인 제목">
         <p class="p_title">내용</p>
@@ -42,38 +42,46 @@ export default {
         amount: 0,
         target: "",
         deadline: "",
-        mediaUrl: null,
+        mediaUrl: "",
         walletAddress: ""
       }
     
     }
   },
   methods: {
-    handleFileChange(event) {
-      const file = event.target.files[0];
-      this.campaign.mediaUrl = file;
-    },
     async submitForm() {
+       console.log(this.campaign.title);
+      const campaginData = {
+        campaignId : this.campaign.campaignId,
+        title: this.campaign.title,
+        content: this.campaign.content,
+        amount: this.amount,
+        target: this.target,
+        deadline: this.deadline,
+        mediaUrl: this.mediaUrl,
+        walletAddress: this.walletAddress
+      };
+
+      console.log(campaginData);
 
       const formData = new FormData();
-      formData.append("title", this.campaign.title);
-      formData.append("content", this.campaign.content);
-      console.log(this.campaign.mediaUrl);
-      formData.append("media", this.campaign.mediaUrl);
-      formData.append("amount", this.campaign.amount);
-      formData.append("target", this.campaign.target);
-      formData.append("deadline", this.campaign.deadline);
-      formData.append("walletAddress", this.campaign.walletAddress);
-      console.log(formData);
+      
+        formData.append('title', this.campagin.title);
+        formData.append("content", this.campagin.content);
+        formData.append("mediaUrl", this.campagin.mediaUrl);
+        formData.append("amount", this.campagin.amount);
+        formData.append("target", this.campagin.target);
+        formData.append("deadline", this.campagin.deadline);
+        formData.append("walletAddress", this.campagin.walletAddress);
+
 
       const response = await axios
-
-        .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
-           headers: {
-               "Content-Type": "multipart/form-data",
-               Authorization: `Bearer `+localStorage.getItem("accessToken"),
-             },
-         })
+        .post(API_BASE_URL+"/donationBoard/createBoard", campaginData, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("accessToken"),
+            }
+        })
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
