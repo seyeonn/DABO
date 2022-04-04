@@ -5,17 +5,17 @@
         </div>
         <div class="daboDonation-page">
             <h4 class="h-p">기부 금액(DABO)</h4>
-            <p>278 DABO 보유</p>
+            <p>{{this.$store.state.wallet.cash}} DABO 보유</p>
 
             <table class="dabo_table">
                 <tr>
-                    <td>200 DABO</td>
-                    <td>400 DABO</td>
-                    <td>600 DABO</td>
+                    <td>20000 DABO</td>
+                    <td>40000 DABO</td>
+                    <td>60000 DABO</td>
                 </tr>
                 <tr>
-                    <td>800 DABO</td>
-                    <td>1000 DABO</td>
+                    <td>80000 DABO</td>
+                    <td>100000 DABO</td>
                     <td @click="textbox">직접 입력</td>
                 </tr>
             </table>
@@ -43,12 +43,16 @@
                             전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
                         </sub>
                         <div>
+                        <span>비빌키를 입력 하세요</span>
+                        <input type="text" v-model="privateKey">
+                      </div>
+                        <div>
                         <a href="#">
                             <button class="btn_red_cancel">
                                 <span>취소하기</span>
                             </button>
                         </a>
-                        <button class="btn_red_modal">
+                        <button class="btn_red_modal" @click="checkConfirm()">
                             <span>기부하기</span>
                         </button>
                         </div>
@@ -60,17 +64,50 @@
 </template>
 
 <script>
+import { leaveDeposit } from "@/utils/cashContract.js";
+
 export default {
     data() {
         return {
-
+            privateKey : "",
+            toAddress : this.$route.params.toAddress,
         }
     },
     methods: {
         textbox() {
             document.getElementById("dabo_input").innerHTML 
             = '<input type="text" name="" id="" class="dir_text"> DABO <button class="btn_red_dabo"><span>save</span></button>'
+        },
+        checkTest(){
+            console.log("toAddress : " ,this.toAddress)
+        },
+        cashTransfer(){
+        
+        const vm = this;
+        leaveDeposit(
+        {
+          escrowAddress: "0x16B8D5aC26341506d7b03E0B52709B135Bf873dF",
+          amount: 100
+        },
+        vm.$store.state.user.walletAddress,
+        this.privateKey,
+        function() {
+          alert("지불했습니다. 입금 확인 요청 바랍니다.");
+          // UI 갱신
+        //   vm.processing = false;
+        //   vm.input.payAmount = null;
+        //   vm.input.privateKey = "";
+        //   vm.setActionText();
+        //   vm.getWalletBalance(); // 지갑 정보 갱신
+        },
+        function(err) {
+          console.error("입금 실패", err);
+          alert("입금 실패했습니다.");
+          vm.processing = false;
         }
+      );
+    }
+        
     }
 }
 </script>
