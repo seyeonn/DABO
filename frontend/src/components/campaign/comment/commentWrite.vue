@@ -62,13 +62,17 @@ export default {
 
             console.log(commentData);
 
-            const response = await axios
-                .post(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData)
+            await axios
+                .post(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData, {
+                headers: {
+                    Authorization: `Bearer `+ localStorage.getItem("accessToken"),
+            }
+        })
                 .then((res) => {
                 console.log(res);
-                //this.$router.push(`donationBoard/detailBoard/${this.$route.params.campaignId}`);
+                // this.$router.push(`${this.$route.params.campaignId}`);
+                this.$router.go();
         });
-      console.log(response);
        },
     }
 }
