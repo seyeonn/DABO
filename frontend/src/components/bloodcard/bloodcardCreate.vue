@@ -28,10 +28,10 @@
       <input
         v-model="birthDate"
         name="birthdate"
-        placeholder="Birth Date    ex> 19960223"
+        placeholder="Birth Date    ex> 1996-02-23"
       />
       <input
-        type="number"
+        type="text"
         v-model="cardNumber"
         name="cardnumber"
         placeholder="BloodCard Number"
@@ -43,16 +43,22 @@
         <option>전혈 400ml</option>
       </select>
       <input
-        type="number"
+        type="text"
         v-model="donationDate"
         name="donationDate"
         placeholder="Blood Donation Date"
       />
       <input
         type="text"
-        v-model="bloodsource"
-        name="bloodsource"
-        placeholder="Blood Source"
+        v-model="bloodHouse"
+        name="bloodHouse"
+        placeholder="bloodHouse"
+      />
+      <input
+        type="text"
+        v-model="privateKey"
+        name="privateKey"
+        placeholder="privateKey"
       />
 
       <button @click="submit" class="btn_red">
@@ -63,6 +69,9 @@
 </template>
 
 <script>
+import { createBloodCard } from "@/api/bloodCard.js";
+import { bloodCardRegister } from "@/utils/bloodCardDonation.js";
+
 export default {
   data() {
     return {
@@ -72,22 +81,42 @@ export default {
       cardNumber: "",
       donationDate: "",
       typeSelected: "",
-      bloodsource: "",
+      bloodHouse: "",
+      privateKey: "",
     };
   },
 
   methods: {
     submit() {
+      const vm = this;
       const cardData = {
-        name: this.name,
-        gender: this.gender,
-        birthDate: this.birthDate,
-        cardNumber: this.cardNumber,
+        userName: this.name,
+        userGender: this.gender,
+        userBirth: this.birthDate,
+        bloodCardNumber: this.cardNumber,
         donationDate: this.donationDate,
-        typeSelected: this.typeSelected,
-        bloodsource: this.bloodsource,
+        donationType: this.typeSelected,
+        bloodHouse: this.bloodHouse,
       };
-      console.log(cardData);
+      createBloodCard(
+        cardData,
+        function(response){
+          console.log(response.data)
+          bloodCardRegister(
+            response.data.bloodCardId,
+            vm.privateKey,
+            function(){
+              // 다음 페이지 router 등록
+            },
+            function(err){
+              console.log(err);
+            }
+          )
+        },
+        function(err){
+          console.log(err);
+        }
+      )
     },
   },
 };

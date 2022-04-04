@@ -93,9 +93,8 @@ export default {
                 bloodCardChageState(
                   bloodCardId,
                   "힘",
-                  "10",
+                  "16",
                   function(){
-                    console.log("성공");
                     vm.$router.push({name: 'donationConfirm', params: ''})
                   },
                   function(err){
