@@ -14,4 +14,5 @@ public interface IWalletRepository {
 	int updateBalance(String wAddress, BigDecimal balance, BigDecimal payBalance, int cash);
 	int updateRequestNo(String wAddress);
 
+
 }
