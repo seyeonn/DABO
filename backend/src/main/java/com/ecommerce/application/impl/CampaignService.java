@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CampaignService implements ICampaignService {
 
@@ -79,7 +78,9 @@ public class CampaignService implements ICampaignService {
 
         DABOUser userTemp = commonService.getLoginUser();
         Optional<DABOUser> user = userRepository.findDABOUserByEmail(userTemp.getEmail());
-
+        if(!user.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Campaign newCampaign = Campaign.builder()
                         .user(user.get())
                         .title(campaign.getTitle())
@@ -87,7 +88,7 @@ public class CampaignService implements ICampaignService {
                         .target(campaign.getTarget())
                         .amount(campaign.getAmount())
                         .deadLine(campaign.getDeadLine())
-                        .mediaUrl(campaign.getMediaUrl())
+                        .mediaUrl(resourcePathname)
                         .walletAddress(campaign.getWalletAddress())
                         .build();
         campaignRepository.save(newCampaign);
