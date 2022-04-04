@@ -24,8 +24,14 @@ function bloodCardChageState(bloodCardId, transactionCardMessage, transactionCar
 }
 
 function createBloodCard(body, success, fail){
+    const accessToken = localStorage.getItem("accessToken");
+    const config = {
+        headers: {
+          Authorization:  `Bearer ${accessToken}`
+        }
+    };
     instance
-    .post("api/bc/create", JSON.stringify(body))
+    .post("api/bc/create", JSON.stringify(body),config)
     .then(success)
     .catch(fail);
 }
