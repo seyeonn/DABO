@@ -5,7 +5,7 @@
       </div>
       <div class="detailBoard-page">
         <div>
-            <img :src="'http://localhost:8080'+campaign.mediaUrl" class="campaign-detail-img" alt="">
+            <img :src="'http://localhost:8080'+mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
             <p>{{ content }}</p>
             <div>
@@ -65,7 +65,8 @@ export default {
           title: '',
           walletAddressOfBoard:'',
           comments: [],
-          userId: ""
+          userId: "",
+          mediaUrl: ""
         }
     },
     async created() { 
@@ -78,6 +79,7 @@ export default {
           console.log(this.userId);
           this.walletAddressOfBoard = res.data.walletAddress;
           console.log(this.campaign);
+          this.mediaUrl = res.data.mediaUrl;
         });
 
       await axios
