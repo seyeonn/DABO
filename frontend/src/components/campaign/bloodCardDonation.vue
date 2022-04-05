@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="wallet-header">
+      <button @click="toBack()">back</button>
+    </div>
     <div class="dabo_header">
       <h2 class="dabo_title">내 헌혈증 목록</h2>
     </div>
@@ -228,6 +231,21 @@ export default {
     font-size: 150%;
     margin: 0 0 15px;
   }
+}
+
+.wallet-header {
+  background-color: #e52d27;
+  height: 2.5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet-header button {
+  border: 0;
+  outline: 0;
+  background-color: #e52d27;
+  font-family: 'NicoMoji' !important;
+  color: white;
+  vertical-align: -webkit-baseline-middle;
 }
 
 .modal-close {
