@@ -3,65 +3,84 @@
     <div class="dabo_header">
       <h2 class="dabo_title">캠페인 목록</h2>
     </div>
-    
+
     <!-- 검색창 -->
     <div class="submit-form">
       <div class="input-check d-flex">
-        <input type="text" name="campaign" id="campaignSearch" placeholder="campaign search">
+        <input 
+        type="text" 
+        name="keyword" 
+        v-model="keyword" 
+        id="campaignSearch" 
+        placeholder="campaign search">
         <button class="btn_red col-2" @click="goSearch()">
-            <span>search</span>
+          <span>search</span>
         </button>
       </div>
     </div>
 
     <div class="createB">
       <button class="btn_red_c" @click="goCreate()">
-          <span>+</span>
+        <span>+</span>
       </button>
     </div>
 
     <div>
       <div class="container">
-          <campaign-list-item v-for="campaign in campaignList" :key="campaign.id" v-bind="campaign" />
-        </div>
+        <campaign-list-item
+          v-for="campaign in campaignList"
+          :key="campaign.id"
+          v-bind="campaign"
+        />
+      </div>
     </div>
   </div>
-
 </template>
 
 <script>
-import CampaignListItem from '@/components/campaign/donationBoardListItem'
-import axios from 'axios';
-import {API_BASE_URL} from "@/config/index.js"
+import CampaignListItem from "@/components/campaign/donationBoardListItem";
+import axios from "axios";
+import { API_BASE_URL } from "@/config/index.js";
 
 export default {
-  name: 'donationBoardList', 
-  data: function() {
+  name: "donationBoardList",
+  data: function () {
     return {
       campaignList: [],
+      keyword: ""
     }
   },
   created() {
+    const response = axios
+      .get(API_BASE_URL + "/api/donationBoard/listBoard")
+      .then((res) => {
+        console.log(res.data);
+        this.campaignList = res.data;
+      });
+    console.log(response);
+  },
+  components: {
+    CampaignListItem,
+  },
+  methods: {
+    goDetail() {
+      this.$router.push({ name: "detailBoard", params: "" });
+    },
+    goCreate() {
+      this.$router.push({ name: "createBoard", params: "" });
+    },
+    goSearch() {
       const response = axios
-        .get(API_BASE_URL+"/donationBoard/listBoard")
+        .get(API_BASE_URL+"/api/donationBoard/search", {
+          params: {
+            keyword: this.keyword
+          }
+        })
         .then((res) => {
           console.log(res.data);
           this.campaignList = res.data;
         });
       console.log(response);
-  },
-  components: {
-    CampaignListItem
-  },
-  methods: {
-    goDetail() {
-      this.$router.push({name: 'detailBoard', params: ''})
-    },
-    goCreate() {
-      this.$router.push({name: 'createBoard', params: ''})
-    },
-    goSearch() {
-
     }
   }
 };
@@ -133,13 +152,13 @@ export default {
   height: 110px;
 }
 .ratio {
-  color:#e52d27;
+  color: #e52d27;
   font-size: 20px;
   font-weight: 3px;
   margin-right: 10px;
 }
 .span_day {
-  float:right;
+  float: right;
   position: absolute;
   margin-left: 100px;
 }

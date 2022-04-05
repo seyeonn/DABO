@@ -11,12 +11,7 @@ function findByBloodCard(success, fail){
     .catch(fail);
 }
 
-function bloodCardChageState(bloodCardId, transactionCardMessage, transactionCardToId, success, fail){
-    const body = {
-        bloodCardId: bloodCardId,
-        transactionCardMessage: transactionCardMessage,
-        transactionCardToId: transactionCardToId
-      };
+function bloodCardChageState(body, success, fail){
     instance
     .post("api/bc/donation", JSON.stringify(body))
     .then(success)
@@ -30,8 +25,16 @@ function createBloodCard(body, success, fail){
     .catch(fail);
 }
 
+function thSendBloodCard(success, fail){
+    instance
+    .get("api/bc/transactionHistory/send")
+    .then(success)
+    .catch(fail);
+}
+
 export{
     findByBloodCard,
     bloodCardChageState,
-    createBloodCard
+    createBloodCard,
+    thSendBloodCard
 }

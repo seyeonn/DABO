@@ -17,7 +17,7 @@ import java.util.List;
 @Api("캠페인 관련 기능")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/donationBoard")
+@RequestMapping("/api/donationBoard")
 public class CampaignController {
 
     public static final Logger logger = LoggerFactory.getLogger(CampaignController.class);
@@ -69,8 +69,10 @@ public class CampaignController {
 
     // 캠페인 수정
     @ApiOperation(value = "캠페인 수정", notes = "캠페인 수정")
-    @PutMapping(value = "/detailBoard/{campaign_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, CampaignDto campaignDto){
+    @PutMapping(value = "/detailBoard/{campaign_id}")
+    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, @RequestBody CampaignDto campaignDto){
+        logger.info("updateBoard - 호출");
+
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
@@ -79,6 +81,13 @@ public class CampaignController {
     @DeleteMapping("/detailBoard/{campaign_id}")
     public ResponseEntity<?> deleteCampaign(@PathVariable("campaign_id") Long campaignId){
         return campaignService.deleteCampaign(campaignId);
+    }
+
+    // 캠페인 검색
+    @ApiOperation(value = "캠페인 검색", notes = "캠페인 검색")
+    @GetMapping("/search")
+    public List<CampaignDto> searchCampaign(@RequestParam("keyword") String keyword){
+        return campaignService.searchCampaign(keyword);
     }
 
     /* ---------------- 댓글 ----------------*/
@@ -100,7 +109,9 @@ public class CampaignController {
     // 댓글 수정
     @ApiOperation(value = "캠페인 댓글 수정", notes = "캠페인에 댓글을 수정합니다.")
     @PutMapping("/detailBoard/{campaign_id}/comments/{comment_id}")
-    public ResponseEntity<?> updateComment(@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<?> updateComment(@PathVariable("campaign_id") Long campaign_id,@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
+        System.out.println("campaign_id = " + campaign_id);
+        System.out.println(" = " + commentDto);
         return campaignService.updateComment(commentId, commentDto);
     }
 

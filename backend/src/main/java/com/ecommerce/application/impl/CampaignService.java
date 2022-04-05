@@ -82,15 +82,17 @@ public class CampaignService implements ICampaignService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Campaign newCampaign = Campaign.builder()
-                        .user(user.get())
-                        .title(campaign.getTitle())
-                        .content(campaign.getContent())
-                        .target(campaign.getTarget())
-                        .amount(campaign.getAmount())
-                        .deadLine(campaign.getDeadLine())
-                        .mediaUrl(resourcePathname)
-                        .walletAddress(campaign.getWalletAddress())
-                        .build();
+                .user(user.get())
+                .title(campaign.getTitle())
+                .content(campaign.getContent())
+                .target(campaign.getTarget())
+                .amount(campaign.getAmount())
+                .deadLine(campaign.getDeadLine())
+                .mediaUrl(resourcePathname)
+                .walletAddress(campaign.getWalletAddress())
+                .receiveBloodCard(0)
+                .receiveDabo(0)
+                .build();
         campaignRepository.save(newCampaign);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -183,6 +185,34 @@ public class CampaignService implements ICampaignService {
             campaignRepository.delete(optCampaign.get());
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    // 캠페인 검색
+    @Transactional
+    public List<CampaignDto> searchCampaign(String keyword) {
+        List<Campaign> campaigns = campaignRepository.findByTitleContaining(keyword);
+        List<CampaignDto> campaignDtoList = new ArrayList<>();
+
+        if(campaigns.isEmpty())
+            return campaignDtoList;
+
+        for(Campaign campaign : campaigns) {
+
+            CampaignDto campaignDto = new CampaignDto();
+
+            campaignDto.setCampaignId(campaign.getCampaignId());
+            campaignDto.setTitle(campaign.getTitle());
+            campaignDto.setContent(campaign.getContent());
+            campaignDto.setTarget(campaign.getTarget());
+            campaignDto.setAmount(campaign.getAmount());
+            campaignDto.setDeadLine(campaign.getDeadLine());
+            campaignDto.setMediaUrl(campaign.getMediaUrl());
+            campaignDto.setUsername(campaign.getUser().getNickname());
+
+            campaignDtoList.add(campaignDto);
+        }
+
+        return campaignDtoList;
     }
 
     /* ---------------- 댓글 ----------------*/
