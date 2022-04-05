@@ -1,7 +1,7 @@
 <template>
 <div  class="campaign_item" @click="goDetail()">
     <div class="col-4">
-        <img :src="'http://localhost:8080'+campaign.mediaUrl" alt="">
+        <img :src="'http://localhost:8080'+mediaUrl" alt="">
     </div>
         <div class="col-8">
             
@@ -30,6 +30,7 @@ export default {
         campaignId: Number,
         title: String,
         content: String,
+        mediaUrl: String
     },
     data() {
         return {
