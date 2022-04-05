@@ -15,6 +15,14 @@
       <button  style="color: #f08986">{{ this.selectDabo*10000 }} 원</button>
     </div>
 
+    <div class="spinner" v-if="isCashCharging">
+      <v-progress-circular
+        :size="100"
+        color="#f06464"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+   
     <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
@@ -72,6 +80,7 @@ export default {
   data() {
     return {
       selectDabo: 0,
+      
       wallet: {
         id: 0,
         ownerId: null,
@@ -84,7 +93,7 @@ export default {
       isCharging: false, // 현재 코인을 충전하고 있는 중인지 확인
       isCashCharging: false, // 현재 캐시을 충전하고 있는 중인지 확인
       cashChargeAmount: 0.1,
-      userId: this.$store.state.userId,
+      userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
       privateKey: null,
     }
@@ -100,7 +109,7 @@ export default {
         pg: 'html5_inicis',                           // PG사
         pay_method: 'card',                           // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-        amount: 1000,                                 // 결제금액
+        amount: this.selectDabo*10000,                                 // 결제금액
         name: '아임포트 결제 데이터 분석',                  // 주문명
         buyer_name: '홍길동',                           // 구매자 이름
         buyer_tel: '01012341234',                     // 구매자 전화번호
@@ -122,6 +131,7 @@ export default {
 
       if (success) {
         alert('결제 성공');
+        
       } else {
         alert(`결제 실패: ${error_msg}`);
         this.chargeCash()
@@ -175,12 +185,12 @@ export default {
       });
     },
     fetchUserInfo(){
-      const vm = this;
+      // const vm = this;
       getUserInfo(
             function (response) {
               console.log("getUserInfo",response);
-              vm.user.email = response.data.email;
-              vm.user.nickname = response.data.nickname;
+              // vm.user.email = response.data.email;
+              // vm.user.nickname = response.data.nickname;
             },
             function (err) {
               if (err.response != 404) {
@@ -192,6 +202,7 @@ export default {
     },
     fetchWalletInfo() {
       const vm = this;
+
       walletService.findByUserId(this.userId, function(response) {
         const data = response.data;
         const web3 = createWeb3();
@@ -208,7 +219,7 @@ export default {
   },
   mounted() {
     this.fetchWalletInfo();
-    this.fetchUserInfo();
+    // this.fetchUserInfo();
   },
   created() {
     this.selectDabo = this.$route.params.selected
@@ -217,6 +228,9 @@ export default {
 </script>
 
 <style scoped>
+.spinner {
+  text-align: center;
+}
 .greeting p {
   margin-right: 40px;
   margin-top: 30px;
