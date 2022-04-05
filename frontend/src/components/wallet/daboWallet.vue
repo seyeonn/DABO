@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wallet-page">
     <div class="wallet-header">
       <button @click="toBack()">back</button>
     </div>
@@ -112,6 +112,9 @@ export default {
 </script>
 
 <style scoped>
+.wallet-page {
+  overflow: -moz-hidden-unscrollable;
+}
 .wallet-header {
   background-color: #e52d27;
   height: 2.5em;
