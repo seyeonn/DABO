@@ -40,7 +40,6 @@
       </div>
       <div id="bDonation" class="modal-window">
         <div>
-          <p>총 n개의 헌혈증을 SSAFY 보건소로 전달합니다.</p>
           <p>총 {{ bloodCardCnt }}개의 헌혈증을 전달합니다.</p>
           <sub>
             <b-icon
@@ -105,10 +104,16 @@ export default {
             this.$store.state.user.walletAddress,
             vm.privateKey,
             function () {
+              const body = {
+                  bloodCardId: bloodCardId,
+                  transactionCardMessage: "힘내세요",
+                  transactionCardToId: vm.$route.query.userId,
+                  userName:vm.$route.query.userName,
+                  campaignId:vm.$route.query.campaignId,
+              }
+              console.log(body)
               bloodCardChageState(
-                bloodCardId,
-                "힘내세요",
-                vm.$route.query.userId,
+                body,
                 function () {
                   vm.$router.push({ name: "donationConfirm", params: "" });
                 },
@@ -137,6 +142,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route.query.campaignId)
     this.BloodCardGet();
   },
 };

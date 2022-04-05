@@ -61,7 +61,7 @@ export default {
           username: '',
           walletAddressOfBoard:'',
           comments: [],
-          campignId: 0,
+          campaignId: 0,
           reg: false,
           userId: "",
           mediaUrl: ""
@@ -103,8 +103,8 @@ export default {
     methods: {
       goDonationDetail() {
         const vm = this;
-        console.log(vm.userId);
-        this.$router.push({name: 'myDonation', query: {'userId':vm.userId}})
+        console.log(vm);
+        this.$router.push({name: 'myDonation', query: {'userId':vm.userId, 'userName':vm.username , 'campaignId':vm.campaignId}})
       },
       setCampaignId(campaignId) {
         this.campaignId = campaignId;
