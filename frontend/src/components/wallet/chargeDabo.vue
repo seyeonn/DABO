@@ -150,9 +150,11 @@ export default {
       }
     },
     fetchWalletInfo() {
+      console.log("fetchWalletInfo Start")
       const vm = this;
       walletService.findByUserId(this.userId, function(response) {
         const data = response.data;
+        console.log(data)
         const web3 = createWeb3();
         data["balance"] = web3.utils.fromWei(
           data["balance"].toString(),
@@ -165,6 +167,7 @@ export default {
       const vm = this;
       this.isCashCharging = true;
       const privateKey = prompt("캐시를 충전하시려면 개인키를 입력하세요.");
+      // const privateKey = "0xd015e255cbe7b07056cb470d1d0a6f153777297521b7edee75829040b9a08b1f"
       if (privateKey) {
         buyCash(
           new BN(ethToWei(String(this.cashChargeAmount))),
@@ -183,6 +186,7 @@ export default {
       }
     },
     fetchCashBalance() {
+      console.log("fetchCashBalance Start")
       const vm = this;
       getBalance(
         this.walletAddress,

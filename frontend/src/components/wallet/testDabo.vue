@@ -41,7 +41,8 @@ import { buyCash, getBalance } from "@/utils/cashContract.js";
 import { ethToWei } from "@/utils/ethereumUnitUtils.js";
 import BN from "bn.js";
 import { leaveDeposit } from "@/utils/cashContract.js";
-
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 export default {
   data() {
     return {
@@ -118,6 +119,7 @@ export default {
           function() {
             alert("캐시를 충전했습니다.");
             vm.isCashCharging = false;
+            vm.fetchWalletInfo();
             vm.fetchCashBalance();
 
           },
@@ -140,16 +142,28 @@ export default {
         }
       );
     },
+    fetchWalletInfo() {
+      const vm = this;
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+      });
+    },
     cashTransfer(){
         "캐쉬 보내기를 실행"
         const vm = this;
         leaveDeposit(
         {
-          escrowAddress: "0x16B8D5aC26341506d7b03E0B52709B135Bf873dF",
+          escrowAddress: "0xce4a0Fc4cDf252B067C1b4cCCe2806887D6727F6",
           amount: 100
         },
-        "0x1bFdcD4271a7BCD427C6Ea3dEfCC240B1e5c562e",
-        "0xe8cee69883d64965f1db5ff9945785801f8ffd1b998c74e3be9425b65de3da90",
+        "0x2dcEE0ddDf9C87fc8CC21eaB7eB7614d103C8f2d",
+        "0xac479b03d1ac74e14d48ff87904de5ab9180432d9bf5321531732ef726551117",
         function() {
           alert("지불했습니다. 입금 확인 요청 바랍니다.");
           // UI 갱신
