@@ -43,7 +43,7 @@
                             전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
                         </sub>
                         <div>
-                        <span>비빌키를 입력 하세요</span>
+                        <span>비밀키를 입력 하세요</span>
                         <input type="text" v-model="privateKey">
                       </div>
                         <div>
