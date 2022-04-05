@@ -4,7 +4,6 @@
       <h2 class="dabo_title">내 헌혈증 목록</h2>
     </div>
     <div class="myDonation-page">
-      <p class="h-p">총 n개 보유중</p>
       <p class="h-p">총 {{ bloodCards.length }}개 보유중</p>
 
       <div class="donationList">
