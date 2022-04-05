@@ -13,6 +13,7 @@ public interface ICampaignService {
     CampaignDto getCampaign(Long campaignId);
     ResponseEntity<?> updateCampaign(Long campaignId, CampaignDto campaignDto);
     ResponseEntity<?> deleteCampaign(Long campaignId);
+    List<CampaignDto> searchCampaign(String keyword);
     ResponseEntity<?> postComment(CommentDto commentDto);
     List<CommentDto> getComments(Long campaignId);
     ResponseEntity<?> updateComment(Long commentId, CommentDto commentDto);

@@ -48,8 +48,8 @@ export default {
       async modifyComment() {
 
         // 입력폼 생성
-        document.getElementById("modifyContent").innerHTML 
-            = '<input type="text" name="content" id="" v-model="content" class="dir_text"> <button @click="modifyB" class="btn_red_dabo"><span>수정</span></button>'
+        // document.getElementById("modifyContent").innerHTML 
+        //     = '<input type="text" name="content" id="" v-model="content" class="dir_text"> <button @click="modifyB" class="btn_red_dabo"><span>수정</span></button>'
       },
       async modifyB() {
         const commentData = {
