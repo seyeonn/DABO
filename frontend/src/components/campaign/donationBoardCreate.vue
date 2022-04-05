@@ -18,7 +18,10 @@
         <input type="text" name="target" v-model="campaign.target" id="" placeholder="목표 DABO" style="width: 80px; margin-right: 5px;">DABO
         <p class="p_title">마감 기한</p>
         <input type="date" name="deadline" v-model="campaign.deadline" id="input_date">
-        <button type="submit" class="btn_red">
+        <button type="submit" class="btn_red" v-if="this.type === 'modify'">
+          <span>캠페인 수정</span>
+        </button>
+        <button type="submit" class="btn_red" v-else>
           <span>캠페인 등록</span>
         </button>
       </div>
@@ -49,8 +52,18 @@ export default {
       },
       userId: this.$store.state.user.id,
       userWalletAddress: this.$store.state.user.walletAddress,
-      
-    
+    }
+  },
+  props: {
+    type: {type: String}
+  },
+  created() {
+    if(this.type === "modify") {
+      axios
+        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
+        .then((res) => {
+          this.campaign = res.data;
+        });
     }
   },
   methods: {
@@ -82,7 +95,6 @@ export default {
       if(this.campaign.mediaUrl === null){
         alert("이미지를 등록해주세요")
       }
-
       const formData = new FormData();
       const deadline = document.querySelector("#input_date").value;
       formData.append("title", this.campaign.title);
@@ -93,8 +105,11 @@ export default {
       formData.append("deadLine", deadline);
       formData.append("walletAddress", this.userWalletAddress);
 
+      if(this.type === "modify" ? this.modifyCamapign() : this.registCampaign(formData));
+      
+    },
+    async registCampaign(formData) {
       const response = await axios
-
         .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
            headers: {
                "Content-Type": "multipart/form-data",
@@ -104,6 +119,22 @@ export default {
         .then((res) => {
           console.log(res);
           this.$router.push("listBoard");
+        });
+      console.log(response);
+    },
+    async modifyCamapign() {
+      const response = await axios
+        .put(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaign, {
+           headers: {
+               Authorization: `Bearer `+localStorage.getItem("accessToken"),
+             },
+         })
+        .then((res) => {
+          console.log(res);
+          this.$router.push({
+            name: 'detailBoard',
+            params: {campaignId: this.campaign.campaignId}
+          });
         });
       console.log(response);
     }

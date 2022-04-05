@@ -70,8 +70,11 @@ public class CampaignController {
     // 캠페인 수정
     @ApiOperation(value = "캠페인 수정", notes = "캠페인 수정")
     @PutMapping(value = "/detailBoard/{campaign_id}")
-    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, CampaignDto campaignDto){
-        logger.debug("캠페인 수정 START");
+    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, @RequestBody CampaignDto campaignDto){
+        logger.info("updateBoard - 호출");
+        System.out.println("아 왜 안찍히냐고");
+        System.out.println(campaignDto.getTitle());
+        System.out.println(campaignDto.getContent());
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
@@ -80,6 +83,13 @@ public class CampaignController {
     @DeleteMapping("/detailBoard/{campaign_id}")
     public ResponseEntity<?> deleteCampaign(@PathVariable("campaign_id") Long campaignId){
         return campaignService.deleteCampaign(campaignId);
+    }
+
+    // 캠페인 검색
+    @ApiOperation(value = "캠페인 검색", notes = "캠페인 검색")
+    @GetMapping("/search")
+    public List<CampaignDto> searchCampaign(@RequestParam("keyword") String keyword){
+        return campaignService.searchCampaign(keyword);
     }
 
     /* ---------------- 댓글 ----------------*/
