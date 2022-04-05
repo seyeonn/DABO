@@ -60,8 +60,12 @@ public class CampaignController {
 
     // 캠페인 수정
     @ApiOperation(value = "캠페인 수정", notes = "캠페인 수정")
-    @PutMapping(value = "/detailBoard/{campaign_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, CampaignDto campaignDto){
+    @PutMapping(value = "/detailBoard/{campaign_id}")
+    public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, @RequestBody CampaignDto campaignDto){
+        logger.info("updateBoard - 호출");
+        System.out.println("아 왜 안찍히냐고");
+        System.out.println(campaignDto.getTitle());
+        System.out.println(campaignDto.getContent());
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
