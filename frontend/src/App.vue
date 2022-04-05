@@ -20,6 +20,10 @@ export default {
 <style>
 * {
   font-family: "Arita", "Lato" !important;
+  overflow: -moz-hidden-unscrollable;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 @font-face {
   font-family: "Arita";
