@@ -62,7 +62,6 @@ export default {
       this.$router.push({name: 'createBoard', params: ''})
     },
     goSearch() {
-      // 캠페인 검색 -> 수정 필요
       const response = axios
         .get(API_BASE_URL+"/donationBoard/search", {
           params: {

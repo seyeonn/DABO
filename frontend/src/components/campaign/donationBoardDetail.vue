@@ -7,6 +7,10 @@
         <h2 class="dabo_title">캠페인 상세 보기</h2>
       </div>
       <div class="detailBoard-page">
+        <div class="cbtn" v-if="reg">
+                        <label @click="modifyCampaign">수정</label> |
+                        <label @click="deleteCampaign">삭제</label>
+        </div>
         <div>
             <img :src="'http://localhost:8080'+campaign.mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
@@ -30,17 +34,6 @@
             </span>
         </div>
         <div class="line"></div>
-        <!-- 댓글 -->
-        <!-- <comment-write v-if="isModifyShow && this.modifyComment != null"
-            :modifyComment="this.modifyComment"
-            @modify-comment-cancel="onModifyCommentCancel"
-        />
-        <comment
-         v-for="(comment, index) in comments"
-          :key="index"
-          :comment="comment"
-          @modify-comment="onModifyComment"
-        /> -->
         <comment-write @setCampaignId="setCampaignId"/>
         <comment-list
          v-for="comment in comments"
@@ -48,7 +41,6 @@
           v-bind="comment"
           :comment="comment"
         />
-        <!-- <campagin-comment></campagin-comment> -->
         </div>
     </div>
 </template>
@@ -66,11 +58,14 @@ export default {
           campaign: [],
           content: '',
           title: '',
+          username: '',
           walletAddressOfBoard:'',
           comments: [],
+          reg: false
         }
     },
     async created() { 
+      // 캠페인 내용 get
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
@@ -78,9 +73,11 @@ export default {
           this.content = res.data.content;
           this.title = res.data.title;
           this.walletAddressOfBoard = res.data.walletAddress;
+          this.username = res.data.username;
           console.log(this.campaign);
         });
 
+      // 댓글 내용 get
       await axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
         .then((res) => {
@@ -88,6 +85,13 @@ export default {
           this.comments = res.data;
           console.log(this.comments);
         });
+      
+      // 유저 닉네임과 작성자 닉네임 비교
+      console.log(this.campaign);
+        const user = this.$store.state.user.nickname;
+        if(user === this.username) {
+          this.reg = true;
+        }
     },
     components: {
         CommentWrite,
@@ -105,6 +109,23 @@ export default {
       },
       toBack() {
       this.$router.go(-1);
+      },
+      modifyCampaign() {
+
+      },
+      async deleteCampaign() {
+        await axios
+            .delete(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaignId, {
+              headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer `+localStorage.getItem("accessToken"),
+                },
+            })
+            .then((res) => {
+              alert("캠페인이 삭제되었습니다.");
+              console.log(res);
+              this.$router.push({name: 'listBoard'});
+            });
       }
     }
 }
