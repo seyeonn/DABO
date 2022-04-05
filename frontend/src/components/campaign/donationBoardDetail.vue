@@ -1,9 +1,16 @@
 <template>
     <div>
+      <div class="wallet-header">
+      <button @click="toBack()">back</button>
+    </div>
       <div class="dabo_header">
         <h2 class="dabo_title">캠페인 상세 보기</h2>
       </div>
       <div class="detailBoard-page">
+        <div class="cbtn" v-if="reg">
+                        <label @click="modifyCampaign">수정</label> |
+                        <label @click="deleteCampaign">삭제</label>
+        </div>
         <div>
             <img :src="'http://localhost:8080'+mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
@@ -27,17 +34,6 @@
             </span>
         </div>
         <div class="line"></div>
-        <!-- 댓글 -->
-        <!-- <comment-write v-if="isModifyShow && this.modifyComment != null"
-            :modifyComment="this.modifyComment"
-            @modify-comment-cancel="onModifyCommentCancel"
-        />
-        <comment
-         v-for="(comment, index) in comments"
-          :key="index"
-          :comment="comment"
-          @modify-comment="onModifyComment"
-        /> -->
         <comment-write @setCampaignId="setCampaignId"/>
         <comment-list
          v-for="comment in comments"
@@ -45,7 +41,6 @@
           v-bind="comment"
           :comment="comment"
         />
-        <!-- <campagin-comment></campagin-comment> -->
         </div>
     </div>
 </template>
@@ -63,13 +58,17 @@ export default {
           campaign: [],
           content: '',
           title: '',
+          username: '',
           walletAddressOfBoard:'',
           comments: [],
+          campignId: 0,
+          reg: false,
           userId: "",
           mediaUrl: ""
         }
     },
     async created() { 
+      // 캠페인 내용 get
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
@@ -78,17 +77,24 @@ export default {
           this.userId = res.data.userId;
           console.log(this.userId);
           this.walletAddressOfBoard = res.data.walletAddress;
+          this.username = res.data.username;
+          this.campaignId = res.data.campaignId;
           console.log(this.campaign);
           this.mediaUrl = res.data.mediaUrl;
         });
 
+      // 댓글 내용 get
       await axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
         .then((res) => {
-          console.log(res.data);
           this.comments = res.data;
-          console.log(this.comments);
         });
+      
+      // 유저 닉네임과 작성자 닉네임 비교
+        const user = this.$store.state.user.nickname;
+        if(user === this.username) {
+          this.reg = true;
+        }
     },
     components: {
         CommentWrite,
@@ -105,6 +111,30 @@ export default {
       },
       goDaboDonationDetail(){
         this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard}})
+      },
+      toBack() {
+        console.log(this.campignId)
+      this.$router.go(-1);
+      },
+      modifyCampaign() {
+        this.$router.push({
+          name: 'updateBoard',
+          params: {campaignId: this.campaignId}
+        });
+      },
+      async deleteCampaign() {
+        await axios
+            .delete(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaignId, {
+              headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer `+localStorage.getItem("accessToken"),
+                },
+            })
+            .then((res) => {
+              alert("캠페인이 삭제되었습니다.");
+              console.log(res);
+              this.$router.push({name: 'listBoard'});
+            });
       }
     }
 }
@@ -148,5 +178,19 @@ export default {
 .cpn-btn {
   margin-top: 13px;
   margin-bottom: 13px;
+}
+.wallet-header {
+  background-color: #e52d27;
+  height: 2.5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet-header button {
+  border: 0;
+  outline: 0;
+  background-color: #e52d27;
+  font-family: 'NicoMoji' !important;
+  color: white;
+  vertical-align: -webkit-baseline-middle;
 }
 </style>
