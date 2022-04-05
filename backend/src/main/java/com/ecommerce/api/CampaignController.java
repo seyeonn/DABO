@@ -111,7 +111,9 @@ public class CampaignController {
     // 댓글 수정
     @ApiOperation(value = "캠페인 댓글 수정", notes = "캠페인에 댓글을 수정합니다.")
     @PutMapping("/detailBoard/{campaign_id}/comments/{comment_id}")
-    public ResponseEntity<?> updateComment(@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<?> updateComment(@PathVariable("campaign_id") Long campaign_id,@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
+        System.out.println("campaign_id = " + campaign_id);
+        System.out.println(" = " + commentDto);
         return campaignService.updateComment(commentId, commentDto);
     }
 
