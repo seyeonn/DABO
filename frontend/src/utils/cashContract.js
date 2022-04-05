@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { BLOCKCHAIN_URL, BLOCKCHAIN_WEBSOCKET_URL, CASH_CONTRACT_ADDRESS } from '@/config';
+import { BLOCKCHAIN_URL,  CASH_CONTRACT_ADDRESS } from '@/config';
 import { CASH_CONTRACT_ABI } from '@/config/ABIs.js';
 
 function createCashContract(web3) {
@@ -37,22 +37,24 @@ export function buyCash(amount, privateKey, onConfirm, onFail) {
  * @param {escrowAddress, amount} options 
  */
 export function leaveDeposit(options, walletAddress, privateKey, onConfirm, onFail) {
-  var web3 = new Web3(
-    new Web3.providers.WebsocketProvider(BLOCKCHAIN_WEBSOCKET_URL),
-  );
+  // var web3 = new Web3(
+  //   new Web3.providers.WebsocketProvider(BLOCKCHAIN_WEBSOCKET_URL),
+  // );
 
+  // var contract = createCashContract(web3);
+  // // 캐시 전송 완료 이벤트 리스닝
+  // contract.events.Transfer({
+  //   filter: {from: [ walletAddress ]}
+  // }, (error, data) => {
+  //   if (error) {
+  //     onFail(error);
+  //   } else {
+  //     onConfirm(data);
+  //   }
+  // });
+
+  var web3 = new Web3(new Web3.providers.HttpProvider(BLOCKCHAIN_URL));
   var contract = createCashContract(web3);
-  // 캐시 전송 완료 이벤트 리스닝
-  contract.events.Transfer({
-    filter: {from: [ walletAddress ]}
-  }, (error, data) => {
-    if (error) {
-      onFail(error);
-    } else {
-      onConfirm(data);
-    }
-  });
-
   var transferCall = contract.methods.transfer(
     options.escrowAddress,
     options.amount
@@ -69,10 +71,10 @@ export function leaveDeposit(options, walletAddress, privateKey, onConfirm, onFa
   web3.eth.accounts.signTransaction(tx, privateKey).then(signed => {
     web3.eth
       .sendSignedTransaction(signed.rawTransaction)
-      .then()
-      .catch(onFail);
-  })
-  .catch(onFail);
+      .then(onConfirm)
+  }).catch(err => {
+    onFail(err);
+  });
 }
 
 /**
