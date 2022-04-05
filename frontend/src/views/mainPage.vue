@@ -201,7 +201,6 @@ export default {
 
 <style scoped>
 .main-page {
-  overflow: scroll;
 }
 .main-header {
   background-color: #e52d27;
@@ -291,8 +290,9 @@ export default {
   width: 80px;
 }
 .detail-show {
-  position: absolute;
-  right: 10%;
+  position: flex;
+  float: right;
+  margin-right: 30px;
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
@@ -410,5 +410,6 @@ export default {
 }
 .font-color-red {
   color: #e52d27;
+  font-size: 15px;
 }
 </style>
