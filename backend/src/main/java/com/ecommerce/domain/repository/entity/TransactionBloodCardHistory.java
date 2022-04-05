@@ -20,6 +20,7 @@ public class TransactionBloodCardHistory {
     private long transactionCardToId;
     private long bloodCardId;
     private String userName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate transactionCardDate = LocalDate.now();
     private String transactionCardMessage;
 

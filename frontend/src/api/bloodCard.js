@@ -30,8 +30,16 @@ function createBloodCard(body, success, fail){
     .catch(fail);
 }
 
+function thSendBloodCard(success, fail){
+    instance
+    .get("api/bc/transactionHistory/send")
+    .then(success)
+    .catch(fail);
+}
+
 export{
     findByBloodCard,
     bloodCardChageState,
-    createBloodCard
+    createBloodCard,
+    thSendBloodCard
 }
