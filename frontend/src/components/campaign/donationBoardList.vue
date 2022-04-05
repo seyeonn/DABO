@@ -7,12 +7,12 @@
     <!-- 검색창 -->
     <div class="submit-form">
       <div class="input-check d-flex">
-        <input
-          type="text"
-          name="campaign"
-          id="campaignSearch"
-          placeholder="campaign search"
-        />
+        <input 
+        type="text" 
+        name="keyword" 
+        v-model="keyword" 
+        id="campaignSearch" 
+        placeholder="campaign search">
         <button class="btn_red col-2" @click="goSearch()">
           <span>search</span>
         </button>
@@ -47,7 +47,8 @@ export default {
   data: function () {
     return {
       campaignList: [],
-    };
+      keyword: ""
+    }
   },
   created() {
     const response = axios
@@ -68,8 +69,20 @@ export default {
     goCreate() {
       this.$router.push({ name: "createBoard", params: "" });
     },
-    goSearch() {},
-  },
+    goSearch() {
+      const response = axios
+        .get(API_BASE_URL+"/donationBoard/search", {
+          params: {
+            keyword: this.keyword
+          }
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.campaignList = res.data;
+        });
+      console.log(response);
+    }
+  }
 };
 </script>
 
