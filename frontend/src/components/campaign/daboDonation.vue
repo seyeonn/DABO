@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="wallet-header">
+      <button @click="toBack()">back</button>
+    </div>
         <div class="dabo_header">
             <h2 class="dabo_title">다보 후원</h2>
         </div>
@@ -82,31 +85,33 @@ export default {
             console.log("toAddress : " ,this.toAddress)
         },
         cashTransfer(){
-        
-        const vm = this;
-        leaveDeposit(
-        {
-          escrowAddress: "0x16B8D5aC26341506d7b03E0B52709B135Bf873dF",
-          amount: 100
+            const vm = this;
+            leaveDeposit(
+                {
+                escrowAddress: "0x16B8D5aC26341506d7b03E0B52709B135Bf873dF",
+                amount: 100
+                },
+                vm.$store.state.user.walletAddress,
+                this.privateKey,
+                function() {
+                alert("지불했습니다. 입금 확인 요청 바랍니다.");
+                // UI 갱신
+                //   vm.processing = false;
+                //   vm.input.payAmount = null;
+                //   vm.input.privateKey = "";
+                //   vm.setActionText();
+                //   vm.getWalletBalance(); // 지갑 정보 갱신
+                },
+                function(err) {
+                console.error("입금 실패", err);
+                alert("입금 실패했습니다.");
+                vm.processing = false;
+                }
+            );
         },
-        vm.$store.state.user.walletAddress,
-        this.privateKey,
-        function() {
-          alert("지불했습니다. 입금 확인 요청 바랍니다.");
-          // UI 갱신
-        //   vm.processing = false;
-        //   vm.input.payAmount = null;
-        //   vm.input.privateKey = "";
-        //   vm.setActionText();
-        //   vm.getWalletBalance(); // 지갑 정보 갱신
-        },
-        function(err) {
-          console.error("입금 실패", err);
-          alert("입금 실패했습니다.");
-          vm.processing = false;
+        toBack() {
+        this.$router.go(-1);
         }
-      );
-    }
         
     }
 }
@@ -158,4 +163,18 @@ export default {
     margin-top: 15px;
     margin-bottom: 15px;
  }
+ .wallet-header {
+  background-color: #e52d27;
+  height: 2.5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet-header button {
+  border: 0;
+  outline: 0;
+  background-color: #e52d27;
+  font-family: 'NicoMoji' !important;
+  color: white;
+  vertical-align: -webkit-baseline-middle;
+}
 </style>

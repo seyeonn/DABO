@@ -1,5 +1,8 @@
 <template>
     <div>
+      <div class="wallet-header">
+      <button @click="toBack()">back</button>
+    </div>
       <div class="dabo_header">
         <h2 class="dabo_title">캠페인 상세 보기</h2>
       </div>
@@ -99,6 +102,9 @@ export default {
       },
       goDaboDonationDetail(){
         this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard}})
+      },
+      toBack() {
+      this.$router.go(-1);
       }
     }
 }
@@ -142,5 +148,19 @@ export default {
 .cpn-btn {
   margin-top: 13px;
   margin-bottom: 13px;
+}
+.wallet-header {
+  background-color: #e52d27;
+  height: 2.5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet-header button {
+  border: 0;
+  outline: 0;
+  background-color: #e52d27;
+  font-family: 'NicoMoji' !important;
+  color: white;
+  vertical-align: -webkit-baseline-middle;
 }
 </style>
