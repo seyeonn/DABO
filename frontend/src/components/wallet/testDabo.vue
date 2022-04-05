@@ -159,11 +159,11 @@ export default {
         const vm = this;
         leaveDeposit(
         {
-          escrowAddress: "0xce4a0Fc4cDf252B067C1b4cCCe2806887D6727F6",
+          escrowAddress: "0xB50DD1323729f00f9D39E9fAbb0eA7b54d029235",
           amount: 100
         },
-        "0x2dcEE0ddDf9C87fc8CC21eaB7eB7614d103C8f2d",
-        "0xac479b03d1ac74e14d48ff87904de5ab9180432d9bf5321531732ef726551117",
+        "0xc96f37AF17c712f2F63161D4b3f2687abc17E517",
+        "0xc129e2cb6897b4673e5d406383825d3367eca3afc5f28541e3f650ea9342991e",
         function() {
           alert("지불했습니다. 입금 확인 요청 바랍니다.");
           // UI 갱신
