@@ -66,12 +66,12 @@ export default {
                 .post(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData, {
                 headers: {
                     Authorization: `Bearer `+ localStorage.getItem("accessToken"),
-            }
-        })
+                    }
+                })
                 .then((res) => {
                 console.log(res);
                 // this.$router.push(`${this.$route.params.campaignId}`);
-                this.$router.go();
+                this.$router.go(this.$router.currentRoute);
         });
        },
     }

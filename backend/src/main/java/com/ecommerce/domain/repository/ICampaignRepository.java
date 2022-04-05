@@ -8,4 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ICampaignRepository  extends JpaRepository<Campaign, Long> {
+    List<Campaign> findByTitleContaining(String keyword);
 }
