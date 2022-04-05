@@ -16,6 +16,14 @@
       <button  style="color: #f08986">{{ this.selectDabo*10000 }} 원</button>
     </div>
 
+    <div class="spinner" v-if="isCashCharging">
+      <v-progress-circular
+        :size="100"
+        color="#f06464"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+   
     <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
@@ -41,6 +49,7 @@ export default {
   data() {
     return {
       selectDabo: 0,
+      
       wallet: {
         id: 0,
         ownerId: null,
@@ -68,7 +77,7 @@ export default {
         pg: 'html5_inicis',                           // PG사
         pay_method: 'card',                           // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-        amount: 1000,                                 // 결제금액
+        amount: this.selectDabo*10000,                                 // 결제금액
         name: '아임포트 결제 데이터 분석',                  // 주문명
         buyer_name: '홍길동',                           // 구매자 이름
         buyer_tel: '01012341234',                     // 구매자 전화번호
@@ -91,7 +100,7 @@ export default {
 
       if (success) {
         alert('결제 성공');
-        this.$router.push({name: 'chargeConfirm', params: ''})
+        
       } else {
         alert(`결제 실패: ${error_msg}`);
         this.chargeCash()
@@ -116,7 +125,7 @@ export default {
             alert("캐시를 충전했습니다.");
             vm.isCashCharging = false;
             vm.fetchCashBalance();
-
+            this.$router.push({name: 'chargeConfirm', params: ''})
           },
           function() {
             alert("캐시 충전을 실패했습니다.");
@@ -191,6 +200,9 @@ export default {
 </script>
 
 <style scoped>
+.spinner {
+  text-align: center;
+}
 .greeting p {
   margin-right: 40px;
   margin-top: 30px;
