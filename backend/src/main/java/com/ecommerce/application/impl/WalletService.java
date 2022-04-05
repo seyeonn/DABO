@@ -70,6 +70,7 @@ public class WalletService implements IWalletService
 		// ether + cash balance
 		Address address = this.ethereumService.getAddress(walletAddress);
 		int cashBalance = this.cashContractService.getBalance(walletAddress);
+		log.debug("cashBalance : "+cashBalance);
 		if(!wallet.getBalance().equals(new BigDecimal(address.getBalance())) || wallet.getCash()!= cashBalance) {
 			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()),wallet.getPayBalance(), cashBalance);
 			wallet.setBalance(new BigDecimal(address.getBalance()));
