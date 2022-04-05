@@ -63,7 +63,7 @@ export default {
             console.log(commentData);
 
             await axios
-                .post(API_BASE_URL + `/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData, {
+                .post(API_BASE_URL + `/api/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`, commentData, {
                 headers: {
                     Authorization: `Bearer `+ localStorage.getItem("accessToken"),
                     }
