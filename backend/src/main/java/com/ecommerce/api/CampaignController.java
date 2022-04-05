@@ -17,7 +17,7 @@ import java.util.List;
 @Api("캠페인 관련 기능")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/donationBoard")
+@RequestMapping("/api/donationBoard")
 public class CampaignController {
 
     public static final Logger logger = LoggerFactory.getLogger(CampaignController.class);
@@ -72,9 +72,7 @@ public class CampaignController {
     @PutMapping(value = "/detailBoard/{campaign_id}")
     public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, @RequestBody CampaignDto campaignDto){
         logger.info("updateBoard - 호출");
-        System.out.println("아 왜 안찍히냐고");
-        System.out.println(campaignDto.getTitle());
-        System.out.println(campaignDto.getContent());
+
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
