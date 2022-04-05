@@ -24,7 +24,7 @@
             <span>DABO Token 보유 현황</span><br />
             <span style="font-weight: lighter">{{ $store.state.wallet.cash }} DABO</span><br />
             <span>내 지갑 주소</span><br />
-            <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
+            <span  class="wallet-address">{{ $store.state.user.walletAddress }}</span>
           </div>
         </div>
         <div class="detail-show">
@@ -58,6 +58,8 @@
       <div class="myBtn">
         <button @click="toInfoChange()">회원정보 수정</button>
         <button @click="doLogout()">로그아웃</button>
+        <div style="text-align: center;">
+        </div>
       </div>
       <div></div>
     </div>
@@ -152,7 +154,7 @@ export default {
 }
 .contents button {
   border: none;
-  background: #fff;
+  background: transparent;
   font-weight: bold;
 }
 .contents-title {
@@ -195,13 +197,14 @@ export default {
   position: flex;
   float: right;
   margin-right: 30px;
+  background: rgba(0,0,0,0);
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
 }
 .detail-show button {
   border: none;
-  background: #fff;
+  background: transparent;
 }
 .contents-donation {
   height: 20vh;
@@ -237,7 +240,7 @@ td {
 .myBtn button {
   display: block;
   margin: auto;
-  background-color: white;
+  background-color: transparent;
   color: black;
   border: none;
   border-radius: 5px 5px;
@@ -247,4 +250,8 @@ td {
   box-shadow: 1px 1px;
 }
 
+.wallet-address{
+  font-weight: lighter;
+  font-size: 12px;
+}
 </style>
