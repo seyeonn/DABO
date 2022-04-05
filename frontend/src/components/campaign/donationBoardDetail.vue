@@ -18,14 +18,13 @@
             <div>
                 <div class="small font-weight-bold">
                     <span class="ratio">20%</span> 
-                    <span class="float-right">15일 남음</span>
+                    <span class="float-right">{{ dueDate }}일 남음</span>
                     </div>
                       <div class="progress mb-2">
                         <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
-            <sub>n명의 후원자가 있습니다.</sub>
         </div>
         <div class="cpn-btn">
             <span>
@@ -64,13 +63,15 @@ export default {
           campaignId: 0,
           reg: false,
           userId: "",
-          mediaUrl: ""
+          mediaUrl: "",
+          deadline: "" ,
+          dueDate: ""      
         }
     },
     async created() { 
       // 캠페인 내용 get
       axios
-        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
+        .get(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
           this.content = res.data.content;
           this.title = res.data.title;
@@ -79,13 +80,15 @@ export default {
           this.walletAddressOfBoard = res.data.walletAddress;
           this.username = res.data.username;
           this.campaignId = res.data.campaignId;
-          console.log(this.campaign);
           this.mediaUrl = res.data.mediaUrl;
+          this.deadline = res.data.deadLine;
+          console.log(res.data.deadLine);
+          this.setDueDate();
         });
 
       // 댓글 내용 get
       await axios
-        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
+        .get(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
         .then((res) => {
           this.comments = res.data;
         });
@@ -101,6 +104,12 @@ export default {
         CommentList
     },
     methods: {
+      setDueDate(){
+        const strDate = this.deadline.split("-");
+        const date = new Date(strDate[0],strDate[1]-1,strDate[2]);
+        const today = new Date();
+        this.dueDate = Math.ceil((date-today)/(1000*60*60*24));
+      },
       goDonationDetail() {
         const vm = this;
         console.log(vm);
@@ -124,7 +133,7 @@ export default {
       },
       async deleteCampaign() {
         await axios
-            .delete(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaignId, {
+            .delete(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaignId, {
               headers: {
                   "Content-Type": "multipart/form-data",
                   Authorization: `Bearer `+localStorage.getItem("accessToken"),
