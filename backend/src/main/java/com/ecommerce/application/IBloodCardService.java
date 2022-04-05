@@ -11,7 +11,7 @@ import java.util.List;
 public interface IBloodCardService {
     BloodCard createBloodCard(BloodCardPostReq bloodCardPostReq, Long userId);
     List<BloodCard> getBloodCard(Long userId);
-    TransactionBloodCardHistory bloodCardDonation(BloodCardDonationReq bloodCardDonationReq, Long userId, String userName);
+    TransactionBloodCardHistory bloodCardDonation(BloodCardDonationReq bloodCardDonationReq, Long userId);
     List<TransactionBloodCardHistory> bloodCardDonationSend(Long userId);
     List<TransactionBloodCardHistory> bloodCardDonationReceive(Long userId);
 
