@@ -61,6 +61,7 @@ export default {
           username: '',
           walletAddressOfBoard:'',
           comments: [],
+          campignId: 0,
           reg: false
         }
     },
@@ -69,25 +70,21 @@ export default {
       axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
-          console.log(res.data);
           this.content = res.data.content;
           this.title = res.data.title;
           this.walletAddressOfBoard = res.data.walletAddress;
           this.username = res.data.username;
-          console.log(this.campaign);
+          this.campaignId = res.data.campaignId;
         });
 
       // 댓글 내용 get
       await axios
         .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments`)
         .then((res) => {
-          console.log(res.data);
           this.comments = res.data;
-          console.log(this.comments);
         });
       
       // 유저 닉네임과 작성자 닉네임 비교
-      console.log(this.campaign);
         const user = this.$store.state.user.nickname;
         if(user === this.username) {
           this.reg = true;
@@ -108,10 +105,14 @@ export default {
         this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard}})
       },
       toBack() {
+        console.log(this.campignId)
       this.$router.go(-1);
       },
       modifyCampaign() {
-
+        this.$router.push({
+          name: 'updateBoard',
+          params: {campaignId: this.campaignId}
+        });
       },
       async deleteCampaign() {
         await axios

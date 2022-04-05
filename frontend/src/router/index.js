@@ -10,6 +10,7 @@ import donationBoard from "@/views/donationBoard/donationBoardPage.vue";
 import ListBoard from "@/components/campaign/donationBoardList.vue";
 import ListItem from "@/components/campaign/donationBoardListItem.vue";
 import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
+import UpdateBoard from "@/components/campaign/donationBoardUpdate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
 import MyDonation from "@/components/campaign/bloodCardDonation.vue";
 import DonationConfirm from "@/components/campaign/donationConfirm.vue";
@@ -123,6 +124,11 @@ const routes = [
         path: "createBoard",
         name: "createBoard",
         component: CreateBoard,
+      },
+      {
+        path: "updateBoard",
+        name: "updateBoard",
+        component: UpdateBoard,
       },
       {
         path: "detailBoard/:campaignId",
