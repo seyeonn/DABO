@@ -5,7 +5,7 @@
     </div>
 
     <div class="user-header">
-      <span> 김싸피 님의 </span> 
+      <span> {{ $store.state.user.nickname }} 님의 </span> 
       <span id="dabo-logo"> DABO </span>
       <span> Wallet </span>
     </div>
@@ -25,10 +25,10 @@
         <span style="font-size: 40px;">{{this.wallet.cash}} DABO</span>
         <p id="dabo-krw"><i class="fa-solid fa-won-sign"></i> {{this.wallet.cash}} KRW</p>
         <span style="font-weight: bold">내 지갑 주소</span>
-        <span style="margin-left: 150px;">
+        <span style="margin-left: 150px;" @click="copy">
           <i class="fa-solid fa-copy"></i>복사하기
         </span><br>
-        <span>{{ $store.state.user.walletAddress }}</span>
+        <span class="wallet-address">{{ $store.state.user.walletAddress }}</span>
         <p style="font-weight: bold; font-size: 20px; margin-top: 5%">DABO Token 활동</p>
         <!-- v-for 변환 예정 -->
         <div class="wallet-act">
@@ -67,7 +67,7 @@ export default {
       wallet: {
         id: 0,
         ownerId: null,
-        address: "",
+        address: "12e12e",
         balance: 0,
         payBalance : 0,
         cash: 0,
@@ -103,6 +103,15 @@ export default {
 
       });
     },
+    copy() {
+      this.$copyText(this.wallet.address).then(function (e) {
+        alert('Copied')
+        console.log(e)
+      }, function (e) {
+        alert('Can not copy')
+        console.log(e)
+      })
+    }
     
   },
   mounted() {
@@ -183,11 +192,15 @@ export default {
 }
 
 .wallet-act{
-  margin: 5%;
+  margin: 10%;
+  margin-top: 5%;
 }
 
 .act-detail {
   font-size: 10px;
 }
 
+.wallet-address {
+  font-size: 12px;
+}
 </style>
