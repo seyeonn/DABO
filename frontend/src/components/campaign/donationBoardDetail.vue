@@ -12,7 +12,7 @@
                         <label @click="deleteCampaign">삭제</label>
         </div>
         <div>
-            <img :src="'http://localhost:8080'+campaign.mediaUrl" class="campaign-detail-img" alt="">
+            <img :src="'http://localhost:8080'+mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
             <p>{{ content }}</p>
             <div>
@@ -62,7 +62,9 @@ export default {
           walletAddressOfBoard:'',
           comments: [],
           campignId: 0,
-          reg: false
+          reg: false,
+          userId: "",
+          mediaUrl: ""
         }
     },
     async created() { 
@@ -72,9 +74,13 @@ export default {
         .then((res) => {
           this.content = res.data.content;
           this.title = res.data.title;
+          this.userId = res.data.userId;
+          console.log(this.userId);
           this.walletAddressOfBoard = res.data.walletAddress;
           this.username = res.data.username;
           this.campaignId = res.data.campaignId;
+          console.log(this.campaign);
+          this.mediaUrl = res.data.mediaUrl;
         });
 
       // 댓글 내용 get
@@ -96,7 +102,9 @@ export default {
     },
     methods: {
       goDonationDetail() {
-        this.$router.push({name: 'myDonation',params:''})
+        const vm = this;
+        console.log(vm.userId);
+        this.$router.push({name: 'myDonation', query: {'userId':vm.userId}})
       },
       setCampaignId(campaignId) {
         this.campaignId = campaignId;

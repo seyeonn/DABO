@@ -38,7 +38,7 @@ import chargeConfirm from "@/views/daboWallet/chargeConfirm.vue";
 
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
-
+import testDabo from "@/components/wallet/testDabo.vue"
 const routes = [
   {
     path: "/",
@@ -169,11 +169,11 @@ const routes = [
     //   },
     // ]
   },
-  // {
-  //   path: "/testDabo",
-  //   name: "testDabo",
-  //   component: testDabo,
-  // },
+  {
+    path: "/testDabo",
+    name: "testDabo",
+    component: testDabo,
+  },
   {
     path: "/dabowallet/chargedabo",
     name: "chargedabo",

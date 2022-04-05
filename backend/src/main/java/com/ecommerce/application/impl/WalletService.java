@@ -70,6 +70,7 @@ public class WalletService implements IWalletService
 		// ether + cash balance
 		Address address = this.ethereumService.getAddress(walletAddress);
 		int cashBalance = this.cashContractService.getBalance(walletAddress);
+		log.debug("cashBalance : "+cashBalance);
 		if(!wallet.getBalance().equals(new BigDecimal(address.getBalance())) || wallet.getCash()!= cashBalance) {
 			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()),wallet.getPayBalance(), cashBalance);
 			wallet.setBalance(new BigDecimal(address.getBalance()));
@@ -90,7 +91,6 @@ public class WalletService implements IWalletService
 		Wallet wallet = this.walletRepository.get(userId);
 		if(wallet == null)
 			throw new NotFoundException(userId + " 해당 회원의 주소 지갑을 찾을 수 없습니다.");
-
 		return getAndSyncBalance(wallet.getAddress());
 	}
 
