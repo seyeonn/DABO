@@ -107,7 +107,7 @@ export default {
 
 <style scoped>
 .main-page {
-  overflow: scroll;
+  overflow: hidden;
 }
 .main-header {
   background-color: #e52d27;
@@ -124,9 +124,7 @@ export default {
   font-size: 30px;
   text-align: center;
   color: white;
-}
-.greeting p {
-  margin-left: 50px;
+  margin-top: 20px;
 }
 
 /* profile */
@@ -195,7 +193,8 @@ export default {
 }
 .detail-show {
   position: flex;
-  right: 10%;
+  float: right;
+  margin-right: 30px;
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
