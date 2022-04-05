@@ -185,6 +185,34 @@ public class CampaignService implements ICampaignService {
         }
     }
 
+    // 캠페인 검색
+    @Transactional
+    public List<CampaignDto> searchCampaign(String keyword) {
+        List<Campaign> campaigns = campaignRepository.findByTitleContaining(keyword);
+        List<CampaignDto> campaignDtoList = new ArrayList<>();
+
+        if(campaigns.isEmpty())
+            return campaignDtoList;
+
+        for(Campaign campaign : campaigns) {
+
+            CampaignDto campaignDto = new CampaignDto();
+
+            campaignDto.setCampaignId(campaign.getCampaignId());
+            campaignDto.setTitle(campaign.getTitle());
+            campaignDto.setContent(campaign.getContent());
+            campaignDto.setTarget(campaign.getTarget());
+            campaignDto.setAmount(campaign.getAmount());
+            campaignDto.setDeadLine(campaign.getDeadLine());
+            campaignDto.setMediaUrl(campaign.getMediaUrl());
+            campaignDto.setUsername(campaign.getUser().getNickname());
+
+            campaignDtoList.add(campaignDto);
+        }
+
+        return campaignDtoList;
+    }
+
     /* ---------------- 댓글 ----------------*/
 
     // 댓글 조회
