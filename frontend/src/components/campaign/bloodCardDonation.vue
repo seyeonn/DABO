@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="wallet-header">
+      <button @click="toBack()">back</button>
+    </div>
     <div class="dabo_header">
       <h2 class="dabo_title">내 헌혈증 목록</h2>
     </div>
@@ -37,7 +40,6 @@
       </div>
       <div id="bDonation" class="modal-window">
         <div>
-          <p>총 n개의 헌혈증을 SSAFY 보건소로 전달합니다.</p>
           <p>총 {{ bloodCardCnt }}개의 헌혈증을 전달합니다.</p>
           <sub>
             <b-icon
@@ -102,10 +104,16 @@ export default {
             this.$store.state.user.walletAddress,
             vm.privateKey,
             function () {
+              const body = {
+                  bloodCardId: bloodCardId,
+                  transactionCardMessage: "힘내세요",
+                  transactionCardToId: vm.$route.query.userId,
+                  userName:vm.$route.query.userName,
+                  campaignId:vm.$route.query.campaignId,
+              }
+              console.log(body)
               bloodCardChageState(
-                bloodCardId,
-                "힘",
-                vm.$route.query.userId,
+                body,
                 function () {
                   vm.$router.push({ name: "donationConfirm", params: "" });
                 },
@@ -134,6 +142,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route.query.campaignId)
     this.BloodCardGet();
   },
 };
@@ -228,6 +237,21 @@ export default {
     font-size: 150%;
     margin: 0 0 15px;
   }
+}
+
+.wallet-header {
+  background-color: #e52d27;
+  height: 2.5em;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet-header button {
+  border: 0;
+  outline: 0;
+  background-color: #e52d27;
+  font-family: 'NicoMoji' !important;
+  color: white;
+  vertical-align: -webkit-baseline-middle;
 }
 
 .modal-close {
