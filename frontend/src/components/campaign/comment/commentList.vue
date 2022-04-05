@@ -3,18 +3,26 @@
     <div class="container">
         <div class="campaign_item">
             <div class="row">
-                    <div class="content">
-                        <p class="c2">
-                        {{ username }}
-                        <span class="c3">({{ createdAt[0]+"-"+createdAt[1]+"-"+createdAt[2]+" "+createdAt[3]+":"+createdAt[4]+":"+createdAt[5]}})</span>
-                        </p>
-                    </div>
-                    <!-- <div class="content" v-html="enterToBr(comment.comment)"></div> -->
-                    <div class="content" >{{ content }}</div>
-                    <div class="cbtn" v-if="reg">
-                        <label @click="modifyComment">수정</label> |
-                        <label @click="deleteComment">삭제</label>
-                    </div>
+                  <div class="content">
+                      <p class="c2">
+                      {{ username }}
+                      <span class="c3">({{ createdAt[0]+"-"+createdAt[1]+"-"+createdAt[2]+" "+createdAt[3]+":"+createdAt[4]+":"+createdAt[5]}})</span>
+                      </p>
+                  </div>
+                  <!-- <div class="content" v-html="enterToBr(comment.comment)"></div> -->
+                  <div class="content" >{{ content }}</div>
+                  <div class="cbtn" v-if="reg">
+                      <label @click="updateComment">수정</label> |
+                      <label @click="deleteComment">삭제</label>
+                  </div>
+                  <span 
+                  :class="{ 'd-none': can_see }">
+                    <textarea v-model="newComment.content" @keyup.enter="updateComment" class="w-100 fs-5" cols="2"></textarea>
+                    <button 
+                      class="btn btn-primary me-2"
+                      @click="updateComment"
+                    >수정</button>
+                  </span>                
             </div>
         </div>
     </div>
@@ -28,8 +36,12 @@ import {API_BASE_URL} from "@/config/index.js"
 export default {
     data() {
         return {
+          can_see: true,
           comment: [],
-          reg: false
+          reg: false,
+          newComment:{
+                content: ""
+            }
         }
     },
     props: {
@@ -62,7 +74,7 @@ export default {
         console.log(commentData);
 
         await axios
-            .put(API_BASE_URL+"/donationBoard/createBoard", this.commentId, commentData, {
+            .put(API_BASE_URL+"/api/donationBoard/createBoard", this.commentId, commentData, {
               headers: {
                   "Content-Type": "multipart/form-data",
                   Authorization: `Bearer `+localStorage.getItem("accessToken"),
@@ -75,7 +87,7 @@ export default {
       },
       async deleteComment() {
             await axios
-            .delete(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}/comments/${this.commentId}`, this.commentId, {
+            .delete(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}/comments/${this.commentId}`, this.commentId, {
               headers: {
                   "Content-Type": "multipart/form-data",
                   Authorization: `Bearer `+localStorage.getItem("accessToken"),
@@ -86,7 +98,25 @@ export default {
               console.log(res);
               this.$router.go(this.$router.currentRoute);
             });
-      }
+      },
+      async updateComment() {
+        if(this.can_see === true){
+          this.can_see = false
+        }else{
+          await axios
+          .put(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}/comments/${this.commentId}`, this.newComment, {
+            headers: {
+                // "Content-Type": "multipart/form-data",
+                Authorization: `Bearer `+localStorage.getItem("accessToken"),
+              },
+          })
+          .then((res) => {
+            alert("댓글이 수정되었습니다.");
+            console.log(res);
+            this.$router.go(this.$router.currentRoute);
+          });
+        }
+      },
     }
 }
 </script>
