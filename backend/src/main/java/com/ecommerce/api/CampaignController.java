@@ -69,8 +69,9 @@ public class CampaignController {
 
     // 캠페인 수정
     @ApiOperation(value = "캠페인 수정", notes = "캠페인 수정")
-    @PutMapping(value = "/detailBoard/{campaign_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/detailBoard/{campaign_id}")
     public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, CampaignDto campaignDto){
+        logger.debug("캠페인 수정 START");
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
