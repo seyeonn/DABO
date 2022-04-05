@@ -72,6 +72,13 @@ public class CampaignController {
         return campaignService.deleteCampaign(campaignId);
     }
 
+    // 캠페인 검색
+    @ApiOperation(value = "캠페인 검색", notes = "캠페인 검색")
+    @GetMapping("/search")
+    public List<CampaignDto> searchCampaign(@RequestParam("keyword") String keyword){
+        return campaignService.searchCampaign(keyword);
+    }
+
     /* ---------------- 댓글 ----------------*/
 
     // 댓글 조회
