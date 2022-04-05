@@ -51,22 +51,9 @@
         </div>
       </div>
 
-      <button class="btn_red" @click="goCreata()">
+      <button class="btn_red">
         <span @click="toPayDabo()">DABO 충전하기</span>
       </button>
-      
-      
-      <br/>
-      <br/>
-      <p> 밑에 테스트용 버튼들입니다. payDabo연결해주시면 거기에다가 붙혀놓을 수 있습니다~!</p>
-      <br/>
-      <button @click="chargeCash">10000 DABO 충전 Test </button>
-      <br/>
-      <br/>
-      <button @click="onPayment">결제 시스템 사용 DABO 충전 TEst </button>
-      <br/>
-      <br/>
-
     </div>
 
   </div>
@@ -74,164 +61,27 @@
 
 <script>
 
-//payDabo로 보낼 것들
-import { getUserInfo } from "@/api/user.js";
-import * as walletService from "@/api/wallet.js";
-import { createWeb3 } from "@/utils/web3.js";
-import { buyCash, getBalance } from "@/utils/cashContract.js";
-import { ethToWei } from "@/utils/ethereumUnitUtils.js";
-import BN from "bn.js";
-
 export default {
   data() {
     return {
       selectDabo: 0,
-      wallet: {
-        id: 0,
-        ownerId: null,
-        address: "",
-        balance: 0,
-        payBalance: 0,
-        cash: 0,
-        receivingCount: 0,
-      },
-      user:{
-        email : "",
-        nickname: ""
-      },
-      isCharging: false, // 현재 코인을 충전하고 있는 중인지 확인
-      isCashCharging: false, // 현재 캐시을 충전하고 있는 중인지 확인
-      cashChargeAmount: 0.1,
-      userId: this.$store.state.user.id,
     }
   },
   methods: {
     toPayDabo() {
-      this.$router.push({name: 'paydabo', params: this.data})
-    },
-    onPayment() {
-      /* 1. 가맹점 식별하기 */
-      const { IMP } = window;
-      IMP.init('imp00423345');
-
-      /* 2. 결제 데이터 정의하기 */
-      const data = {
-        pg: 'html5_inicis',                           // PG사
-        pay_method: 'card',                           // 결제수단
-        merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-        amount: this.cashChargeAmount * 10000,                                 // 결제금액
-        name: 'DABO Token 충전',                  // 주문명
-        buyer_name: this.user.nickname,                           // 구매자 이름
-        buyer_tel: '01012341234',                     // 구매자 전화번호
-        buyer_email: this.user.email,               // 구매자 이메일
-        buyer_addr: '신사동 661-16',                    // 구매자 주소
-        buyer_postcode: '06018',                      // 구매자 우편번호
-        
-      };
-// this.cashChargeAmount = data.amount;
-      /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, this.callback)
-    },
-    callback(response) {
-      /* 3. 콜백 함수 정의하기 */
-      const {
-        success,
-        error_msg,
-        
-      } = response;
-
-      if (success) {
-        
-        alert('결제 성공 -> 캐쉬를 충전하겠습니다');
-        this.chargeCash();
-      } else {
-        alert(`결제 실패: ${error_msg}`);
-        // this.chargeCash()
+      if (this.selectDabo === 0) {
+        alert('충전하실 금액을 선택해주세요')
+      } else{
+        this.$router.push({name: 'paydabo', params: {selected: this.selectDabo}})
       }
     },
-    fetchWalletInfo() {
-      const vm = this;
-      walletService.findByUserId(this.userId, function(response) {
-        const data = response.data;
-        const web3 = createWeb3();
-        data["balance"] = web3.utils.fromWei(
-          data["balance"].toString(),
-          "ether"
-        );
-        vm.wallet = data;
-      });
-    },
-    chargeCash() {
-      const vm = this;
-      this.isCashCharging = true;
-      const privateKey = prompt("캐시를 충전하시려면 개인키를 입력하세요.");
-      if (privateKey) {
-        buyCash(
-          new BN(ethToWei(String(this.cashChargeAmount))),
-          privateKey,
-          function() {
-            alert("캐시를 충전했습니다.");
-            vm.isCashCharging = false;
-            vm.fetchCashBalance();
-            vm.fetchEtherBalance();
-          },
-          function() {
-            alert("캐시 충전을 실패했습니다.");
-            vm.isCashCharging = false;
-          }
-        );
-      }
-    },
-    fetchCashBalance() {
-      const vm = this;
-      getBalance(
-        this.walletAddress,
-        function(balance) {
-          vm.wallet.cash = balance;
-        },
-        function(err) {
-          console.error("캐시 잔액 조회 실패:", err);
-        }
-      );
-    },
-    fetchEtherBalance() {
-      const vm = this;
-      walletService.findByUserId(this.userId, function(res) {
-        const web3 = createWeb3();
-        vm.wallet.balance = web3.utils.fromWei(
-          res.data.balance.toString(),
-          "ether"
-        );
-      });
-    },
-    fetchUserInfo(){
-      const vm = this;
-      getUserInfo(
-            function (response) {
-              console.log("getUserInfo",response);
-              vm.user.email = response.data.email;
-              vm.user.nickname = response.data.nickname;
-            },
-            function (err) {
-              if (err.response != 404) {
-                console.error(err);
-                // alert("유저 정보를 찾지 못했습니다.");
-              }
-            }
-          );
-    }
-
-  },
-  mounted() {
-    this.fetchWalletInfo();
-    this.fetchUserInfo();
   },
 }
 </script>
 
 <style scoped>
 .charge-page {
-  overflow: scroll;
+  overflow: hidden;
 }
 .charge-header {
   background-color: #e52d27;

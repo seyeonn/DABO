@@ -82,15 +82,15 @@ public class CampaignService implements ICampaignService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Campaign newCampaign = Campaign.builder()
-                        .user(user.get())
-                        .title(campaign.getTitle())
-                        .content(campaign.getContent())
-                        .target(campaign.getTarget())
-                        .amount(campaign.getAmount())
-                        .deadLine(campaign.getDeadLine())
-                        .mediaUrl(resourcePathname)
-                        .walletAddress(campaign.getWalletAddress())
-                        .build();
+                .user(user.get())
+                .title(campaign.getTitle())
+                .content(campaign.getContent())
+                .target(campaign.getTarget())
+                .amount(campaign.getAmount())
+                .deadLine(campaign.getDeadLine())
+                .mediaUrl(resourcePathname)
+                .walletAddress(campaign.getWalletAddress())
+                .build();
         campaignRepository.save(newCampaign);
 
         return new ResponseEntity<>(HttpStatus.OK);

@@ -10,16 +10,17 @@
 
     <div class="payInfo">
       <button style="font-weight: bold;">DABO 개수</button>&nbsp;
-      <button  style="color: #f08986">200 DABO</button>
+      <button  style="color: #f08986">{{ this.selectDabo*10000 }} DABO</button>
       <br>
       <button style="font-weight: bold;">결제 금액</button>&nbsp;
-      <button  style="color: #f08986">20000 원</button>
+      <button  style="color: #f08986">{{ this.selectDabo*10000 }} 원</button>
     </div>
 
     <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
         <button @click="checkPay()">신용카드 결제</button>
+        <button @click="toBack()">뒤로가기</button>
       </div>
     </div>
     <div class="contents">
@@ -30,7 +31,9 @@
 </template>
 
 <script>
-
+import { getUserInfo } from "@/api/user.js";
+import * as walletService from "@/api/wallet.js";
+import { createWeb3 } from "@/utils/web3.js";
 import { buyCash, getBalance } from "@/utils/cashContract.js";
 import { ethToWei } from "@/utils/ethereumUnitUtils.js";
 import BN from "bn.js";
@@ -50,7 +53,7 @@ export default {
       isCharging: false, // 현재 코인을 충전하고 있는 중인지 확인
       isCashCharging: false, // 현재 캐시을 충전하고 있는 중인지 확인
       cashChargeAmount: 0.1,
-      userId: this.$store.state.userId,
+      userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
     }
   },
@@ -88,13 +91,15 @@ export default {
 
       if (success) {
         alert('결제 성공');
+        this.$router.push({name: 'chargeConfirm', params: ''})
       } else {
         alert(`결제 실패: ${error_msg}`);
+        this.chargeCash()
       }
 
       
 
-      this.$router.push({name: 'chargeConfirm', params: ''})
+      
     },
     chargeCash() {
       const vm = this;
@@ -132,6 +137,55 @@ export default {
         }
       );
     },
+    fetchEtherBalance() {
+      const vm = this;
+      walletService.findByUserId(this.userId, function(res) {
+        const web3 = createWeb3();
+        vm.wallet.balance = web3.utils.fromWei(
+          res.data.balance.toString(),
+          "ether"
+        );
+      });
+    },
+    fetchUserInfo(){
+      // const vm = this;
+      getUserInfo(
+            function (response) {
+              console.log("getUserInfo",response);
+              // vm.user.email = response.data.email;
+              // vm.user.nickname = response.data.nickname;
+            },
+            function (err) {
+              if (err.response != 404) {
+                console.error(err);
+                // alert("유저 정보를 찾지 못했습니다.");
+              }
+            }
+          );
+    },
+    fetchWalletInfo() {
+      const vm = this;
+
+      walletService.findByUserId(this.userId, function(response) {
+        const data = response.data;
+        const web3 = createWeb3();
+        data["balance"] = web3.utils.fromWei(
+          data["balance"].toString(),
+          "ether"
+        );
+        vm.wallet = data;
+      });
+    },
+    toBack() {
+      this.$router.go(-1)
+    }
+  },
+  mounted() {
+    this.fetchWalletInfo();
+    // this.fetchUserInfo();
+  },
+  created() {
+    this.selectDabo = this.$route.params.selected
   }
 }
 </script>
