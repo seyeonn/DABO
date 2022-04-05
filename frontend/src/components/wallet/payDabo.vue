@@ -53,7 +53,7 @@ export default {
       isCharging: false, // 현재 코인을 충전하고 있는 중인지 확인
       isCashCharging: false, // 현재 캐시을 충전하고 있는 중인지 확인
       cashChargeAmount: 0.1,
-      userId: this.$store.state.userId,
+      userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
     }
   },
@@ -91,13 +91,15 @@ export default {
 
       if (success) {
         alert('결제 성공');
+        this.$router.push({name: 'chargeConfirm', params: ''})
       } else {
         alert(`결제 실패: ${error_msg}`);
+        this.chargeCash()
       }
 
       
 
-      this.$router.push({name: 'chargeConfirm', params: ''})
+      
     },
     chargeCash() {
       const vm = this;
@@ -146,12 +148,12 @@ export default {
       });
     },
     fetchUserInfo(){
-      const vm = this;
+      // const vm = this;
       getUserInfo(
             function (response) {
               console.log("getUserInfo",response);
-              vm.user.email = response.data.email;
-              vm.user.nickname = response.data.nickname;
+              // vm.user.email = response.data.email;
+              // vm.user.nickname = response.data.nickname;
             },
             function (err) {
               if (err.response != 404) {
@@ -163,6 +165,7 @@ export default {
     },
     fetchWalletInfo() {
       const vm = this;
+
       walletService.findByUserId(this.userId, function(response) {
         const data = response.data;
         const web3 = createWeb3();
@@ -179,7 +182,7 @@ export default {
   },
   mounted() {
     this.fetchWalletInfo();
-    this.fetchUserInfo();
+    // this.fetchUserInfo();
   },
   created() {
     this.selectDabo = this.$route.params.selected
