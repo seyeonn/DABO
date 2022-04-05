@@ -67,9 +67,8 @@ public class BloodCardController {
     })
     public ResponseEntity<TransactionBloodCardHistory> bloodCardDonation(@ApiIgnore Authentication authentication, @RequestBody BloodCardDonationReq bloodCardDonationReq){
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        Long userId = userDetails.getUser().getUserId();
-        String userName = userDetails.getUser().getNickname();
-        TransactionBloodCardHistory transactionBloodCardHistory = bloodCardService.bloodCardDonation(bloodCardDonationReq, userId, userName);
+        Long userId = userDetails.getUser().getUserId();;
+        TransactionBloodCardHistory transactionBloodCardHistory = bloodCardService.bloodCardDonation(bloodCardDonationReq, userId);
         if(transactionBloodCardHistory != null){
             return ResponseEntity.status(200).body(transactionBloodCardHistory);
         }
