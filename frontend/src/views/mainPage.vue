@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="contents-bloodcard d-flex">
-          <div class="imoge"><img src="@/assets/imoge.png" /></div>
+          <div><img src="@/assets/imoge.png" style="width: 80px;"/></div>
           <div>
             <p>
               나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
@@ -306,7 +306,7 @@ export default {
   margin-left: 5%;
 }
 .imoge img {
-  width: 80px;
+  width: 100%;
 }
 .detail-show {
   position: flex;
@@ -413,10 +413,11 @@ export default {
   text-align: center;
 }
 .contents-title-bloodreserve {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 5%;
+  margin: 0%;
+  margin-top: 10px;
+  padding: 0%;
   justify-content: space-between;
+  float: right;
 }
 .contents-bloodreserve {
   margin-bottom: 5%;
@@ -425,7 +426,7 @@ export default {
   margin: 0;
 }
 .contents-title-bloodreserve > p {
-  margin-top: 5%;
+  width: 100%;
 }
 .font-color-red {
   color: #e52d27;

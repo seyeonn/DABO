@@ -12,7 +12,7 @@
       <br>
       <span
         v-for="(t, index) in subtitle"
-        :key="index"
+        :key="t+index"
         class="item"
         :style="{animationDelay: index*70+'ms'}"
         v-text="t"
