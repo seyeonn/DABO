@@ -62,7 +62,7 @@ public class EthBlockListeningService
 			});
 		}
 		latestBlockHeight = currentBlockNumber;
-		log.info("Txs fetched Block # (" + latestBlockHeight + ") from " + this.ethUrl);
+//		log.info("Txs fetched Block # (" + latestBlockHeight + ") from " + this.ethUrl);
 
 		this.ethInfoRepository.put(this.ethUrl, latestBlockHeight.toString());
 	}
@@ -94,7 +94,7 @@ public class EthBlockListeningService
 					log.info(ethInfo.getEthUrl());
 				}
 				this.getTransactions(b.getNumber());
-				log.info("New Block Subscribed");
+//				log.info("New Block Subscribed");
 			} catch (ExecutionException | InterruptedException e) {
 				log.info("Block Subscription Failed");
 				log.error(e.toString());

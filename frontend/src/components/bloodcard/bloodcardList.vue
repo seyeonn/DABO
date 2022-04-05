@@ -1,53 +1,211 @@
 <template>
   <div class="cardlist-page">
     <div class="cardlist-header">
-      <button><img src="@/assets/back.png" /></button>
+      <button @click="backBtn"><img src="@/assets/back.png" /></button>
     </div>
     <div class="cardlist-title">
       <span>나의 헌혈증</span>
     </div>
-    <div class="d-flex cardlist-conentents">
+    <div
+      v-for="(bloodCard, bloodCardId) in bloodLists"
+      :key="bloodCardId"
+      :per-page="perPage"
+      :current-page="currentPage"
+      class="d-flex cardlist-conentents"
+    >
       <div class="imoge col-4"><img src="@/assets/border-imoge.png" /></div>
       <div class="col-8">
-        <span>2022.03.11 헌혈증</span>
-        <p>증서번호 : 18-15963</p>
-        <p>혈액원명 : SSAFY 헌혈의 집</p>
-        <p>성명 : OOO</p>
-        <p>헌혈종류 : 전혈 400ml</p>
+        <span>{{ bloodCard.donationDate }} 헌혈증</span>
+        <p>증서번호 : {{ bloodCard.bloodCardNumber }}</p>
+        <p>혈액원명 : {{ bloodCard.bloodHouse }}</p>
+        <p>성명 : {{ bloodCard.userName }}</p>
+        <p>헌혈종류 : {{ bloodCard.donationType }}</p>
       </div>
     </div>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="bloodcard"
+      align="center"
+    >
+    </b-pagination>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { API_BASE_URL } from "@/config";
+import { findByBloodCard } from "@/api/bloodCard.js";
 export default {
   data() {
     return {
-      name: "",
-      gender: "",
-      birthDate: "",
-      cardNumber: "",
-      donationDate: "",
-      typeSelected: "",
-      bloodsource: "",
+      // 몇개 씩 보여줄지
+      perPage: 3,
+      // 현재 페이지
+      currentPage: 1,
+      bloodCards: [
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "1",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "1",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "1",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "1",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "1",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "15",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "16",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "17",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 1,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "18",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 10,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "19",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 10,
+          userName: "이제훈",
+        },
+        {
+          bloodCardId: 1,
+          bloodCardNumber: "20",
+          bloodHouse: "헌혈의집",
+          donationDate: "1996-01-01",
+          donationType: "전혈 400ml",
+          userBirth: "1996-01-01",
+          userGender: "M",
+          userId: 10,
+          userName: "이제훈",
+        },
+      ],
     };
   },
   mounted() {
     this.getList();
   },
+  computed: {
+    bloodLists() {
+      const items = this.bloodCards;
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      );
+    },
+    rows() {
+      return this.bloodCards.length;
+    },
+  },
   methods: {
     getList() {
-      axios.get(API_BASE_URL + "/api/bc/search").then((response) => {
-        console.log(response);
-      });
+      const vm = this;
+      findByBloodCard(
+        function (response) {
+          vm.bloodCards = response.data;
+          console.log(vm.bloodCards);
+        },
+        function (err) {
+          console.log(err);
+        }
+      );
+    },
+    backBtn() {
+      this.$router.push({ name: "home" });
     },
   },
 };
 </script>
 
 <style scoped>
+.cardlist-page {
+  overflow: hidden;
+}
 .cardlist-header {
   height: 5%;
   background: #e52d27;
@@ -68,6 +226,7 @@ export default {
 }
 .cardlist-conentents {
   align-items: center;
+  margin-bottom: 5%;
 }
 .cardlist-conentents .imoge {
   text-align: center;

@@ -102,6 +102,7 @@
 
       <div slot="body" style="word-break:break-all">
         <br/>
+        <button @click="chargeETH"></button>
         <br/>
         <button @click="copyPrivateKey">비밀키 복사(css 다시 손볼게요)</button>
         <p style="text-align : left">[비밀키](❗반드시 저장❗)</p>
@@ -185,7 +186,7 @@ export default {
 
       const response = await axios
 
-        .post(API_BASE_URL + "/api/user/signUp", userData)
+        .post(API_BASE_URL + "/api/user/signup", userData)
         .then((response) => {
           console.log("SignUp START");
           console.log(response);
@@ -252,6 +253,7 @@ export default {
        * cash 충전을 위한 이더 충전
        */
       // if(this.wallet.balance <= 1)
+      console.log("eth charge START")
       const scope = this;
       walletService.chargeEther(
         this.walletAddress,
