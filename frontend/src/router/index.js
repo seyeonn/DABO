@@ -10,6 +10,7 @@ import donationBoard from "@/views/donationBoard/donationBoardPage.vue";
 import ListBoard from "@/components/campaign/donationBoardList.vue";
 import ListItem from "@/components/campaign/donationBoardListItem.vue";
 import CreateBoard from "@/components/campaign/donationBoardCreate.vue";
+import UpdateBoard from "@/components/campaign/donationBoardUpdate.vue";
 import DetailBoard from "@/components/campaign/donationBoardDetail.vue";
 import MyDonation from "@/components/campaign/bloodCardDonation.vue";
 import DonationConfirm from "@/components/campaign/donationConfirm.vue";
@@ -37,7 +38,7 @@ import chargeConfirm from "@/views/daboWallet/chargeConfirm.vue";
 
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
-
+import testDabo from "@/components/wallet/testDabo.vue"
 const routes = [
   {
     path: "/",
@@ -105,7 +106,7 @@ const routes = [
     ],
   },
   {
-    path: "/donationboard",
+    path: "/donationBoard",
     name: "donationBoard",
     component: donationBoard,
     children: [
@@ -123,6 +124,11 @@ const routes = [
         path: "createBoard",
         name: "createBoard",
         component: CreateBoard,
+      },
+      {
+        path: "updateBoard",
+        name: "updateBoard",
+        component: UpdateBoard,
       },
       {
         path: "detailBoard/:campaignId",
@@ -163,11 +169,11 @@ const routes = [
     //   },
     // ]
   },
-  // {
-  //   path: "/testDabo",
-  //   name: "testDabo",
-  //   component: testDabo,
-  // },
+  {
+    path: "/testDabo",
+    name: "testDabo",
+    component: testDabo,
+  },
   {
     path: "/dabowallet/chargedabo",
     name: "chargedabo",
