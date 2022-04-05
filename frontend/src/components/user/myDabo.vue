@@ -43,18 +43,13 @@
             <div class="donation-summary">
               <table>
                 <th>기부 일시</th>
-                <th>기부처</th>
+                <th>메세지</th>
                 <th>기부 현황</th>
-                <tr>
-                  <td>'21.03.07</td>
-                  <td>연세대학교 병원 N개</td>
-                  <td>기부 완료</td>
-                </tr>
-                <tr>
-                  <td>'21.03.08</td>
-                  <td>SSAFY 보건소 N개</td>
-                  <td>기부 완료</td>
-                </tr>
+                <tr v-for="(thsendBloodCard, idx) in thsendBloodCards" :key="idx">
+                  <td>{{thsendBloodCard.transactionCardDate}}</td>
+                  <td>{{thsendBloodCard.transactionCardMessage}}</td>
+                  <td>기부 완료</td>         
+                </tr>     
               </table>
             </div>
           </div>
@@ -71,7 +66,14 @@
 
 <script>
 import { mapActions } from "vuex";
+import { thSendBloodCard } from "@/api/bloodCard.js";
+
 export default {
+  data(){
+    return{
+      thsendBloodCards:[{}],
+    }
+  },
   methods: {
     ...mapActions(["logoutRemoveToekn"]),
     doLogout() {
@@ -88,6 +90,18 @@ export default {
       this.$router.push({ name: 'chargedabo', params: ''})
     }
   },
+  mounted(){
+    const vm = this;
+    thSendBloodCard(
+      function(response){
+        console.log(response.data);
+        vm.thsendBloodCards = response.data;
+      },
+      function(err){
+        console.err(err);
+      }
+    )
+  }
 };
 </script>
 

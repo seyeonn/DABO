@@ -104,7 +104,7 @@ export default {
             function () {
               bloodCardChageState(
                 bloodCardId,
-                "힘",
+                "힘내세요",
                 vm.$route.query.userId,
                 function () {
                   vm.$router.push({ name: "donationConfirm", params: "" });
