@@ -19,15 +19,18 @@
           <div><p>내 헌혈증 기록</p></div>
           <div class="d-flex">
             <p>등록하기</p>
-            <button class="btn-plus"><img src="@/assets/plus.png" /></button>
+            <button @click="gobloodcardCreate" class="btn-plus">
+              <img src="@/assets/plus.png" />
+            </button>
           </div>
         </div>
         <div class="contents-bloodcard d-flex">
           <div class="imoge"><img src="@/assets/imoge.png" /></div>
           <div>
             <p>
-              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.<br />나의 기부 뱃지는
-              2개 입니다.
+              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
+              <!-- <br />나의 기부 뱃지는
+              2개 입니다. -->
             </p>
           </div>
         </div>
@@ -41,14 +44,14 @@
         </div>
         <div class="contents-donation d-flex">
           <div class="thumnail-donation"><img src="@/assets/imoge.png" /></div>
-          <div>
-            <div class="donation-title"><p>캠페인 제목</p></div>
-            <div class="donation-summary">
-              <p>캠페인 요약 내용 들어가는 자리 입니다.</p>
+          <div class="col-8">
+            <div class="donation-title">
+              <p>{{ title }}</p>
             </div>
+            <div class="donation-summary">{{ content }}</div>
             <div class="progress-info d-flex">
-              <p>70명 기부</p>
-              <p>10시간 남음</p>
+              <p>헌혈증 {{ amount }}개 필요</p>
+              <p>{{ deadLine }}까지</p>
             </div>
             <div class="progress donation-progress">
               <div
@@ -160,6 +163,13 @@ export default {
   data() {
     return {
       bloodcardCnt: "",
+      campaign: "",
+      mediaUrl: "",
+      title: "",
+      content: "",
+      amount: "",
+      deadline: "",
+      target: "",
     };
   },
   created() {
@@ -179,10 +189,16 @@ export default {
       );
     },
     getDonationContents() {
-      //const vm = this;
+      const vm = this;
       getDonationBoard(
         function (response) {
-          console.log(response.data);
+          vm.mediaUrl = response.data[0].mediaUrl;
+          vm.title = response.data[0].title;
+          vm.content = response.data[0].content;
+          vm.amount = response.data[0].amount;
+          vm.deadLine = response.data[0].deadLine;
+          vm.target = response.data[0].target;
+          console.log(response.data[0]);
         },
         function (err) {
           console.log(err);
@@ -194,6 +210,9 @@ export default {
     },
     goBloodcardList() {
       this.$router.push({ name: "bloodcardList" });
+    },
+    gobloodcardCreate() {
+      this.$router.push({ name: "bloodcardCreate" });
     },
   },
 };

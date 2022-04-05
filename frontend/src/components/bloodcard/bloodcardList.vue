@@ -203,6 +203,9 @@ export default {
 </script>
 
 <style scoped>
+.cardlist-page {
+  overflow: hidden;
+}
 .cardlist-header {
   height: 5%;
   background: #e52d27;
