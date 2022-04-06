@@ -1,8 +1,9 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.repository.entity.EthInfo;
+
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IEthInfoRepository;
+import com.ecommerce.domain.repository.entity.EthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -11,6 +11,8 @@ public interface IWalletRepository {
 	Wallet get(String wAddress);
 	
 	long create(Wallet wallet);
-	int updateBalance(String wAddress, BigDecimal balance, int cash);
+	int updateBalance(String wAddress, BigDecimal balance, BigDecimal payBalance, int cash);
 	int updateRequestNo(String wAddress);
+
+
 }
