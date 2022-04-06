@@ -1,14 +1,12 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IBloodCardService;
-import com.ecommerce.domain.repository.ICampaignRepository;
 import com.ecommerce.domain.repository.entity.BloodCard;
 import com.ecommerce.domain.repository.entity.TransactionBloodCardHistory;
 import com.ecommerce.domain.repository.request.BloodCardDonationReq;
 import com.ecommerce.domain.repository.request.BloodCardPostReq;
 import com.ecommerce.domain.repository.response.BloodCardDonationRes;
 import com.ecommerce.infrastructure.repository.BloodCardRepository;
-import com.ecommerce.infrastructure.repository.CampaignRepository;
 import com.ecommerce.infrastructure.repository.TransactionBloodCardHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +20,6 @@ public class BloodCardService implements IBloodCardService {
 
     @Autowired
     TransactionBloodCardHistoryRepository transactionBloodCardHistoryRepository;
-
-    @Autowired
-    ICampaignRepository campaignRepository;
 
     @Override
     public BloodCard createBloodCard(BloodCardPostReq bloodCardPostReq, Long userId) {
@@ -47,18 +42,16 @@ public class BloodCardService implements IBloodCardService {
     }
 
     @Override
-    public TransactionBloodCardHistory bloodCardDonation(BloodCardDonationReq bloodCardDonationReq, Long userId) {
+    public TransactionBloodCardHistory bloodCardDonation(BloodCardDonationReq bloodCardDonationReq, Long userId, String userName) {
         TransactionBloodCardHistory transactionBloodCardHistory = new TransactionBloodCardHistory();
         Long bloodCardId = bloodCardDonationReq.getBloodCardId();
         Long TransactionCardToId = bloodCardDonationReq.getTransactionCardToId();
         transactionBloodCardHistory.setTransactionCardFromId(userId);
         transactionBloodCardHistory.setTransactionCardToId(bloodCardDonationReq.getTransactionCardToId());
-        transactionBloodCardHistory.setTransactionCardToName(bloodCardDonationReq.getTransactionCardToName());
+        transactionBloodCardHistory.setUserName(userName);
         transactionBloodCardHistory.setBloodCardId(bloodCardDonationReq.getBloodCardId());
         transactionBloodCardHistory.setTransactionCardMessage(bloodCardDonationReq.getTransactionCardMessage());
         bloodCardRepository.bloodCardDonation(bloodCardId, TransactionCardToId);
-        System.out.println(bloodCardDonationReq.getCampaignId());
-        campaignRepository.receiveBloodCard(bloodCardDonationReq.getCampaignId());
         return transactionBloodCardHistoryRepository.save(transactionBloodCardHistory);
 
     }

@@ -18,7 +18,7 @@
           <span style="font-weight: bold;">DABO Token 보유 현황</span><br>
           <span style="font-weight: lighter;">{{ $store.state.wallet.cash }} DABO</span><br>
           <span style="font-weight: bold;">내 지갑 주소</span><br>
-          <span class="wallet-address">{{ $store.state.user.walletAddress }}</span>
+          <span style="font-weight: lighter;">{{ $store.state.user.walletAddress }}</span>
         </div>
       </div>
 
@@ -135,7 +135,6 @@ export default {
 	display: inline-block;
 	float: left;    
   color: #f08986;
-  max-width: 119px;
 }
 .form_radio_group input[type=radio] {
 	display: none;
@@ -145,7 +144,6 @@ export default {
 	cursor: pointer;
 	padding: 0px 15px;
 	line-height: 34px;
-  width: 100%;
 	border: 1px solid #f08986;
 	border-right: none;
 	user-select: none;
@@ -181,10 +179,5 @@ export default {
   font-size: 12px;
   float: right;
   margin-top: 50px;
-}
-
-.wallet-address {
-  font-weight: lighter;
-  font-size: 12px;
 }
 </style>

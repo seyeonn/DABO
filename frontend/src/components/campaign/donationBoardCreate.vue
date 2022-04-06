@@ -60,7 +60,7 @@ export default {
   created() {
     if(this.type === "modify") {
       axios
-        .get(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}`)
+        .get(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`)
         .then((res) => {
           this.campaign = res.data;
         });
@@ -110,7 +110,7 @@ export default {
     },
     async registCampaign(formData) {
       const response = await axios
-        .post(API_BASE_URL+"/api/donationBoard/createBoard", formData, {
+        .post(API_BASE_URL+"/donationBoard/createBoard", formData, {
            headers: {
                "Content-Type": "multipart/form-data",
                Authorization: `Bearer `+localStorage.getItem("accessToken"),
@@ -124,7 +124,7 @@ export default {
     },
     async modifyCamapign() {
       const response = await axios
-        .put(API_BASE_URL+`/api/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaign, {
+        .put(API_BASE_URL+`/donationBoard/detailBoard/${this.$route.params.campaignId}`, this.campaign, {
            headers: {
                Authorization: `Bearer `+localStorage.getItem("accessToken"),
              },

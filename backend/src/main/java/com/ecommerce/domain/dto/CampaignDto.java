@@ -42,10 +42,4 @@ public class CampaignDto {
 
     @ApiParam(value = "작성자 ID")
     private Long userId;
-
-    @ApiParam(value = "현재 기부 받은 헌혈증 수")
-    private int receiveBloodCard;
-
-    @ApiParam(value = "현재 기부 받은 Dabo 수")
-    private int  receiveDabo;
 }

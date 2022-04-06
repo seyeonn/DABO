@@ -90,8 +90,6 @@ public class CampaignService implements ICampaignService {
                 .deadLine(campaign.getDeadLine())
                 .mediaUrl(resourcePathname)
                 .walletAddress(campaign.getWalletAddress())
-                .receiveBloodCard(0)
-                .receiveDabo(0)
                 .build();
         campaignRepository.save(newCampaign);
 
