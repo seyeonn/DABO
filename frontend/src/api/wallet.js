@@ -50,8 +50,9 @@ function chargeEther(walletAddress, success, fail) {
 }
 function createDonation(body, success, fail){
   console.log("createDonation API START")
+  console.log(body)
   instance
-    .post("/wallets/donation", JSON.stringify(body))
+    .post("/api/wallets/donation", JSON.stringify(body))
     .then(success)
     .catch(fail);
 }
@@ -59,7 +60,7 @@ function createDonation(body, success, fail){
 function getDonationByAddress(address, success, fail){
   console.log("createDonation API START")
   instance
-    .post("/wallets/donation/of/"+address)
+    .get("/api/wallets/donation/of/"+address)
     .then(success)
     .catch(fail);
 }

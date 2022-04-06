@@ -102,6 +102,13 @@ export default {
         vm.$store.commit("setWallet", data)
 
       });
+
+      walletService.getDonationByAddress(this.walletAddress, function(response){
+          console.log(response)
+          console.log("get Donation success")
+        }, function(err){
+          console.log(err)
+        })
     },
     copy() {
       this.$copyText(this.wallet.address).then(function (e) {

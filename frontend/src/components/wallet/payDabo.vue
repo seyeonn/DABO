@@ -19,7 +19,7 @@
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
         <a href="#bDonation"><button>신용카드 결제</button></a>
-        <button @click="fetchCreateDonation">뒤로가기</button>
+        <button @click="fetchCreateDonation()">뒤로가기</button>
       </div>
     </div>
     <div class="contents">
