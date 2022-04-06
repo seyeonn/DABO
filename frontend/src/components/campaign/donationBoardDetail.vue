@@ -120,7 +120,8 @@ export default {
         this.campaignId = campaignId;
       },
       goDaboDonationDetail(){
-        this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard}})
+        const vm = this;
+        this.$router.push({name: 'daboDonation', params: {toAddress: this.walletAddressOfBoard} , query : {'campaignId':vm.campaignId}})
       },
       toBack() {
         console.log(this.campignId)
