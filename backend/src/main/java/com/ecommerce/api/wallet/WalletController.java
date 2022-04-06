@@ -95,6 +95,12 @@ public class WalletController {
 		return walletService.getDonationList(address);
 	}
 
+	@ApiOperation(value = "Get Donation History of campaignId")
+	@RequestMapping(value = "/wallets/donation/of/{campaignId}", method = RequestMethod.GET)
+	public List<TransactionDonationHistory> getDonationByCampaignId(@PathVariable long campaignId) {
+		return walletService.getDonationListByCampaignId(campaignId);
+	}
+
 
 	/**
 	 *  충전 요청

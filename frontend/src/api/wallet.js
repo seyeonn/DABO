@@ -49,10 +49,28 @@ function chargeEther(walletAddress, success, fail) {
     .catch(fail);
 }
 
+function createDonation(body, success, fail){
+  console.log("createDonation API START")
+  instance
+    .post("/wallets/donation", JSON.stringify(body))
+    .then(success)
+    .catch(fail);
+}
+
+function getDonationByAddress(address, success, fail){
+  console.log("createDonation API START")
+  instance
+    .post("/wallets/donation/of/"+address)
+    .then(success)
+    .catch(fail);
+}
+
 export {
   findAddressById,
   findByUserId,
   registerWallet,
   isValidPrivateKey,
-  chargeEther
+  chargeEther,
+  createDonation,
+  getDonationByAddress
 };
