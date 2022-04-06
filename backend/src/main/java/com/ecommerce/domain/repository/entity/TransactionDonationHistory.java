@@ -17,6 +17,7 @@ public class TransactionDonationHistory {
     @ApiModelProperty(name="id", example="1")
     private long id;
 
+    private long campaignId;
     private LocalDate created_at = LocalDate.now();
     @ApiModelProperty(name="state", example="충전")
     private String state;
