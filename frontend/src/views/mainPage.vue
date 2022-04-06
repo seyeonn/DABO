@@ -330,6 +330,8 @@ export default {
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
+  padding: 5px;
+  background-color: transparent;
 }
 .detail-show button {
   border: none;
@@ -372,7 +374,6 @@ export default {
 }
 
 .contents-ranking {
-  height: 50vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
