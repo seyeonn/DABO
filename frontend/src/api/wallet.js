@@ -60,7 +60,7 @@ function createDonation(body, success, fail){
 function getDonationByAddress(address, success, fail){
   console.log("createDonation API START")
   instance
-    .post("/wallets/donation/of/addr"+address)
+    .post("/wallets/donation/of/"+address)
     .then(success)
     .catch(fail);
 }
