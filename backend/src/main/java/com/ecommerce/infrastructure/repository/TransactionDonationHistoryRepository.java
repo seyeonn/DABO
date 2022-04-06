@@ -12,6 +12,6 @@ import java.util.List;
 
 @Repository
 public interface TransactionDonationHistoryRepository extends JpaRepository<TransactionDonationHistory, Long> {
-    @Query(value = "SELECT *from transaction_donation_history where transaction_donation_from_address = :address", nativeQuery = true)
+    @Query(value = "SELECT *from transaction_donation_history where transaction_donation_from_address = :address order by id desc", nativeQuery = true)
     List<TransactionDonationHistory> findByAddress(String address);
 }
