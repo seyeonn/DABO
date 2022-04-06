@@ -2,8 +2,8 @@
   <div class="main-page">
     <div class="main-header">
       <div class="d-flex header-contents">
-        <div class="greeting">
-          <p style="font-family: 'NicoMoji' !important">My DABO</p>
+        <div class="wallet-header">
+          <p style="font-family: 'NicoMoji' !important; text-align: center;">My DABO</p>
         </div>
       </div>
       <div id="wrapper">
@@ -24,7 +24,7 @@
             <span>DABO Token 보유 현황</span><br />
             <span style="font-weight: lighter">{{ $store.state.wallet.cash }} DABO</span><br />
             <span>내 지갑 주소</span><br />
-            <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
+            <span  class="wallet-address">{{ $store.state.user.walletAddress }}</span>
           </div>
         </div>
         <div class="detail-show">
@@ -58,6 +58,8 @@
       <div class="myBtn">
         <button @click="toInfoChange()">회원정보 수정</button>
         <button @click="doLogout()">로그아웃</button>
+        <div style="text-align: center;">
+        </div>
       </div>
       <div></div>
     </div>
@@ -119,7 +121,7 @@ export default {
   justify-content: center;
   padding: 15px;
 }
-.greeting {
+.wallet-header {
   font-weight: bold;
   font-size: 30px;
   text-align: center;
@@ -152,7 +154,7 @@ export default {
 }
 .contents button {
   border: none;
-  background: #fff;
+  background: transparent;
   font-weight: bold;
 }
 .contents-title {
@@ -195,13 +197,14 @@ export default {
   position: flex;
   float: right;
   margin-right: 30px;
+  background: rgba(0,0,0,0);
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
 }
 .detail-show button {
   border: none;
-  background: #fff;
+  background: transparent;
 }
 .contents-donation {
   height: 20vh;
@@ -237,14 +240,19 @@ td {
 .myBtn button {
   display: block;
   margin: auto;
-  background-color: white;
+  background-color: transparent;
   color: black;
   border: none;
-  border-radius: 5px 5px;
+  border-radius: 15px;
   width: 90%;
   margin-top: 10px;
   margin-bottom: 5px;
-  box-shadow: 1px 1px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 20%),
+    0 4px 4px rgb(0 0 0 / 15%), 0 8px 8px rgb(0 0 0 / 10%);
 }
 
+.wallet-address{
+  font-weight: lighter;
+  font-size: 12px;
+}
 </style>
