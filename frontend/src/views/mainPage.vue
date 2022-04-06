@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="contents-bloodcard d-flex">
-          <div><img src="@/assets/imoge.png" style="width: 80px;"/></div>
+          <div><img src="@/assets/imoge.png" style="width: 80px" /></div>
           <div>
             <p>
               나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
@@ -247,7 +247,7 @@ export default {
 .main-greeting {
   margin-right: 15%;
   font-weight: bold;
-  font-size: 30px;
+  font-size: x-large;
   text-align: center;
 }
 .btn-profile button {
@@ -292,7 +292,7 @@ export default {
   width: 30px;
 }
 .contents-bloodcard {
-  height: 20vh;
+  height: 14vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
