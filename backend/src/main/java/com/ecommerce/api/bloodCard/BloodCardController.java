@@ -67,8 +67,9 @@ public class BloodCardController {
     })
     public ResponseEntity<TransactionBloodCardHistory> bloodCardDonation(@ApiIgnore Authentication authentication, @RequestBody BloodCardDonationReq bloodCardDonationReq){
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        Long userId = userDetails.getUser().getUserId();;
-        TransactionBloodCardHistory transactionBloodCardHistory = bloodCardService.bloodCardDonation(bloodCardDonationReq, userId);
+        Long userId = userDetails.getUser().getUserId();
+        String userName = userDetails.getUser().getNickname();
+        TransactionBloodCardHistory transactionBloodCardHistory = bloodCardService.bloodCardDonation(bloodCardDonationReq, userId, userName);
         if(transactionBloodCardHistory != null){
             return ResponseEntity.status(200).body(transactionBloodCardHistory);
         }
@@ -78,8 +79,8 @@ public class BloodCardController {
     @GetMapping("/transactionHistory/send")
     @ApiOperation(value = "전자 헌혈증 기부내역 조회", notes = "전자 헌혈증 기부내역 조회")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "성공", response = TransactionBloodCardHistory.class),
-            @ApiResponse(code = 500, message = "서버 오류", response = TransactionBloodCardHistory.class)
+            @ApiResponse(code = 200, message = "성공", response = BloodCardPostReq.class),
+            @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<List<TransactionBloodCardHistory>> bloodCardDonationSend(@ApiIgnore Authentication authentication){
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
@@ -94,8 +95,8 @@ public class BloodCardController {
     @GetMapping("/transactionHistory/receive")
     @ApiOperation(value = "전자 헌혈증 기부받은 내역 조회", notes = "전자 헌혈증 기부받은 내역 조회")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "성공", response = TransactionBloodCardHistory.class),
-            @ApiResponse(code = 500, message = "서버 오류", response = TransactionBloodCardHistory.class)
+            @ApiResponse(code = 200, message = "성공", response = BloodCardPostReq.class),
+            @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<List<TransactionBloodCardHistory>> bloodCardDonationReceive(@ApiIgnore Authentication authentication){
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();

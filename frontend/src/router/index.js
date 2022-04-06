@@ -106,7 +106,7 @@ const routes = [
     ],
   },
   {
-    path: "/donationBoard",
+    path: "/donationboard",
     name: "donationBoard",
     component: donationBoard,
     children: [
