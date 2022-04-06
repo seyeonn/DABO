@@ -1,7 +1,7 @@
 <template>
   <div class="campaign_item" @click="goDetail()">
     <div class="thumbnail-campaign">
-      <img :src="'{{baseURL}}' + mediaUrl" alt="" />
+      <img :src="this.baseURL + mediaUrl" alt="" />
     </div>
     <div class="">
       <h4>{{ title }}</h4>
