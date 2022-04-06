@@ -7,7 +7,11 @@
         </div>
       </div>
       <div id="wrapper">
-        <div class="circle">O</div>
+          <div class="circle" v-if="'A' === this.$store.state.userBloodType">A</div>
+          <div class="circle" v-else-if="'B' === this.$store.state.userBloodType">B</div>
+          <div class="circle" v-else-if="'AB' === this.$store.state.userBloodType">AB</div>
+          <div class="circle" v-else>O</div>
+        <!-- <div class="circle">O</div> -->
       </div>
     </div>
 
