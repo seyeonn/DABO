@@ -7,7 +7,11 @@
         </div>
       </div>
       <div id="wrapper">
-        <div class="circle">O</div>
+          <div class="circle" v-if="'A' === this.$store.state.userBloodType">A</div>
+          <div class="circle" v-else-if="'B' === this.$store.state.userBloodType">B</div>
+          <div class="circle" v-else-if="'AB' === this.$store.state.userBloodType">AB</div>
+          <div class="circle" v-else>O</div>
+        <!-- <div class="circle">O</div> -->
       </div>
     </div>
 
@@ -38,7 +42,7 @@
         <div class="contents-donation d-flex">
           <div>
             <div class="donation-title">
-              <span>기부한 내역 (총 N회 / N개)</span>
+              <span>기부한 내역 (총 {{thsendBloodCards.length}}회 / {{thsendBloodCards.length}}개)</span>
             </div>
             <div class="donation-summary">
               <table>

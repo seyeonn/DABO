@@ -3,13 +3,15 @@ const userStore = {
     userId: "",
     userName: "",
     token: "",
-    walletAddress: null
+    walletAddress: null,
+    userBloodType:null
   },
   mutations: {
     login: function (state, payload) {
       state.userId = payload.userId;
       state.userName = payload.userName;
       state.token = payload.token;
+      state.userBloodType = payload.userBloodType;
     },
     setWalletAddress(state, address) {
       state.walletAddress = address;

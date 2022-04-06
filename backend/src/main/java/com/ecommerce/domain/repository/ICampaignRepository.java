@@ -17,4 +17,9 @@ public interface ICampaignRepository  extends JpaRepository<Campaign, Long> {
     @Modifying
     @Query(value = "UPDATE campaign set receive_blood_card = receive_blood_card+1 where campaign_id = :campaignId",nativeQuery = true)
     void receiveBloodCard(Long campaignId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE campaign set receive_dabo = receive_dabo + :amount where campaign_id = :campaignId",nativeQuery = true)
+    void daboReceive(long campaignId, long amount);
 }
