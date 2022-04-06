@@ -9,7 +9,11 @@
           <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
-          <button><img src="@/assets/profile.png" /></button>
+          <button v-if="'A' === this.$store.state.user.blood_type"><img src= "@/assets/A.png" /></button>
+          <button v-else-if="'B' === this.$store.state.user.blood_type"><img src= "@/assets/B.png" /></button>
+          <button v-else-if="'AB' === this.$store.state.user.blood_type"><img src= "@/assets/AB.png" /></button>
+          <button v-else><img src= "@/assets/O.png" /></button>
+          <!-- <button><img src="@/assets/profile.png" /></button> -->
         </div>
       </div>
     </div>
