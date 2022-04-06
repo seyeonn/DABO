@@ -1,12 +1,12 @@
 <template>
     <div class="commentInput-page">
-        <!-- <div v-if="this.modifyComment != null" class="regist_form"> -->
         <div>
             <form class="form" @submit.prevent="submitForm">
-            <textarea name="content" id="content" v-model="content" class="text_comment" cols="30" rows="3"></textarea>
+            <textarea name="content" id="content" v-model="content" class="textarea_a" cols="30" rows="3"></textarea>
             
                 <button
                 class="btn_red_comment"
+                style="color: white"
                  type="submit"
                 >
                 등록
@@ -14,22 +14,6 @@
             
             </form>
         </div>
-
-        <!-- <div v-else class="regist_form">
-            <textarea
-                id="comment"
-                name="comment"
-                v-model="comment"
-                cols="35"
-                rows="2"
-            ></textarea>
-            <button
-                class="g-actions-button23 g-actions-button23-default"
-                @click="registComment"
-            >
-                등록
-            </button>
-        </div> -->
     </div>
 </template>
 
@@ -90,8 +74,21 @@ export default {
     border-radius: 10px;
     border: none;
     width: 20%;
-    height: 25px;
+    height: 30px;
     font-size: 10px;
     float:right;
+    margin-top: 5px;
+}
+.textarea_a {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  border-color: #e8e8e8;
+}
+.textarea_a::placeholder {
+    color: #bdbdbd;
+  font-size: 12px;
+  padding: 10px;
 }
 </style>

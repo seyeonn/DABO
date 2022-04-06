@@ -17,9 +17,9 @@
                   </div>
                   <span 
                   :class="{ 'd-none': can_see }">
-                    <textarea v-model="newComment.content" @keyup.enter="updateComment" class="w-100 fs-5" cols="2"></textarea>
+                    <textarea v-model="newComment.content" @keyup.enter="updateComment" class="textarea_a w-100" cols="2"></textarea>
                     <button 
-                      class="btn btn-primary me-2"
+                      class="btn_red_comment_m"
                       @click="updateComment"
                     >수정</button>
                   </span>                
@@ -159,5 +159,16 @@ export default {
     width: 60px;
     height: 60px;
     border-radius: 20px;;
+}
+.btn_red_comment_m {
+      background-color: #e52d27;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    width: 20%;
+    height: 30px;
+    font-size: 10px;
+    float:right;
+    margin-bottom: 10px;;
 }
 </style>
