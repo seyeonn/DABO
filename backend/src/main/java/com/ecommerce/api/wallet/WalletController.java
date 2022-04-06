@@ -31,6 +31,7 @@ public class WalletController {
 		this.walletService = walletService;
 	}
 
+	// test code
 	/**
 	 * 지갑 등록
 	 * @param wallet
