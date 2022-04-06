@@ -152,6 +152,8 @@
           </div>
         </div>
       </div>
+
+      <button @click="chargeETH">[이더가 모자르면 이 버튼을 클릭]</button>
     </div>
   </div>
 </template>
@@ -159,6 +161,7 @@
 <script>
 import { findByBloodCard } from "@/api/bloodCard.js";
 import { getDonationBoard } from "@/api/campaign.js";
+import * as walletService from "@/api/wallet.js";
 export default {
   data() {
     return {
@@ -170,6 +173,7 @@ export default {
       amount: "",
       deadline: "",
       target: "",
+      walletAddress: this.$store.state.user.walletAddress,
     };
   },
   created() {
@@ -213,6 +217,28 @@ export default {
     },
     gobloodcardCreate() {
       this.$router.push({ name: "bloodcardCreate" });
+    },
+     chargeETH() {
+      /**
+       * cash 충전을 위한 이더 충전
+       */
+      
+      console.log("eth charge START")
+      console.log("userWalletAddress: " , this.walletAddress)
+      walletService.chargeEther(
+        this.walletAddress,
+        function () {
+          // scope.isCharging = false;
+          console.log("이더가 충전 되었습니다.");
+          
+          // this.onShowModal();
+        },
+        function (err) {
+          console.log(err)
+          console.log("이더 충전에 실패했습니다.");
+          // scope.isCharging = false;
+        }
+      );
     },
   },
 };
