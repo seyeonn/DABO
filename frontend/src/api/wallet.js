@@ -73,6 +73,6 @@ export {
   registerWallet,
   isValidPrivateKey,
   chargeEther,
-  createDonation,
-  getDonationByAddress
+  getDonationByAddress,
+  createDonation
 };

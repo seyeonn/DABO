@@ -28,6 +28,5 @@ public interface IWalletService
 
 	TransactionDonationHistory createDonation(TransactionDonationHistory transactionDonationHistory);
 	List<TransactionDonationHistory> getDonationList(String address);
-	List<TransactionDonationHistory> getDonationListByCampaignId(long campaignId);
 
 }

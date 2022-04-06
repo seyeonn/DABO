@@ -2,6 +2,12 @@ pragma solidity ^0.5.12;
 
 import "./Ownable.sol";
 
+/**
+ * @title PurchaseRecord
+ * 에스크로 상태 변경 시 이력을 추가 저장한다. 
+ * @notice 아래의 변수와 함수를 활용하거나 변경하여 구현한다. 
+ */
+
 interface PurchaseRecordInterface {
     function addPurchase(address _address) external;
     function confirmDeposit(address _address) external;
@@ -13,6 +19,7 @@ interface PurchaseRecordInterface {
 
 contract PurchaseRecord is PurchaseRecordInterface, Ownable {
     
+    // 구매 이력 상태의 예 
     enum State {Purchased, Paid, Sent, Complete, Cancelled, Refunded, End}
     
     struct Record {
@@ -23,6 +30,7 @@ contract PurchaseRecord is PurchaseRecordInterface, Ownable {
     
     address public admin;
      
+    // 이력 저장을 위한 상태 변수의 예 
     mapping (address => mapping(uint => Record)) escrowToRecords;
     mapping (address => uint8) escrowToRecordNo;
     
@@ -35,68 +43,36 @@ contract PurchaseRecord is PurchaseRecordInterface, Ownable {
         admin = msg.sender;
     }
     
-    function exists(address addr) private view returns(bool){
-        return escrowToRecordNo[addr] > 0;
-    }
-    
-    function addRecord(address _address, State state, address _by) private {
-        uint8 recordNo = escrowToRecordNo[_address];
-        escrowToRecords[_address][recordNo] = Record(state, now, _by);
-        escrowToRecordNo[_address] = uint8(recordNo + 1);
-    }
-    
     function addPurchase(address _address) external {
-        addRecord(_address, State.Purchased, msg.sender);
+        // todo 
     }
 
-    function confirmDeposit(address _address) external 
-    onlyEscrow 
-    {
-        addRecord(_address, State.Paid, msg.sender);
+    function confirmDeposit(address _address) external {
+        // todo 
     }
     
-    function sendItem(address _address) external 
-    onlyEscrow 
-    {
-        addRecord(_address, State.Sent, msg.sender);
+    function sendItem(address _address) external {
+        // todo 
     }
     
-    function cancelPurchase(address _address) external 
-    onlyEscrow 
-    {
-        addRecord(_address, State.Cancelled, msg.sender);
-        addRecord(_address, State.End, address(this));
+    function cancelPurchase(address _address) external {
+        // todo 
     }
     
-    function refund(address _address) external 
-    onlyEscrow 
-    {
-        addRecord(_address, State.Refunded, msg.sender);
-        addRecord(_address, State.End, address(this));
+    function refund(address _address) external {
+        // todo 
     }
     
-    function confirmPurchase(address _address) external 
-    onlyEscrow 
-    {
-        addRecord(_address, State.Complete, msg.sender);
-        addRecord(_address, State.End, address(this));
+    function confirmPurchase(address _address) external {
+        // todo 
     }
-    
-    function getRecordNumber(address _address) public view 
-    returns (uint8 numberOfRecords)
+
+    // todo 이력을 조회할 수 있는 함수가 반드시 필요함.
+    // 상태변수의 타입을 고려하여 반환형을 추가하여 함수를 작성한다.
+    function getRecord(
+        // 필요한 인자 추가 가능
+    ) public view 
+        // 반환형 추가 
     {
-        return escrowToRecordNo[_address];
-    } 
-    
-    function getRecord(address _address, uint recordNo) public view 
-    returns (
-        State _state,
-        uint256 _when,
-        address _by
-        ) 
-    {
-        _state = escrowToRecords[_address][recordNo].state;
-        _when = escrowToRecords[_address][recordNo].when;
-        _by = escrowToRecords[_address][recordNo].by;
     }
 }

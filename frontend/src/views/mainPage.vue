@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="contents-bloodcard d-flex">
-          <div><img src="@/assets/imoge.png" style="width: 80px;"/></div>
+          <div class="imoge"><img src="@/assets/imoge.png" /></div>
           <div>
             <p>
               나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
@@ -152,8 +152,6 @@
           </div>
         </div>
       </div>
-
-      <button @click="chargeETH">[이더가 모자르면 이 버튼을 클릭]</button>
     </div>
   </div>
 </template>
@@ -161,7 +159,6 @@
 <script>
 import { findByBloodCard } from "@/api/bloodCard.js";
 import { getDonationBoard } from "@/api/campaign.js";
-import * as walletService from "@/api/wallet.js";
 export default {
   data() {
     return {
@@ -173,7 +170,6 @@ export default {
       amount: "",
       deadline: "",
       target: "",
-      walletAddress: this.$store.state.user.walletAddress,
     };
   },
   created() {
@@ -218,28 +214,6 @@ export default {
     gobloodcardCreate() {
       this.$router.push({ name: "bloodcardCreate" });
     },
-     chargeETH() {
-      /**
-       * cash 충전을 위한 이더 충전
-       */
-      
-      console.log("eth charge START")
-      console.log("userWalletAddress: " , this.walletAddress)
-      walletService.chargeEther(
-        this.walletAddress,
-        function () {
-          // scope.isCharging = false;
-          console.log("이더가 충전 되었습니다.");
-          
-          // this.onShowModal();
-        },
-        function (err) {
-          console.log(err)
-          console.log("이더 충전에 실패했습니다.");
-          // scope.isCharging = false;
-        }
-      );
-    },
   },
 };
 </script>
@@ -273,7 +247,7 @@ export default {
 .main-greeting {
   margin-right: 15%;
   font-weight: bold;
-  font-size: 30px;
+  font-size: x-large;
   text-align: center;
 }
 .btn-profile button {
@@ -318,7 +292,7 @@ export default {
   width: 30px;
 }
 .contents-bloodcard {
-  height: 20vh;
+  height: 14vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
@@ -332,7 +306,7 @@ export default {
   margin-left: 5%;
 }
 .imoge img {
-  width: 100%;
+  width: 80px;
 }
 .detail-show {
   position: flex;
@@ -439,11 +413,10 @@ export default {
   text-align: center;
 }
 .contents-title-bloodreserve {
-  margin: 0%;
-  margin-top: 10px;
-  padding: 0%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
   justify-content: space-between;
-  float: right;
 }
 .contents-bloodreserve {
   margin-bottom: 5%;
@@ -452,7 +425,7 @@ export default {
   margin: 0;
 }
 .contents-title-bloodreserve > p {
-  width: 100%;
+  margin-top: 5%;
 }
 .font-color-red {
   color: #e52d27;

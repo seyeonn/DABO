@@ -1,7 +1,6 @@
 package com.ecommerce.domain.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiParam;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,12 +47,6 @@ public class Campaign {
 
     @Column(name="wallet_address")
     private String walletAddress;
-
-    @ApiParam(value = "현재 기부 받은 헌혈증 수")
-    private int receiveBloodCard;
-
-    @ApiParam(value = "현재 기부 받은 Dabo 수")
-    private int receiveDabo;
 
     @Builder.Default
     @OneToMany(mappedBy = "campaign",cascade = CascadeType.ALL)
