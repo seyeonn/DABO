@@ -58,7 +58,7 @@ function createDonation(body, success, fail){
 }
 
 function getDonationByAddress(address, success, fail){
-  console.log("createDonation API START")
+  console.log("getDonationByAddress API START")
   instance
     .get("/api/wallets/donation/of/"+address)
     .then(success)
