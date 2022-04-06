@@ -14,7 +14,7 @@ export default new Vuex.Store({
     isSigned: false, // 로그인 여부
     user: {
       id: 0, // 사용자 아이디 저장
-      nickname:"",
+      nickname: "",
       walletAddress: null,
     },
     wallet: {
@@ -76,8 +76,7 @@ export default new Vuex.Store({
       state.isLogin = false;
       state.myuserNumber = null;
       state.userInfo = null;
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("nickName");
+      localStorage.clear();
 
       location.reload();
     },

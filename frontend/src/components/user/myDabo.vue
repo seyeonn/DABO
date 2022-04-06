@@ -22,9 +22,13 @@
         <div class="contents-wallet d-flex">
           <div>
             <span>DABO Token 보유 현황</span><br />
-            <span style="font-weight: lighter">{{ $store.state.wallet.cash }} DABO</span><br />
+            <span style="font-weight: lighter"
+              >{{ $store.state.wallet.cash }} DABO</span
+            ><br />
             <span>내 지갑 주소</span><br />
-            <span style="font-weight: lighter">{{ $store.state.user.walletAddress }}</span>
+            <span style="font-weight: lighter">{{
+              $store.state.user.walletAddress
+            }}</span>
           </div>
         </div>
         <div class="detail-show">
@@ -45,11 +49,14 @@
                 <th>기부 일시</th>
                 <th>메세지</th>
                 <th>기부 현황</th>
-                <tr v-for="(thsendBloodCard, idx) in thsendBloodCards" :key="idx">
-                  <td>{{thsendBloodCard.transactionCardDate}}</td>
-                  <td>{{thsendBloodCard.transactionCardMessage}}</td>
-                  <td>기부 완료</td>         
-                </tr>     
+                <tr
+                  v-for="(thsendBloodCard, idx) in thsendBloodCards"
+                  :key="idx"
+                >
+                  <td>{{ thsendBloodCard.transactionCardDate }}</td>
+                  <td>{{ thsendBloodCard.transactionCardMessage }}</td>
+                  <td>기부 완료</td>
+                </tr>
               </table>
             </div>
           </div>
@@ -69,15 +76,15 @@ import { mapActions } from "vuex";
 import { thSendBloodCard } from "@/api/bloodCard.js";
 
 export default {
-  data(){
-    return{
-      thsendBloodCards:[{}],
-    }
+  data() {
+    return {
+      thsendBloodCards: [{}],
+    };
   },
   methods: {
     ...mapActions(["logoutRemoveToekn"]),
     doLogout() {
-      this.$router.push({ path: "/" });
+      this.$router.push({ name: "login" });
       this.logoutRemoveToekn();
     },
     toInfoChange() {
@@ -87,21 +94,21 @@ export default {
       this.$router.push({ name: "daboWallet" });
     },
     toCharge() {
-      this.$router.push({ name: 'chargedabo', params: ''})
-    }
+      this.$router.push({ name: "chargedabo", params: "" });
+    },
   },
-  mounted(){
+  mounted() {
     const vm = this;
     thSendBloodCard(
-      function(response){
+      function (response) {
         console.log(response.data);
         vm.thsendBloodCards = response.data;
       },
-      function(err){
+      function (err) {
         console.err(err);
       }
-    )
-  }
+    );
+  },
 };
 </script>
 
@@ -246,5 +253,4 @@ td {
   margin-bottom: 5px;
   box-shadow: 1px 1px;
 }
-
 </style>
