@@ -96,6 +96,7 @@ export default {
       userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
       privateKey: null,
+
     }
   },
   methods: {
@@ -212,6 +213,19 @@ export default {
         );
         vm.wallet = data;
       });
+    },
+    fetchCreateDonation(){
+
+      const body = {
+
+      }
+      walletService.createDonation(body,function(response){
+        console.log("createDonation API Success")
+        console.log(response)
+      }, function(err){
+        console.log("createDonation API Failure")
+        console.log(err)
+      })
     },
     toBack() {
       this.$router.push({name: 'daboWallet'})
