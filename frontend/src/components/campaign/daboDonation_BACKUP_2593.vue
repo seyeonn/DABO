@@ -170,10 +170,6 @@ export default {
         function () {
           alert("지불했습니다. 입금 확인 요청 바랍니다.");
           // this.fetchWalletInfo();
-          
-
-
-          //create 함수 -> update campaign 호출
           vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
           //   vm.processing = false;
           //   vm.input.payAmount = null;

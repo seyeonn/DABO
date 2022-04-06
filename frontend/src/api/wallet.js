@@ -65,14 +65,10 @@ function getDonationByAddress(address, success, fail){
     .catch(fail);
 }
 
-
-
 export {
   findAddressById,
   findByUserId,
   registerWallet,
   isValidPrivateKey,
-  chargeEther,
-  getDonationByAddress,
-  createDonation
+  chargeEther
 };
