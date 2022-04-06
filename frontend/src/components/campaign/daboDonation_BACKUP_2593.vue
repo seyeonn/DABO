@@ -160,6 +160,8 @@ export default {
       // console.log(Number(this.selectDabo) * 0.001);
       console.log(this.selectDabo)
       const vm = this;
+
+      /** web3를 이용한 cash transfer  */
       leaveDeposit(
         {
           escrowAddress: this.toAddress,
@@ -169,13 +171,10 @@ export default {
         this.privateKey,
         function () {
           alert("지불했습니다. 입금 확인 요청 바랍니다.");
-          // this.fetchWalletInfo();
+
+          //create 함수 -> update campaign
           vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
-          //   vm.processing = false;
-          //   vm.input.payAmount = null;
-          //   vm.input.privateKey = "";
-          //   vm.setActionText();
-          //   vm.getWalletBalance(); // 지갑 정보 갱신
+
         },
         function (err) {
           console.error("입금 실패", err);
