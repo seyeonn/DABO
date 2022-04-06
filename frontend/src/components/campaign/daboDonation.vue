@@ -1,14 +1,11 @@
 <template>
-    <div>
-        <div class="wallet-header">
-      <button @click="toBack()">back</button>
+  <div>
+    <div class="dabo_header">
+      <h2 class="dabo_title">다보 후원</h2>
     </div>
-        <div class="dabo_header">
-            <h2 class="dabo_title">다보 후원</h2>
-        </div>
-        <div class="daboDonation-page">
-            <h4 class="h-p">기부 금액(DABO)</h4>
-            <p>{{this.$store.state.wallet.cash}} DABO 보유</p>
+    <div class="daboDonation-page">
+      <h4 class="h-p">기부 금액(DABO)</h4>
+      <p>{{ this.$store.state.wallet.cash }} DABO 보유</p>
 
       <!-- <table class="dabo_table">
                 <tr>
@@ -125,32 +122,10 @@
                 <span>취소하기</span>
               </button>
             </a>
-            </div>
-            <div id="bDonation" class="modal-window">
-                <div>
-                        <p>200 DABO를 기부하시겠습니까?</p>
-                        <sub>
-                            <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
-                            DABO 기부는 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
-                            전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
-                        </sub>
-                        <div>
-                        <span>비밀키를 입력 하세요</span>
-                        <input type="text" v-model="privateKey">
-                      </div>
-                        <div>
-                        <a href="#">
-                            <button class="btn_red_cancel">
-                                <span>취소하기</span>
-                            </button>
-                        </a>
-                        <button class="btn_red_modal" @click="checkConfirm()">
-                            <span>기부하기</span>
-                        </button>
-                        </div>
-                </div>
-                
-            </div>
+            <button class="btn_red_modal" @click="cashTransfer()">
+              <span>기부하기</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -218,9 +193,6 @@ export default {
         vm.$store.state.wallet = data;
       });
     },
-    toBack() {
-        this.$router.go(-1);
-        }
   },
 };
 </script>
@@ -260,20 +232,6 @@ export default {
   height: 30px;
   font-size: 12px;
   margin-top: 10px;
-}
-.wallet-header {
-  background-color: #e52d27;
-  height: 2.5em;
-  justify-content: space-between;
-  align-items: center;
-}
-.wallet-header button {
-  border: 0;
-  outline: 0;
-  background-color: #e52d27;
-  font-family: 'NicoMoji' !important;
-  color: white;
-  vertical-align: -webkit-baseline-middle;
 }
 .h3_span {
   color: #e52d27;
