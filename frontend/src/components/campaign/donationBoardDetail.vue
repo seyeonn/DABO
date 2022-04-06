@@ -12,7 +12,7 @@
                         <label @click="deleteCampaign">삭제</label>
         </div>
         <div>
-            <img :src="'http://localhost:8080'+mediaUrl" class="campaign-detail-img" alt="">
+            <img :src="'{{baseURL}}'+mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
             <p>{{ content }}</p>
             <div>
@@ -65,7 +65,8 @@ export default {
           userId: "",
           mediaUrl: "",
           deadline: "" ,
-          dueDate: ""      
+          dueDate: "",
+          baseURL: API_BASE_URL,  
         }
     },
     async created() { 
