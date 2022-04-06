@@ -217,7 +217,7 @@ export default {
     fetchCreateDonation(){
 
       const body = {
-
+        
       }
       walletService.createDonation(body,function(response){
         console.log("createDonation API Success")
