@@ -38,7 +38,7 @@
         <div class="contents-donation d-flex">
           <div>
             <div class="donation-title">
-              <span>기부한 내역 (총 N회 / N개)</span>
+              <span>기부한 내역 (총 {{thsendBloodCards.length}}회 / {{thsendBloodCards.length}}개)</span>
             </div>
             <div class="donation-summary">
               <table>

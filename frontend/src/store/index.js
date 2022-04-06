@@ -17,6 +17,7 @@ export default new Vuex.Store({
       id: 0, // 사용자 아이디 저장
       nickname:"",
       walletAddress: null,
+      userBloodType: null,
     },
     wallet: {
       id: 0,
@@ -99,6 +100,9 @@ export default new Vuex.Store({
     },
     setWallet(state, wallet) {
       state.wallet = wallet;
+    },
+    setUserBloodType(state, userBloodType) {
+      state.userBloodType = userBloodType;
     },
     logout(state) {
       state.isSigned = false;
