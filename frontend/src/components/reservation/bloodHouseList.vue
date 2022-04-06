@@ -4,34 +4,29 @@
       <h2 class="dabo_title">헌혈의 집 예약</h2>
     </div>
     <div class="bloodHouse-page">
-      <h4 class="h-p">헌혈의 집 선택</h4>
-      <p>우리집 주변의 헌혈의 집을 찾아보세요.</p>
+      <!-- <h4 class="h-p">헌혈의 집 검색</h4>
+      <p>우리집 주변의 헌혈의 집을 찾아보세요.</p> -->
       <div class="submit-form">
         <div class="input-check d-flex">
-        <!-- <input type="text" name="bloodhouse" id="bloodhouse" placeholder="blood house search">
-        <button class="btn_red col-2">
+        <input 
+        type="text" 
+        name="bloodhouse" 
+        id="bloodhouse" 
+        v-model="keyword"
+        placeholder="blood house search" />
+        <button class="btn_red col-2" @click="goSearch()">
             <span>search</span>
-          </button> -->
-          <div class="content-header">
-            <b-row>
-              <b-col>
-                <div style="align: center">
-                  <span
-                    class="task__tag task__tag--design"
-                    style="margin-right: 150px"
-                    >시/도</span
-                  >
-                  <span class="task__tag task__tag--design">구/군</span>
-                </div>
-
-                <house-search-bar></house-search-bar>
-              </b-col>
-            </b-row>
-          </div>
+          </button> 
           </div>
       </div>
       <div>
-        <house-list />
+        <div class="container">
+          <house-list-item 
+          v-for="bloodHouse in bloodHouseList"
+          :key="bloodHouse.id"
+          v-bind="bloodHouse"
+          />
+        </div>
       </div>
       
     <!-- <section class="test"> -->
@@ -43,8 +38,9 @@
 
 
 <script>
-import HouseSearchBar from "@/components/reservation/houseSearchBar.vue";
-import HouseList from "@/components/reservation/houseList.vue";
+import HouseListItem from "@/components/reservation/houseListItem.vue";
+import axios from "axios";
+import { API_BASE_URL } from "@/config/index.js";
 
 export default {
   data() {
@@ -52,10 +48,12 @@ export default {
       map: null,
       markers: [],
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      bloodHouseList: [],
+      keyword: ""
     }
   },
-  created() {
+  async created() {
     if (!("geolocation" in navigator)) {
       return;
     }
@@ -73,17 +71,25 @@ export default {
         const script = document.createElement("script");
         /* global kakao */
         script.onload = () => kakao.maps.load(this.initMap);
-        script.src = "https://j6b1061.p.ssafy.io//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=408674fc88231a4d61801f16ed1fba1b";
+        script.src = "https://j6b1061.p.ssafy.io/dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=408674fc88231a4d61801f16ed1fba1b";
         document.head.appendChild(script);
       }
 
     }, err => {
       alert(err.message);
     })
+
+    // 헌혈의 집 불러오기
+    const response = await axios
+      .get(API_BASE_URL + "/api/reservation/bloodHouseList")
+      .then((res) => {
+        console.log(res.data);
+        this.bloodHouseList = res.data;
+      });
+    console.log(response);
   },
   components: {
-      HouseSearchBar,
-      HouseList
+      HouseListItem
   },
   methods: {
     initMap() {
@@ -120,6 +126,20 @@ export default {
 
         this.map.setBounds(bounds);
       }
+    },
+    goSearch() {
+      // 헌혈의 집 list
+      const response = axios
+        .get(API_BASE_URL+"/api/reservation/search", {
+          params: {
+            keyword: this.keyword
+          }
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.bloodHouseList = res.data;
+        });
+      console.log(response);
     }
   }
 }
