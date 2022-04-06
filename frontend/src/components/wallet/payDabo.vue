@@ -64,6 +64,7 @@ export default {
       cashChargeAmount: 0.1,
       userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
+      
     }
   },
   methods: {
@@ -125,6 +126,7 @@ export default {
             alert("캐시를 충전했습니다.");
             vm.isCashCharging = false;
             vm.fetchCashBalance();
+            
             this.$router.push({name: 'chargeConfirm', params: ''})
           },
           function() {
@@ -184,6 +186,19 @@ export default {
         );
         vm.wallet = data;
       });
+    },
+    fetchCreateDonation(){
+
+      const body = {
+
+      }
+      walletService.createDonation(body,function(response){
+        console.log("createDonation API Success")
+        console.log(response)
+      }, function(err){
+        console.log("createDonation API Failure")
+        console.log(err)
+      })
     },
     toBack() {
       this.$router.go(-1)
