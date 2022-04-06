@@ -47,7 +47,7 @@
           <div><p>마음을 기부해보세요</p></div>
         </div>
         <div class="contents-donation d-flex">
-          <div class="thumnail-donation"><img src="@/assets/imoge.png" /></div>
+          <div class="thumnail-donation"><img :src="this.baseURL+mediaUrl" /></div>
           <div class="col-8">
             <div class="donation-title">
               <p>{{ title }}</p>
@@ -163,6 +163,8 @@
 <script>
 import { findByBloodCard } from "@/api/bloodCard.js";
 import { getDonationBoard } from "@/api/campaign.js";
+import {API_BASE_URL} from "@/config/index.js"
+
 export default {
   data() {
     return {
@@ -174,6 +176,7 @@ export default {
       amount: "",
       deadline: "",
       target: "",
+      baseURL: API_BASE_URL,  
     };
   },
   created() {
