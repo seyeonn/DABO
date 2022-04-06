@@ -55,7 +55,7 @@
             <div class="donation-summary">{{ content }}</div>
             <div class="progress-info d-flex">
               <p>헌혈증 {{ amount }}개 필요</p>
-              <p>{{ deadLine }}까지</p>
+              <p>{{ dueDate }}일 남음</p>
             </div>
             <div class="progress donation-progress">
               <div
@@ -174,6 +174,7 @@ export default {
       amount: "",
       deadline: "",
       target: "",
+      dueDate: "",
     };
   },
   created() {
@@ -202,6 +203,10 @@ export default {
           vm.amount = response.data[0].amount;
           vm.deadLine = response.data[0].deadLine;
           vm.target = response.data[0].target;
+          const strDate = response.data[0].deadLine.split("-");
+          const date = new Date(strDate[0], strDate[1] - 1, strDate[2]);
+          const today = new Date();
+          vm.dueDate = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
           console.log(response.data[0]);
         },
         function (err) {
@@ -217,6 +222,9 @@ export default {
     },
     gobloodcardCreate() {
       this.$router.push({ name: "bloodcardCreate" });
+    },
+    setDueDate() {
+      console.log("1");
     },
   },
 };
