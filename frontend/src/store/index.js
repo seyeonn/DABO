@@ -3,6 +3,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 //import jwt_decode from "jwt-decode";
 import createPersistedState from "vuex-persistedstate";
+import {API_BASE_URL} from "@/config/index.js"
 
 Vue.use(Vuex);
 
@@ -54,7 +55,7 @@ export default new Vuex.Store({
     SET_LOGIN: function (state, accessToken) {
       axios({
         method: "get",
-        url: `http://localhost:8080/api/user/me`,
+        url: API_BASE_URL+`/api/user/me`,
         headers: {
           Authorization: `Bearer ` + accessToken,
         },
