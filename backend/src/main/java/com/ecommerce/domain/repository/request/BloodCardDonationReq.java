@@ -10,6 +10,6 @@ public class BloodCardDonationReq {
     private long transactionCardToId;
     private long bloodCardId;
     private long campaignId;
-    private String userName;
+    private String transactionCardToName;
     private String transactionCardMessage;
 }
