@@ -53,7 +53,7 @@ public class BloodCardService implements IBloodCardService {
         Long TransactionCardToId = bloodCardDonationReq.getTransactionCardToId();
         transactionBloodCardHistory.setTransactionCardFromId(userId);
         transactionBloodCardHistory.setTransactionCardToId(bloodCardDonationReq.getTransactionCardToId());
-        transactionBloodCardHistory.setUserName(bloodCardDonationReq.getUserName());
+        transactionBloodCardHistory.setTransactionCardToName(bloodCardDonationReq.getTransactionCardToName());
         transactionBloodCardHistory.setBloodCardId(bloodCardDonationReq.getBloodCardId());
         transactionBloodCardHistory.setTransactionCardMessage(bloodCardDonationReq.getTransactionCardMessage());
         bloodCardRepository.bloodCardDonation(bloodCardId, TransactionCardToId);

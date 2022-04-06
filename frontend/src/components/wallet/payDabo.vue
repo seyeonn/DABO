@@ -7,7 +7,6 @@
         </div>
       </div>
     </div>
-
     <div class="payInfo">
       <button style="font-weight: bold;">DABO 개수</button>&nbsp;
       <button  style="color: #f08986">{{ this.selectDabo*10000 }} DABO</button>
@@ -27,12 +26,44 @@
     <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
-        <button @click="checkPay()">신용카드 결제</button>
+        <a href="#bDonation"><button>신용카드 결제</button></a>
         <button @click="toBack()">뒤로가기</button>
       </div>
     </div>
     <div class="contents">
-
+      <div id="bDonation" class="modal-window">
+          <div>
+            <p v-if="!isCashCharging">DABO를 충전하시려면 개인키를 입력해주세요</p>
+              <div class="spinner" style="text-align: center; !important" v-if="isCashCharging">
+                <p>충전에는 최대 약 30초가 소요됩니다.</p>
+                <v-progress-circular
+                  :size="70"
+                  color="#f06464"
+                  indeterminate
+                ></v-progress-circular>
+              </div>
+            <sub v-if="!isCashCharging">
+                <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
+                DABO 충전은 일정 시간의 대기 시간을 가진 뒤 자동으로 처리됩니다.
+                충전 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 결제가 취소될 수 있습니다.
+                <p></p>
+            </sub>
+            <div class="input-text" v-if="!isCashCharging">
+              <input type="text" v-model="privateKey" placeholder="private key를 입력해주세요">
+            </div>
+            <div v-if="!isCashCharging">
+              <a href="#">
+                <button class="btn_red_cancel">
+                    <span>취소하기</span>
+                </button>
+              </a>
+              <button class="btn_red_modal" @click="checkPay()">
+                  <span>충전하기</span>
+              </button>
+            </div>
+          </div>
+          
+      </div>
 
     </div>
   </div>
@@ -64,7 +95,8 @@ export default {
       cashChargeAmount: 0.1,
       userId: this.$store.state.user.id,
       walletAddress: this.$store.state.user.walletAddress,
-      
+      privateKey: null,
+
     }
   },
   methods: {
@@ -85,7 +117,6 @@ export default {
         buyer_email: 'example@example',               // 구매자 이메일
         buyer_addr: '신사동 661-16',                    // 구매자 주소
         buyer_postcode: '06018',                      // 구매자 우편번호
-        
       };
 
       /* 4. 결제 창 호출하기 */
@@ -106,15 +137,12 @@ export default {
         alert(`결제 실패: ${error_msg}`);
         this.chargeCash()
       }
-
-      
-
-      
     },
     chargeCash() {
       const vm = this;
       this.isCashCharging = true;
-      const privateKey = prompt("캐시를 충전하시려면 개인키를 입력하세요.");
+      // const privateKey = this.privateKey;
+      const privateKey = vm.privateKey;
       if (privateKey) {
         /**
          * 이더를 지불하고 캐시를 충전
@@ -126,8 +154,7 @@ export default {
             alert("캐시를 충전했습니다.");
             vm.isCashCharging = false;
             vm.fetchCashBalance();
-            
-            this.$router.push({name: 'chargeConfirm', params: ''})
+            vm.$router.go({ path: 'dabowallet/chargeconfirm'})
           },
           function() {
             alert("캐시 충전을 실패했습니다.");
@@ -201,7 +228,7 @@ export default {
       })
     },
     toBack() {
-      this.$router.go(-1)
+      this.$router.push({name: 'daboWallet'})
     }
   },
   mounted() {
@@ -284,5 +311,20 @@ export default {
 .payable {
   margin-top: 50px;
   margin-left: 20px;
+}
+
+.spinner {
+  text-align: center;
+}
+
+.input-text input {
+  width: 90%;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 </style>
