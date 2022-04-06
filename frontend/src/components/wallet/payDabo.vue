@@ -19,7 +19,7 @@
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
         <a href="#bDonation"><button>신용카드 결제</button></a>
-        <button @click="toBack()">뒤로가기</button>
+        <button @click="fetchCreateDonation">뒤로가기</button>
       </div>
     </div>
     <div class="contents">
@@ -145,6 +145,7 @@ export default {
             alert("캐시를 충전했습니다.");
             vm.isCashCharging = false;
             vm.fetchCashBalance();
+            vm.fetchCreateDonation();
             vm.$router.go({ path: 'dabowallet/chargeconfirm'})
           },
           function() {
@@ -153,6 +154,24 @@ export default {
           }
         );
       }
+    },
+
+    fetchCreateDonation(){
+
+      const body = {
+          "amount":  this.selectDabo*10000,          
+          "state": "충전",
+          "transactionDonationFromAddress": this.walletAddress,
+          "transactionDonationToAddress":  this.walletAddress
+      }
+      console.log(body)
+      walletService.createDonation(body,function(response){
+        console.log("createDonation API Success")
+        console.log(response)
+      }, function(err){
+        console.log("createDonation API Failure")
+        console.log(err)
+      })
     },
     fetchCashBalance() {
       const vm = this;
