@@ -38,16 +38,16 @@
         <div class="contents-donation d-flex">
           <div>
             <div class="donation-title">
-              <span>기부한 내역 (총 N회 / N개)</span>
+              <span>기부한 내역 (총 {{thsendBloodCards.length}}회 / {{thsendBloodCards.length}}개)</span>
             </div>
             <div class="donation-summary">
               <table>
                 <th>기부 일시</th>
-                <th>메세지</th>
+                <th>기부 받은 사람</th>
                 <th>기부 현황</th>
                 <tr v-for="(thsendBloodCard, idx) in thsendBloodCards" :key="idx">
                   <td>{{thsendBloodCard.transactionCardDate}}</td>
-                  <td>{{thsendBloodCard.transactionCardMessage}}</td>
+                  <td>{{thsendBloodCard.transactionCardToId}}</td>
                   <td>기부 완료</td>         
                 </tr>     
               </table>
