@@ -1,14 +1,15 @@
 package com.ecommerce.application.impl;
 
 import com.ecommerce.application.IItemService;
-import com.ecommerce.domain.repository.entity.Item;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.repository.IItemRepository;
+import com.ecommerce.domain.repository.entity.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,19 +49,16 @@ public class ItemService implements IItemService
 	 */
 	@Override
 	public Item register(final Item item) {
-		return null;
-	}
+		item.setRegisteredAt(LocalDateTime.now());
+		long id = this.itemRepository.create(item);
+		if(id == 0)
+			throw new ApplicationException("상품 정보를 저장하지 못했습니다.");
 
-	/**
-	 * TODO Sub PJT Ⅲ 과제 3
-	 * 상품 판매 취소
-	 * @param id 상품 id
-	 * @return Item
-	 */
-	@Override
-	public Item delete(final long id)
-	{
-		return null;
+		Item itemRegistered = this.itemRepository.get(id);
+		if(itemRegistered == null)
+			throw new ApplicationException("상품 정보를 찾을 수 없습니다.");
+
+		return itemRegistered;
 	}
 
 	/**
@@ -88,6 +86,25 @@ public class ItemService implements IItemService
 			throw new ApplicationException("상품정보수정 처리가 반영되지 않았습니다.");
 
 		return this.itemRepository.get(item.getId());
+	}
+
+	/**
+	 * TODO Sub PJT Ⅲ 과제 3
+	 * 상품 판매 취소 
+	 * @param id 상품 id
+	 * @return Item
+	 */
+	@Override
+	public Item delete(final long id)
+	{
+		Item itemToBeDeleted = this.itemRepository.get(id);
+		int affected =  this.itemRepository.delete(id);
+		if(affected == 0)
+			throw new ApplicationException("상품 삭제 처리가 반영되지 않았습니다.");
+
+		itemToBeDeleted.setAvailable(false);
+
+		return itemToBeDeleted;
 	}
 
 }

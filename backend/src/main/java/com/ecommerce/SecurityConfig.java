@@ -1,11 +1,11 @@
 package com.ecommerce;
 
-import com.ecommerce.application.impl.SsafyUserDetailService;
-import com.ecommerce.application.impl.UserService;
+import com.ecommerce.config.auth.SsafyUserDetailService;
+import com.ecommerce.config.auth.JwtAuthenticationFilter;
+import com.ecommerce.infrastructure.repository.DABOUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * 인증(authentication) 와 인가(authorization) 처리를 위한 스프링 시큐리티 설정 정의.
@@ -28,11 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SsafyUserDetailService ssafyUserDetailService;
 
     @Autowired
-    private UserService userService;
+    private DABOUserRepository userRepository;
 
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -59,15 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 하지않음
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userRepository)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
                 .authorizeRequests()
                 .antMatchers("/api/users/me").authenticated() //인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
-                .antMatchers(HttpMethod.POST,"/api/auth/login").authenticated()//
-
-                //           .antMatchers("/")
-                .antMatchers(HttpMethod.POST,"/api/conferences").authenticated()
-                .antMatchers(HttpMethod.PUT,"/api/conferences").authenticated()
-                .antMatchers(HttpMethod.PUT,"/api/conferences/end/{Id}").authenticated()
                 .anyRequest().permitAll()
                 .and().cors();
     }

@@ -1,8 +1,9 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.repository.entity.Item;
+
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IItemRepository;
+import com.ecommerce.domain.repository.entity.Item;
 import com.ecommerce.infrastructure.repository.factory.ItemFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +66,11 @@ public class ItemRepository implements IItemRepository
 		}
 	}
 
+	/**
+	 * 상품 정보 생성
+	 * @param item
+	 * @return
+	 */
 	@Override
 	public long create(final Item item) {
 		try {
@@ -110,6 +116,12 @@ public class ItemRepository implements IItemRepository
 		}
 	}
 
+	/**
+	 * TODO Sub PJT Ⅲ 과제 3
+	 * 상품 삭제 - 상품 available 상태를 false로 변
+	 * @param id 상품 id
+	 * @return경
+	 */
 	@Override
 	public int delete(final long id) {
 		StringBuilder sbSql =  new StringBuilder("UPDATE items ");

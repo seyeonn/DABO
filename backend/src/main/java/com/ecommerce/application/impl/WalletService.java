@@ -3,22 +3,23 @@ package com.ecommerce.application.impl;
 import com.ecommerce.application.ICashContractService;
 import com.ecommerce.application.IEthereumService;
 import com.ecommerce.application.IWalletService;
+import com.ecommerce.domain.exception.ApplicationException;
+import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.entity.Address;
+import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
+import com.ecommerce.infrastructure.repository.TransactionBloodCardHistoryRepository;
+import com.ecommerce.infrastructure.repository.TransactionDonationHistoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * TODO Sub PJT Ⅱ 과제 1, 과제 3
- * 과제 1: 지갑 관련 기능 구현
- * 1) 지갑 등록, 2) 지갑 조회, 3) 충전
- * 과제 3: 지갑 관련 기능 확장 구현
- * 1) 지갑 토큰 잔액 조회 추가
- *
  * IWalletService를 implements 하여 구현합니다.
  */
 @Service
@@ -31,6 +32,9 @@ public class WalletService implements IWalletService
 	private ICashContractService cashContractService;
 
 	@Autowired
+	TransactionDonationHistoryRepository transactionDonationHistoryRepository;
+
+	@Autowired
 	public WalletService(IWalletRepository walletRepository,
 						 IEthereumService ethereumService,
 						 ICashContractService cashContractService) {
@@ -40,46 +44,156 @@ public class WalletService implements IWalletService
 	}
 
 	/**
-	 * 사용자 id로 지갑을 조회한다.
+	 * 지갑 조회
+	 * DB에 저장된 지갑주소의 정보와 이더리움의 잔액 정보를 동기화한다.
+	 * @param walletAddress
+	 * @return Wallet
+	 */
+	@Override
+	public Wallet getAndSyncBalance(final String walletAddress)
+	{
+		log.debug("getAndSyncBalance Start");
+		Wallet wallet = walletRepository.get(walletAddress);
+		log.debug(wallet.toString());
+		if(wallet == null)
+			throw new NotFoundException(walletAddress + " 해당 주소 지갑을 찾을 수 없습니다.");
+
+		// ether balance only
+		/*
+		BigDecimal currentBalance = new BigDecimal(this.ethereumService.getBalance(walletAddress));
+		if(!wallet.getBalance().equals(currentBalance)) {
+			wallet = this.syncBalance(walletAddress, currentBalance);
+			wallet.setBalance(currentBalance);
+		}
+		*/
+
+		// ether + cash balance
+		Address address = this.ethereumService.getAddress(walletAddress);
+		int cashBalance = this.cashContractService.getBalance(walletAddress);
+		log.debug("cashBalance : "+cashBalance);
+		if(!wallet.getBalance().equals(new BigDecimal(address.getBalance())) || wallet.getCash()!= cashBalance) {
+			wallet = syncBalance(walletAddress, new BigDecimal(address.getBalance()),wallet.getPayBalance(), cashBalance);
+			wallet.setBalance(new BigDecimal(address.getBalance()));
+			wallet.setCash(cashBalance);
+		}
+
+		return wallet;
+	}
+
+	/**
+	 * userId로 지갑을 가져온다.
 	 * @param userId
 	 * @return
 	 */
 	@Override
 	public Wallet get(final long userId)
 	{
-		return null;
+		Wallet wallet = this.walletRepository.get(userId);
+		if(wallet == null)
+			throw new NotFoundException(userId + " 해당 회원의 주소 지갑을 찾을 수 없습니다.");
+		return getAndSyncBalance(wallet.getAddress());
 	}
 
 	/**
-	 * 지갑을 DB에 등록한다.
+	 * 지갑을 등록한다
 	 * @param wallet
 	 * @return
 	 */
 	@Override
 	public Wallet register(final Wallet wallet)
 	{
-		return null;
+
+		long id = this.walletRepository.create(wallet);
+		return this.walletRepository.get(id);
 	}
 
 	/**
-	 * DB에 저장된 지갑주소의 정보와 이더리움의 잔액 정보를 동기화한다.
+	 * 지갑을 동기화시킨다.
 	 * @param walletAddress
-	 * @return Wallet
+	 * @param balance
+	 * @param payBalance
+	 * @param cash
+	 * @return
 	 */
 	@Override
-	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final int cash)
+	public Wallet syncBalance(final String walletAddress, final BigDecimal balance, final BigDecimal payBalance,final int cash)
 	{
-		return null;
+		int affected = this.walletRepository.updateBalance(walletAddress, balance,payBalance, cash);
+		if(affected == 0)
+			throw new ApplicationException("잔액 갱신 처리가 반영되지 않았습니다.");
+
+		return this.walletRepository.get(walletAddress);
 	}
 
 	/**
-	 * [지갑주소]로 이더를 송금하는 충전 기능을 구현한다.
-	 * 무한정 충전을 요청할 수 없도록 조건을 두어도 좋다.
+	 * 이더 충전 횟수를 update 한다.
+	 * @param walletAddress
+	 * @return
+	 */
+	@Override
+	public Wallet updateRequestNo(final String walletAddress)
+	{
+		int affected = this.walletRepository.updateRequestNo(walletAddress);
+		if(affected == 0)
+			throw new ApplicationException("충전회수갱신 처리가 반영되지 않았습니다.");
+
+		return this.walletRepository.get(walletAddress);
+	}
+
+	/**
+	 * [지갑주소]로 이더를 송금한다.
 	 * @param walletAddress
 	 * @return Wallet
 	 */
 	@Override
 	public Wallet requestEth(String walletAddress) {
-		return null;
+		Wallet wallet = this.getAndSyncBalance(walletAddress);
+		if (wallet == null || !wallet.canRequestEth()) {
+			throw new ApplicationException("[1] 충전할 수 없습니다!");
+		}
+
+		try {
+			String txHash = this.ethereumService.requestEth(walletAddress);
+			if(txHash == null || txHash.equals(""))
+				throw new ApplicationException("충전 회수 갱신 트랜잭션을 보낼 수 없습니다!");
+			log.info("received txhash: " + txHash);
+
+			this.updateRequestNo(walletAddress);
+
+			return this.getAndSyncBalance(walletAddress);
+		}
+		catch (Exception e) {
+			throw new ApplicationException("[2] 충전할 수 없습니다!");
+		}
+	}
+
+	/**
+	 * 지갑 리스트를 불러온다
+	 * @return
+	 */
+	@Override
+	public List<Wallet> list()
+	{
+		return this.walletRepository.list();
+	}
+
+	/**
+	 * Donation or Token 충전 시의 기록을 저장한다.
+	 * @param transactionDonationHistory
+	 * @return
+	 */
+	@Override
+	public TransactionDonationHistory createDonation(TransactionDonationHistory transactionDonationHistory) {
+		return transactionDonationHistoryRepository.save(transactionDonationHistory);
+	}
+
+	/**
+	 * address로 Donation History를 불러온다.
+	 * @param address
+	 * @return
+	 */
+	@Override
+	public List<TransactionDonationHistory> getDonationList(String address) {
+		return transactionDonationHistoryRepository.findByAddress(address);
 	}
 }
