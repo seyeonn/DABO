@@ -102,11 +102,9 @@
 
       <div slot="body" style="word-break:break-all">
         <br/>
-        
+        <button @click="chargeETH"></button>
         <br/>
         <button @click="copyPrivateKey">비밀키 복사(css 다시 손볼게요)</button>
-        <br/>
-        <br/>
         <p style="text-align : left">[비밀키](❗반드시 저장❗)</p>
         {{ privateKey }}
         <p style="text-align : left">[지갑 주소]</p>

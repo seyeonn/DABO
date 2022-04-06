@@ -28,7 +28,7 @@
         <span style="margin-left: 150px;" @click="copy">
           <i class="fa-solid fa-copy"></i>복사하기
         </span><br>
-        <span class="wallet-address">{{ $store.state.user.walletAddress }}</span>
+        <span>{{ $store.state.user.walletAddress }}</span>
         <p style="font-weight: bold; font-size: 20px; margin-top: 5%">DABO Token 활동</p>
         <!-- v-for 변환 예정 -->
         <div class="wallet-act">
@@ -67,7 +67,7 @@ export default {
       wallet: {
         id: 0,
         ownerId: null,
-        address: "12e12e",
+        address: "",
         balance: 0,
         payBalance : 0,
         cash: 0,
@@ -103,15 +103,6 @@ export default {
 
       });
     },
-    copy() {
-      this.$copyText(this.wallet.address).then(function (e) {
-        alert('Copied')
-        console.log(e)
-      }, function (e) {
-        alert('Can not copy')
-        console.log(e)
-      })
-    }
     
   },
   mounted() {
@@ -192,15 +183,11 @@ export default {
 }
 
 .wallet-act{
-  margin: 10%;
-  margin-top: 5%;
+  margin: 5%;
 }
 
 .act-detail {
   font-size: 10px;
 }
 
-.wallet-address {
-  font-size: 12px;
-}
 </style>
