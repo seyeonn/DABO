@@ -196,15 +196,4 @@ public class WalletService implements IWalletService
 	public List<TransactionDonationHistory> getDonationList(String address) {
 		return transactionDonationHistoryRepository.findByAddress(address);
 	}
-
-
-	/**
-	 * campaignId로 Donation History를 불러온다.
-	 * @param campaignId
-	 * @return
-	 */
-	@Override
-	public List<TransactionDonationHistory> getDonationListByCampaignId(long campaignId) {
-		return transactionDonationHistoryRepository.findByCampaignId(campaignId);
-	}
 }

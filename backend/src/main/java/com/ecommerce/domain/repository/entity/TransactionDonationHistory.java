@@ -16,8 +16,7 @@ public class TransactionDonationHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(name="id", example="1")
     private long id;
-    @ApiModelProperty(name="CampaignId", example="1")
-    private long CampaignId;
+
     private LocalDate created_at = LocalDate.now();
     @ApiModelProperty(name="state", example="충전")
     private String state;

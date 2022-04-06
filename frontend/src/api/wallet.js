@@ -70,7 +70,5 @@ export {
   findByUserId,
   registerWallet,
   isValidPrivateKey,
-  chargeEther,
-  createDonation,
-  getDonationByAddress
+  chargeEther
 };
