@@ -51,7 +51,7 @@ export default {
       this.$router.push({name: 'listBoard'})
     },
     toReservation() {
-      this.$router.push({name: 'searchMap'})
+      this.$router.push({name: 'bloodHouseList'})
     },
     toMyDabo() {
       this.$router.push({name: 'myDabo'})

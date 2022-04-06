@@ -11,15 +11,15 @@
             <div>
                 <h4 class="r_h4">나의 예약 현황</h4>
                 <div class="reservationList">
-                    <p><b>헌혈의 집 이수센터</b></p>
+                    <p><b>헌혈의 집 {{ reservation.housename }}</b></p>
                     <b>주소</b>
-                    <p>서울특별시 동작구 동작대로 109 경문빌딩 3층</p>
+                    <p>{{ reservation.address }}</p>
                     <b>전화번호</b>
-                    <p>02-578-9811</p>
+                    <p>{{ reservation.telephone}}</p>
                     <b>예약 날짜</b>
-                    <p>2022.03.14 PM 13:00</p>
+                    <p>{{ reservation.bloodDate}} {{ reservation.bloodTime }}</p>
                     <b>헌혈 종류</b>
-                    <p>전혈 헌혈</p>
+                    <p>{{ reservation.bloodType }} 헌혈</p>
                 </div>
             </div>
         </div>
@@ -28,7 +28,15 @@
 
 <script>
 export default {
-    
+    data() {
+        return {
+            reservation: [],
+        }
+    },
+    async created() {
+        this.reservation = this.$route.params.reservation;
+        console.log(this.reservation);
+    }
 }
 </script>
 
