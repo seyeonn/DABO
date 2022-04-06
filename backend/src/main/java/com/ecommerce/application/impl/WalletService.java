@@ -196,4 +196,6 @@ public class WalletService implements IWalletService
 	public List<TransactionDonationHistory> getDonationList(String address) {
 		return transactionDonationHistoryRepository.findByAddress(address);
 	}
+
+
 }
