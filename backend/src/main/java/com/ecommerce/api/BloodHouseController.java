@@ -41,7 +41,7 @@ public class BloodHouseController {
     @GetMapping(value = "/bloodHouseList")
     public List<BloodHouseDto> bloodHouseList() {
         logger.info("bloodHouseList - 호출");
-        System.out.println("왜 안돼");
+        
         return bloodHouseService.getAllBloodHouse();
     }
 
