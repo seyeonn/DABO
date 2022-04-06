@@ -28,8 +28,6 @@ public class BloodHouseService {
     // 헌혈의 집 전체 목록 조회
     @Transactional
     public List<BloodHouseDto> getAllBloodHouse() {
-        System.out.println("hi");
-        System.out.println("왜 또 안뜸?");
         List<BloodHouseDto> list = new ArrayList<>();
 
         for(BloodHouse bloodHouse : bloodHouseRepository.findAll()) {
