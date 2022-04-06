@@ -2,8 +2,8 @@
   <div class="main-page">
     <div class="main-header">
       <div class="d-flex header-contents">
-        <div class="greeting">
-          <p style="font-family: 'NicoMoji' !important">My DABO</p>
+        <div class="wallet-header">
+          <p style="font-family: 'NicoMoji' !important; text-align: center;">My DABO</p>
         </div>
       </div>
       <div id="wrapper">
@@ -121,7 +121,7 @@ export default {
   justify-content: center;
   padding: 15px;
 }
-.greeting {
+.wallet-header {
   font-weight: bold;
   font-size: 30px;
   text-align: center;
@@ -243,11 +243,12 @@ td {
   background-color: transparent;
   color: black;
   border: none;
-  border-radius: 5px 5px;
+  border-radius: 15px;
   width: 90%;
   margin-top: 10px;
   margin-bottom: 5px;
-  box-shadow: 1px 1px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 2px rgb(0 0 0 / 20%),
+    0 4px 4px rgb(0 0 0 / 15%), 0 8px 8px rgb(0 0 0 / 10%);
 }
 
 .wallet-address{
