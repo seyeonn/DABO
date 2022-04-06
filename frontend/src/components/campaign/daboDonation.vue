@@ -95,7 +95,7 @@
 
       <div>
         <a href="#bDonation">
-          <button class="btn_red_donation" @click="bloodDonation">
+          <button class="btn_red_donation" @click="bloodDonation()">
             <span>DABO 기부하기</span>
           </button>
         </a>
@@ -136,10 +136,11 @@
 import { leaveDeposit } from "@/utils/cashContract.js";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
+import { CASH_CONTRACT_ADDRESS } from "@/config/index.js"
+
 export default {
   data() {
     return {
-
       selectDabo: 0,
       amount: "",
       privateKey: "",
@@ -163,11 +164,31 @@ export default {
           amount: this.selectDabo,
         },
         vm.$store.state.user.walletAddress,
+        
         this.privateKey,
         function () {
-          alert("지불했습니다. 입금 확인 요청 바랍니다.");
+          const body = {
+            amount: vm.selectDabo,
+            transactionDonationFromAddress:vm.$store.state.user.walletAddress,
+            transactionDonationToAddress:vm.toAddress,
+            contractAddress:CASH_CONTRACT_ADDRESS,
+            state:"기부",
+            campaignId:vm.$route.query.campaignId
+          }
+
+          walletService.createDonation(
+            body,
+            function(){
+              alert("지불했습니다. 입금 확인 요청 바랍니다.");
+              vm.$router.push({ name: "daboConfirm", params: "" });
+            },
+            function(){
+
+            }
+          )
+          
           // this.fetchWalletInfo();
-          vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
+          // UI 갱신
           //   vm.processing = false;
           //   vm.input.payAmount = null;
           //   vm.input.privateKey = "";

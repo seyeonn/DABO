@@ -5,10 +5,13 @@ import com.ecommerce.application.IEthereumService;
 import com.ecommerce.application.IWalletService;
 import com.ecommerce.domain.exception.ApplicationException;
 import com.ecommerce.domain.exception.NotFoundException;
+import com.ecommerce.domain.repository.ICampaignRepository;
 import com.ecommerce.domain.repository.entity.Address;
 import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.domain.repository.IWalletRepository;
+import com.ecommerce.infrastructure.repository.CampaignRepository;
+import com.ecommerce.infrastructure.repository.DaboWalletRepository;
 import com.ecommerce.infrastructure.repository.TransactionBloodCardHistoryRepository;
 import com.ecommerce.infrastructure.repository.TransactionDonationHistoryRepository;
 import org.slf4j.Logger;
@@ -30,6 +33,11 @@ public class WalletService implements IWalletService
 	private IWalletRepository walletRepository;
 	private IEthereumService ethereumService;
 	private ICashContractService cashContractService;
+
+	@Autowired
+	ICampaignRepository campaignRepository;
+	@Autowired
+	DaboWalletRepository daboWalletRepository;
 
 	@Autowired
 	TransactionDonationHistoryRepository transactionDonationHistoryRepository;
@@ -184,6 +192,11 @@ public class WalletService implements IWalletService
 	 */
 	@Override
 	public TransactionDonationHistory createDonation(TransactionDonationHistory transactionDonationHistory) {
+		if(!transactionDonationHistory.getTransactionDonationToAddress().equals(transactionDonationHistory.getTransactionDonationFromAddress())) {
+			daboWalletRepository.daboSend(transactionDonationHistory.getTransactionDonationToAddress(), transactionDonationHistory.getAmount());
+			daboWalletRepository.daboReceive(transactionDonationHistory.getTransactionDonationFromAddress(), transactionDonationHistory.getAmount());
+			campaignRepository.daboReceive(transactionDonationHistory.getCampaignId(), transactionDonationHistory.getAmount());
+		}
 		return transactionDonationHistoryRepository.save(transactionDonationHistory);
 	}
 
