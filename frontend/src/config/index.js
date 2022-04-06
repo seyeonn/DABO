@@ -3,7 +3,7 @@
  */
 
  const API_BASE_URL = "https://j6b1061.p.ssafy.io";
- const BLOCKCHAIN_URL = "http://j6b106.p.ssafy.io:8545";
+ const BLOCKCHAIN_URL = "https://j6b106.p.ssafy.io/rpc";
 const BLOCKCHAIN_WEBSOCKET_URL = "ws://j6b106.p.ssafy.io:8546";
 const ITEM_INVENTORY_CONTRACT_ADDRESS =
      "0x3970B546C38e5Bc598D67a58c73f2aBf88991e29";
