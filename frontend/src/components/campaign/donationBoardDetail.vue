@@ -12,7 +12,7 @@
                         <label @click="deleteCampaign">삭제</label>
         </div>
         <div>
-            <img :src="'{{baseURL}}'+mediaUrl" class="campaign-detail-img" alt="">
+            <img :src="this.baseURL+mediaUrl" class="campaign-detail-img" alt="">
             <h4>{{ title }}</h4>
             <p>{{ content }}</p>
             <div>
