@@ -17,7 +17,7 @@ import java.util.List;
 @Api("캠페인 관련 기능")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/donationBoard")
+@RequestMapping("/donationBoard")
 public class CampaignController {
 
     public static final Logger logger = LoggerFactory.getLogger(CampaignController.class);
@@ -72,7 +72,9 @@ public class CampaignController {
     @PutMapping(value = "/detailBoard/{campaign_id}")
     public ResponseEntity<?> updateBoard(@PathVariable("campaign_id") Long campaignId, @RequestBody CampaignDto campaignDto){
         logger.info("updateBoard - 호출");
-
+        System.out.println("아 왜 안찍히냐고");
+        System.out.println(campaignDto.getTitle());
+        System.out.println(campaignDto.getContent());
         return campaignService.updateCampaign(campaignId,campaignDto);
     }
 
@@ -109,9 +111,7 @@ public class CampaignController {
     // 댓글 수정
     @ApiOperation(value = "캠페인 댓글 수정", notes = "캠페인에 댓글을 수정합니다.")
     @PutMapping("/detailBoard/{campaign_id}/comments/{comment_id}")
-    public ResponseEntity<?> updateComment(@PathVariable("campaign_id") Long campaign_id,@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
-        System.out.println("campaign_id = " + campaign_id);
-        System.out.println(" = " + commentDto);
+    public ResponseEntity<?> updateComment(@PathVariable("comment_id") Long commentId, @RequestBody CommentDto commentDto) {
         return campaignService.updateComment(commentId, commentDto);
     }
 
