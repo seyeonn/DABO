@@ -4,14 +4,22 @@ import com.ecommerce.util.JwtTokenUtil;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.Filter;
+
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 //    private final Interceptor interceptor;
@@ -31,6 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*");
+        //configuration.addAllowedOriginPattern("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader(JwtTokenUtil.HEADER_STRING);
@@ -51,6 +60,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+
+//        registry.addResourceHandler("/css/**")
+//                .addResourceLocations("classpath:/dist/css/");
+//        registry.addResourceHandler("/fonts/**")
+//                .addResourceLocations("classpath:/dist/fonts/");
+//        registry.addResourceHandler("/icons/**")
+//                .addResourceLocations("classpath:/dist/icons/");
+//        registry.addResourceHandler("/img/**")
+//                .addResourceLocations("classpath:/dist/img/");
+//        registry.addResourceHandler("/js/**")
+//                .addResourceLocations("classpath:/dist/js/");
     }
 
     public Filter requestLoggingFilter() {
@@ -69,4 +90,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registration.addUrlPatterns("/api/*");
         return registration;
     }
+
 }

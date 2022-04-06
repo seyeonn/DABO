@@ -1,6 +1,7 @@
 package com.ecommerce.domain.repository.entity;
 
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data

@@ -1,8 +1,9 @@
 package com.ecommerce.infrastructure.repository;
 
-import com.ecommerce.domain.repository.entity.User;
+
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IUserRepository;
+import com.ecommerce.domain.repository.entity.User;
 import com.ecommerce.infrastructure.repository.factory.UserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

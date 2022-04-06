@@ -3,7 +3,7 @@ package com.ecommerce.domain.repository.entity;
 import lombok.Data;
 
 @Data
-public class PurchaseInfo extends Purchase{
+public class PurchaseInfo extends Purchase {
     private String itemName;
     private long itemId;
     private String image;
