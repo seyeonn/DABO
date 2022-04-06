@@ -90,9 +90,15 @@ public class WalletController {
 
 
 	@ApiOperation(value = "Get Donation History of User")
-	@RequestMapping(value = "/wallets/donation/of/{address}", method = RequestMethod.GET)
+	@RequestMapping(value = "/wallets/donation/of/addr/{address}", method = RequestMethod.GET)
 	public List<TransactionDonationHistory> getDonationByAddress(@PathVariable String address) {
 		return walletService.getDonationList(address);
+	}
+
+	@ApiOperation(value = "Get Donation History of campaignId")
+	@RequestMapping(value = "/wallets/donation/of/id/{campaignId}", method = RequestMethod.GET)
+	public List<TransactionDonationHistory> getDonationByCampaignId(@PathVariable long campaignId) {
+		return walletService.getDonationListByCampaignId(campaignId);
 	}
 
 

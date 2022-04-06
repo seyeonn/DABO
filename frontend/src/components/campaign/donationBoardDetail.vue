@@ -64,6 +64,7 @@
 </template>
 
 <script>
+
 import CommentWrite from "@/components/campaign/comment/commentWrite.vue";
 import CommentList from "@/components/campaign/comment/commentList.vue";
 import axios from "axios";
