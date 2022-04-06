@@ -80,6 +80,7 @@ export default {
               console.log("getUserInfo",response);
               scope.$store.commit("setUserId", response.data.userId);
               scope.$store.commit("setUserNickName", response.data.nickname);
+              scope.$store.commit("setUserBloodType", response.data.bloodType);
               alert("지갑 정보를 찾습니다");
               findWallet(
                 response.data.userId,
