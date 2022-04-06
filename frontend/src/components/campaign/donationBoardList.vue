@@ -202,4 +202,7 @@ export default {
 .thumbnail-campaign {
   text-align: center;
 }
+.thumbnail-campaign img {
+  width: -webkit-fill-available;
+}
 </style>
