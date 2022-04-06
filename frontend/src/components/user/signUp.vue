@@ -99,21 +99,32 @@
         DABO 지갑 생성을<br/>축하합니다!
         <!-- <i class="fas fa-times closeModalBtn" @click="showModal = false"></i> -->
       </h3>
-
-      <div slot="body" style="word-break:break-all">
-        <br/>
-        <button @click="chargeETH"></button>
-        <br/>
-        <button @click="copyPrivateKey">비밀키 복사(css 다시 손볼게요)</button>
-        <p style="text-align : left">[비밀키](❗반드시 저장❗)</p>
-        {{ privateKey }}
-        <p style="text-align : left">[지갑 주소]</p>
-        {{ walletAddress }}
+      <div class="spinner" style="text-align: center;" v-if="walletCreated && showModal">
+        <p style="font-size: 13px;">지갑 생성까지 최대 약 10초가 소요됩니다.</p>
+        <v-progress-circular
+          :size="100"
+          color="#f06464"
+          indeterminate
+        ></v-progress-circular>
       </div>
-      <div slot="footer">
-        <button class="btn_red" @click="goToLogin">
-                Go To Login
-        </button>
+      <div v-if="!walletCreated">
+        <div slot="body" style="word-break:break-all">
+          <br/>
+          <button @click="chargeETH"></button>
+          <br/>
+          <div style="display: flex; justify-content: space-between;">
+            <span @click="copyPrivateKey">[비밀키]</span>
+            <span><i class="fa-solid fa-copy"></i> 복사하기</span>
+          </div>
+          <p>{{ privateKey }}</p>
+          <p style="text-align : left;">[지갑 주소]</p>
+          <span>{{ walletAddress }}</span>
+        </div>
+        <div slot="footer">
+          <button class="btn_red" @click="goToLogin">
+            Go To Login
+          </button>
+        </div>
       </div>
     </Modal>
   </div>
@@ -134,14 +145,15 @@ export default {
   },
   data() {
     return {
-      showModal: false,
+      showModal: true,
+      walletCreated: false,
       name: "",
       nickname: "",
       bloodtype: "",
       email: "",
       password: "",
       passwordConfirm: "",
-      privateKey: "123",
+      privateKey: "0x17947ddb6fae4d679ea3afe98aff1a33950f5d2e846c278d46c439b72068282d",
       walletAddress: "",
       userId: "",
       wallet: {

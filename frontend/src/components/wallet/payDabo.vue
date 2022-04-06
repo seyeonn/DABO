@@ -14,15 +14,7 @@
       <button style="font-weight: bold;">결제 금액</button>&nbsp;
       <button  style="color: #f08986">{{ this.selectDabo*10000 }} 원</button>
     </div>
-
-    <div class="spinner" v-if="isCashCharging">
-      <v-progress-circular
-        :size="100"
-        color="#f06464"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-   
+  
     <div class="payable">
     <p style="font-weight: bold;">결제 수단 선택</p>
       <div class="myBtn">
@@ -297,10 +289,6 @@ export default {
 .payable {
   margin-top: 50px;
   margin-left: 20px;
-}
-
-.spinner {
-  text-align: center;
 }
 
 .input-text input {

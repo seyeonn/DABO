@@ -79,39 +79,39 @@
         <div class="contents-ranking">
           <div class="img-medal">
             <img src="@/assets/medal1.png" />
-            <p>1위 000</p>
+            <p>1위 이제훈</p>
             <p></p>
           </div>
           <div class="img-medal d-flex">
             <div>
               <img src="@/assets/medal2.png" />
-              <p>2위 000</p>
+              <p>2위 싸피킴</p>
             </div>
             <div>
               <img src="@/assets/medal3.png" />
-              <p>3위 000</p>
+              <p>3위 홍종현</p>
             </div>
           </div>
           <div class="under-rank">
             <div class="rank d-flex">
               <p>4위</p>
-              <p>김OO</p>
+              <p>장지빈</p>
             </div>
             <div class="rank d-flex">
               <p>5위</p>
-              <p>김OO</p>
+              <p>손모은</p>
             </div>
             <div class="rank d-flex">
               <p>6위</p>
-              <p>김OO</p>
+              <p>정명수</p>
             </div>
             <div class="rank d-flex">
               <p>7위</p>
-              <p>김OO</p>
+              <p>안세연</p>
             </div>
             <div class="rank d-flex">
               <p>8위</p>
-              <p>김OO</p>
+              <p>이삼성</p>
             </div>
           </div>
         </div>
