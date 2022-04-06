@@ -31,24 +31,20 @@
         <span class="wallet-address">{{ $store.state.user.walletAddress }}</span>
         <p style="font-weight: bold; font-size: 20px; margin-top: 5%">DABO Token 활동</p>
         <!-- v-for 변환 예정 -->
-        <div class="wallet-act">
+
+        
+        <div class="wallet-act" v-for="(donationHistory, idx) in donationHistorys.slice(0,2)" :key="idx" >
           <!-- <span><i class="fa-solid fa-comment-dollar fa-2xl"></i></span> -->
-          <div class="act-type">
-            <span>충전</span>
-            <span style="margin-left: 60%">200DABO</span>
+          <div class="act-type" >
+            
+            <span>{{donationHistory.state}}</span>
+            <span style="margin-left: 50%">{{donationHistory.amount}}DABO</span>
           </div>
           <div class="act-detail">
-            <span>'22.03.14</span>
-            <span style="margin-left: 55%; font-size: 10px;"><i class="fa-solid fa-won-sign"></i> 20,000 KRW</span>
+            <span>{{donationHistory.created_at}}</span>
+            <span style="margin-left: 48%; font-size: 10px;"><i class="fa-solid fa-won-sign"></i> {{donationHistory.amount}} KRW</span>
           </div>
-          <div class="act-type">
-            <span>기부</span>
-            <span style="margin-left: 60%">100DABO</span>
-          </div>
-          <div class="act-detail">
-            <span>'22.03.14</span>
-            <span style="margin-left: 55%; font-size: 10px;"><i class="fa-solid fa-won-sign"></i> 10,000 KRW</span>
-          </div>
+
         </div>
 
       </div>
@@ -64,6 +60,7 @@ import { createWeb3 } from "@/utils/web3.js";
 export default {
   data() {
     return {
+      donationHistorys:[{}],
       wallet: {
         id: 0,
         ownerId: null,
@@ -102,6 +99,8 @@ export default {
         vm.$store.commit("setWallet", data)
 
       });
+
+      
     },
     copy() {
       this.$copyText(this.wallet.address).then(function (e) {
@@ -116,6 +115,16 @@ export default {
   },
   mounted() {
     this.fetchWalletInfo();
+    const vm = this;
+    walletService.getDonationByAddress(this.walletAddress, function(response){
+          
+          console.log(response.data)
+          vm.donationHistorys = response.data;
+          
+          console.log("get Donation success")
+        }, function(err){
+          console.log(err)
+        })
   },
 }
 </script>

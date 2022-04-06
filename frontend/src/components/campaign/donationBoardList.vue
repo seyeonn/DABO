@@ -7,24 +7,27 @@
     <!-- 검색창 -->
     <div class="submit-form">
       <div class="input-check d-flex">
-        <input 
-        type="text" 
-        name="keyword" 
-        v-model="keyword" 
-        id="campaignSearch" 
-        placeholder="campaign search">
+        <input
+          type="text"
+          name="keyword"
+          v-model="keyword"
+          id="campaignSearch"
+          placeholder="campaign search"
+        />
         <button class="btn_red col-2" @click="goSearch()">
           <span>search</span>
         </button>
       </div>
     </div>
 
-    <div class="createB">
-      <button class="btn_red_c" @click="goCreate()">
-        <span>+</span>
-      </button>
+    <div class="contents-title d-flex">
+      <div class="d-flex">
+        <p>등록하기</p>
+        <button @click="goCreate()" class="btn-plus">
+          <img src="@/assets/plus.png" />
+        </button>
+      </div>
     </div>
-
     <div>
       <div class="container">
         <campaign-list-item
@@ -47,8 +50,8 @@ export default {
   data: function () {
     return {
       campaignList: [],
-      keyword: ""
-    }
+      keyword: "",
+    };
   },
   created() {
     const response = axios
@@ -71,18 +74,18 @@ export default {
     },
     goSearch() {
       const response = axios
-        .get(API_BASE_URL+"/api/donationBoard/search", {
+        .get(API_BASE_URL + "/api/donationBoard/search", {
           params: {
-            keyword: this.keyword
-          }
+            keyword: this.keyword,
+          },
         })
         .then((res) => {
           console.log(res.data);
           this.campaignList = res.data;
         });
       console.log(response);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -103,14 +106,22 @@ export default {
   color: white;
   font-weight: bold;
 }
+#campaignSearch {
+  margin-right: 2%;
+}
+.input-check {
+  align-items: center;
+  margin-left: 3%;
+  margin-right: 3%;
+}
 .btn_red {
   background-color: #e52d27;
   color: #fff;
   border-radius: 10px;
   border: none;
-  width: 100%;
   height: 35px;
   font-size: 12px;
+  padding: 0 !important;
 }
 .btn_red_c {
   background-color: #e52d27de;
@@ -168,7 +179,31 @@ export default {
   padding: 10px;
   margin-bottom: 5px;
 }
-.createB {
+.btn-plus {
+  border: none;
+  background-color: #fff;
+}
+.btn-plus img {
+  width: 30px;
+}
+.contents-title {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 2%;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: right;
+}
+.contents-title div {
+  align-items: center;
+}
+.contents-title div p {
+  margin: 0;
+}
+.thumbnail-campaign {
   text-align: center;
+}
+.thumbnail-campaign img {
+  width: -webkit-fill-available;
 }
 </style>

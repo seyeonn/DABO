@@ -71,6 +71,7 @@ public class BloodCardController {
         TransactionBloodCardHistory transactionBloodCardHistory = bloodCardService.bloodCardDonation(bloodCardDonationReq, userId);
         if(transactionBloodCardHistory != null){
             return ResponseEntity.status(200).body(transactionBloodCardHistory);
+            
         }
         return ResponseEntity.status(500).body(null);
     }
