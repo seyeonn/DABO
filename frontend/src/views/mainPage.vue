@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="contents-bloodcard d-flex">
-          <div class="imoge"><img src="@/assets/imoge.png" /></div>
+          <div><img src="@/assets/imoge.png" style="width: 80px" /></div>
           <div>
             <p>
               나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
@@ -79,39 +79,39 @@
         <div class="contents-ranking">
           <div class="img-medal">
             <img src="@/assets/medal1.png" />
-            <p>1위 000</p>
+            <p>1위 이제훈</p>
             <p></p>
           </div>
           <div class="img-medal d-flex">
             <div>
               <img src="@/assets/medal2.png" />
-              <p>2위 000</p>
+              <p>2위 싸피킴</p>
             </div>
             <div>
               <img src="@/assets/medal3.png" />
-              <p>3위 000</p>
+              <p>3위 홍종현</p>
             </div>
           </div>
           <div class="under-rank">
             <div class="rank d-flex">
               <p>4위</p>
-              <p>김OO</p>
+              <p>장지빈</p>
             </div>
             <div class="rank d-flex">
               <p>5위</p>
-              <p>김OO</p>
+              <p>손모은</p>
             </div>
             <div class="rank d-flex">
               <p>6위</p>
-              <p>김OO</p>
+              <p>정명수</p>
             </div>
             <div class="rank d-flex">
               <p>7위</p>
-              <p>김OO</p>
+              <p>안세연</p>
             </div>
             <div class="rank d-flex">
               <p>8위</p>
-              <p>김OO</p>
+              <p>이삼성</p>
             </div>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default {
 .main-greeting {
   margin-right: 15%;
   font-weight: bold;
-  font-size: 30px;
+  font-size: x-large;
   text-align: center;
 }
 .btn-profile button {
@@ -292,7 +292,7 @@ export default {
   width: 30px;
 }
 .contents-bloodcard {
-  height: 20vh;
+  height: 14vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
@@ -306,7 +306,7 @@ export default {
   margin-left: 5%;
 }
 .imoge img {
-  width: 80px;
+  width: 100%;
 }
 .detail-show {
   position: flex;
@@ -413,10 +413,11 @@ export default {
   text-align: center;
 }
 .contents-title-bloodreserve {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 5%;
+  margin: 0%;
+  margin-top: 10px;
+  padding: 0%;
   justify-content: space-between;
+  float: right;
 }
 .contents-bloodreserve {
   margin-bottom: 5%;
@@ -425,7 +426,7 @@ export default {
   margin: 0;
 }
 .contents-title-bloodreserve > p {
-  margin-top: 5%;
+  width: 100%;
 }
 .font-color-red {
   color: #e52d27;
