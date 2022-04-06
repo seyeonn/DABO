@@ -176,8 +176,11 @@ export default {
       amount: "",
       deadline: "",
       target: "",
+<<<<<<< HEAD
       baseURL: API_BASE_URL,  
+=======
       dueDate: "",
+>>>>>>> b1f29db06cb044aac171ef84113e1efda9f2efdd
     };
   },
   created() {
