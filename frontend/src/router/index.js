@@ -212,11 +212,6 @@ const routes = [
     component: badge,
   },
   {
-    path: "/landing",
-    name: "landing",
-    component: landing,
-  },
-  {
     path: "/mydabo",
     name: "myDabo",
     component: myDabo,
