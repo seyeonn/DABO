@@ -49,11 +49,11 @@
             헌혈증은 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다. 전달
             완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가
             취소될 수 있습니다.
+            <p></p>
           </sub>
-          <div>
-            <span>비빌키를 입력 하세요</span>
-            <input type="text" v-model="privateKey" />
-          </div>
+          <div class="input-text" v-if="!isCashCharging">
+              <input type="text" v-model="privateKey" placeholder="private key를 입력해주세요">
+            </div>
           <div>
             <a href="#">
               <button class="btn_red_cancel">
@@ -291,5 +291,16 @@ small {
 
 .h-p {
   margin-top: 10px;
+}
+
+.input-text input {
+  width: 90%;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 </style>
