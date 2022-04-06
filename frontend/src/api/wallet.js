@@ -65,6 +65,8 @@ function getDonationByAddress(address, success, fail){
     .catch(fail);
 }
 
+
+
 export {
   findAddressById,
   findByUserId,
