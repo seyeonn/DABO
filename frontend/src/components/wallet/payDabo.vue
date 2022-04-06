@@ -176,20 +176,6 @@ export default {
         vm.wallet = data;
       });
     },
-    fetchCreateDonation(){
-
-      const body = {
-        
-      }
-      walletService.createDonation(body,function(response){
-        console.log("createDonation API Success")
-        console.log(response)
-      }, function(err){
-        console.log("createDonation API Failure")
-        console.log(err)
-      })
-    },
-
     toBack() {
       this.$router.go(-1)
     }

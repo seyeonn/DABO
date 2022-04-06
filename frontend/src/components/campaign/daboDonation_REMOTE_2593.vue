@@ -1,14 +1,11 @@
 <template>
-    <div>
-        <div class="wallet-header">
-      <button @click="toBack()">back</button>
+  <div>
+    <div class="dabo_header">
+      <h2 class="dabo_title">다보 후원</h2>
     </div>
-        <div class="dabo_header">
-            <h2 class="dabo_title">다보 후원</h2>
-        </div>
-        <div class="daboDonation-page">
-            <h4 class="h-p">기부 금액(DABO)</h4>
-            <p>{{this.$store.state.wallet.cash}} DABO 보유</p>
+    <div class="daboDonation-page">
+      <h4 class="h-p">기부 금액(DABO)</h4>
+      <p>{{ this.$store.state.wallet.cash }} DABO 보유</p>
 
       <!-- <table class="dabo_table">
                 <tr>
@@ -170,10 +167,6 @@ export default {
         function () {
           alert("지불했습니다. 입금 확인 요청 바랍니다.");
           // this.fetchWalletInfo();
-          
-
-
-          //create 함수 -> update campaign 호출
           vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
           //   vm.processing = false;
           //   vm.input.payAmount = null;
@@ -200,9 +193,6 @@ export default {
         vm.$store.state.wallet = data;
       });
     },
-    toBack() {
-        this.$router.go(-1);
-        }
   },
 };
 </script>
@@ -242,20 +232,6 @@ export default {
   height: 30px;
   font-size: 12px;
   margin-top: 10px;
-}
-.wallet-header {
-  background-color: #e52d27;
-  height: 2.5em;
-  justify-content: space-between;
-  align-items: center;
-}
-.wallet-header button {
-  border: 0;
-  outline: 0;
-  background-color: #e52d27;
-  font-family: 'NicoMoji' !important;
-  color: white;
-  vertical-align: -webkit-baseline-middle;
 }
 .h3_span {
   color: #e52d27;
