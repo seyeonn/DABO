@@ -2,7 +2,7 @@
  * DABO의 개발 환경 상수들입니다.
  */
 
- const API_BASE_URL = "http://127.0.0.1:8080";
+ const API_BASE_URL = "http://localhost:8080";
  const BLOCKCHAIN_URL = "https://j6b106.p.ssafy.io/rpc";
 const BLOCKCHAIN_WEBSOCKET_URL = "ws://j6b106.p.ssafy.io:8546";
 const ITEM_INVENTORY_CONTRACT_ADDRESS =

@@ -145,7 +145,7 @@ export default {
   },
   data() {
     return {
-      showModal: true,
+      showModal: false,
       walletCreated: false,
       name: "",
       nickname: "",
