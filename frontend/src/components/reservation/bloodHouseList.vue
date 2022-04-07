@@ -30,7 +30,7 @@
       </div>
       
     <!-- <section class="test"> -->
-      <div id="map"></div>
+      <!-- <div id="map"></div> -->
     <!-- </section> -->
     </div>
   </div>
@@ -59,25 +59,25 @@ export default {
     }
 
     // get position
-    navigator.geolocation.getCurrentPosition(pos => {
-      this.latitude = pos.coords.latitude;
-      this.longitude = pos.coords.longitude;
+    // navigator.geolocation.getCurrentPosition(pos => {
+    //   this.latitude = pos.coords.latitude;
+    //   this.longitude = pos.coords.longitude;
 
-      if (window.kakao && window.kakao.maps) {
+    //   if (window.kakao && window.kakao.maps) {
 
-        this.initMap();
+    //     this.initMap();
 
-      } else {
-        const script = document.createElement("script");
-        /* global kakao */
-        script.onload = () => kakao.maps.load(this.initMap);
-        script.src = "https://j6b1061.p.ssafy.io/dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=408674fc88231a4d61801f16ed1fba1b";
-        document.head.appendChild(script);
-      }
+    //   } else {
+    //     const script = document.createElement("script");
+    //     /* global kakao */
+    //     script.onload = () => kakao.maps.load(this.initMap);
+    //     script.src = "https://j6b1061.p.ssafy.io/dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=408674fc88231a4d61801f16ed1fba1b";
+    //     document.head.appendChild(script);
+    //   }
 
-    }, err => {
-      alert(err.message);
-    })
+    // }, err => {
+    //   alert(err.message);
+    // })
 
     // 헌혈의 집 불러오기
     const response = await axios
@@ -92,41 +92,41 @@ export default {
       HouseListItem
   },
   methods: {
-    initMap() {
-      const container = document.getElementById("map");
-      const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5,
-      };
-      this.map = new kakao.maps.Map(container, options);
-      this.displayMarker([[this.latitude, this.longitude]]);
-    },
-    displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+    // initMap() {
+    //   const container = document.getElementById("map");
+    //   const options = {
+    //     center: new kakao.maps.LatLng(33.450701, 126.570667),
+    //     level: 5,
+    //   };
+    //   this.map = new kakao.maps.Map(container, options);
+    //   this.displayMarker([[this.latitude, this.longitude]]);
+    // },
+    // displayMarker(markerPositions) {
+    //   if (this.markers.length > 0) {
+    //     this.markers.forEach((marker) => marker.setMap(null));
+    //   }
 
-      const positions = markerPositions.map(
-          (position) => new kakao.maps.LatLng(...position)
-      );
+    //   const positions = markerPositions.map(
+    //       (position) => new kakao.maps.LatLng(...position)
+    //   );
 
-      if (positions.length > 0) {
-        this.markers = positions.map(
-            (position) =>
-                new kakao.maps.Marker({
-                  map: this.map,
-                  position,
-                })
-        );
+    //   if (positions.length > 0) {
+    //     this.markers = positions.map(
+    //         (position) =>
+    //             new kakao.maps.Marker({
+    //               map: this.map,
+    //               position,
+    //             })
+    //     );
 
-        const bounds = positions.reduce(
-            (bounds, latlng) => bounds.extend(latlng),
-            new kakao.maps.LatLngBounds()
-        );
+    //     const bounds = positions.reduce(
+    //         (bounds, latlng) => bounds.extend(latlng),
+    //         new kakao.maps.LatLngBounds()
+    //     );
 
-        this.map.setBounds(bounds);
-      }
-    },
+    //     this.map.setBounds(bounds);
+    //   }
+    // },
     goSearch() {
       // 헌혈의 집 list
       const response = axios

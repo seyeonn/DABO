@@ -28,6 +28,7 @@ export default new Vuex.Store({
       cash: 0,
       receivingCount: 0,
     },
+    bloodCardCnt :0,
   },
   getters: {
     config: function (state) {
@@ -91,6 +92,9 @@ export default new Vuex.Store({
     },
     setUserId(state, id) {
       state.user.id = id;
+    },
+    setBloodCardCnt(state, cnt){
+      state.bloodCardCnt = cnt;
     },
     setUserNickName(state, nickname) {
       state.user.nickname = nickname;
