@@ -42,12 +42,16 @@ export default {
     title: String,
     content: String,
     mediaUrl: String,
+    receiveDabo: Number
   },
   data() {
     return {
       campaign: [],
       baseURL: API_BASE_URL,
     };
+  },
+  created() {
+    console.log(this.campaign);
   },
   methods: {
     goDetail() {
