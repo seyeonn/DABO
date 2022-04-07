@@ -39,8 +39,9 @@
       <select class="input-select" v-model="typeSelected">
         <option disabled value="">Please select Blood Donation Type</option>
         <option>전혈 400ml</option>
-        <option>전혈 400ml</option>
-        <option>전혈 400ml</option>
+        <option>혈장 500ml</option>
+        <option>혈소판 250ml</option>
+        <option>혈장/혈소판 300ml</option>
       </select>
       <input
         type="text"
@@ -64,6 +65,8 @@
       <button @click="submit" class="btn_red">
         <span>CONFIRM</span>
       </button>
+      <spinner v-if="spinnerChecked" @close="spinnerChecked = false">
+      </spinner>
     </div>
   </div>
 </template>
@@ -71,10 +74,12 @@
 <script>
 import { createBloodCard } from "@/api/bloodCard.js";
 import { bloodCardRegister } from "@/utils/bloodCardDonation.js";
+import spinner from "@/components/bloodcard/bloodcardSpinner.vue"
 
 export default {
   data() {
     return {
+      spinnerChecked: false,
       name: "",
       gender: "",
       birthDate: "",
@@ -85,10 +90,13 @@ export default {
       privateKey: "",
     };
   },
-
+  components:{
+    spinner
+  },
   methods: {
     submit() {
       const vm = this;
+      this.spinnerChecked = true;
       const cardData = {
         userName: this.name,
         userGender: this.gender,
@@ -105,6 +113,7 @@ export default {
           bloodCardRegister(
             response.data.bloodCardId,
             vm.privateKey,
+            vm.spinnerChecked = false,
             function(){
               vm.$router.push({name: 'bloodcardList'})
             },

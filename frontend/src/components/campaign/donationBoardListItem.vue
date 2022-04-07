@@ -8,7 +8,7 @@
       <p>{{ content }}</p>
       <div>
         <div class="small font-weight-bold">
-          <span class="ratio">20%</span>
+          <span class="ratio">{{ receiveDabo }}%</span>
           <span class="float-right" style="margin-left: 5px; margin-right: 60px"
             >5명</span
           >
@@ -39,12 +39,16 @@ export default {
     title: String,
     content: String,
     mediaUrl: String,
+    receiveDabo: Number
   },
   data() {
     return {
       campaign: [],
       baseURL: API_BASE_URL
     };
+  },
+  created() {
+    console.log(this.campaign);
   },
   methods: {
     goDetail() {

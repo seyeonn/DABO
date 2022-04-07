@@ -65,14 +65,14 @@
             <div class="donation-summary">
               <table>
                 <th>기부 일시</th>
-                <th>메세지</th>
+                <th>갯수</th>
                 <th>기부 현황</th>
                 <tr
                   v-for="(thsendBloodCard, idx) in thsendBloodCards"
                   :key="idx"
                 >
                   <td>{{ thsendBloodCard.transactionCardDate }}</td>
-                  <td>{{ thsendBloodCard.transactionCardMessage }}</td>
+                  <td>1개</td>
                   <td>기부 완료</td>
                 </tr>
               </table>
