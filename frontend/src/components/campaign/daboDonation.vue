@@ -7,18 +7,6 @@
       <h4 class="h-p">기부 금액(DABO)</h4>
       <p>{{ this.$store.state.wallet.cash }} DABO 보유</p>
 
-      <!-- <table class="dabo_table">
-                <tr>
-                    <td @click="changeAmount(20000)">20000 DABO</td>
-                    <td @click="changeAmount(40000)">40000 DABO</td>
-                    <td @click="changeAmount(60000)">60000 DABO</td>
-                </tr>
-                <tr>
-                    <td>80000 DABO</td>
-                    <td>100000 DABO</td>
-                    <td @click="textbox">직접 입력</td>
-                </tr>
-            </table> -->
       <div class="form_radio_group">
         <div class="form_radio_group-item">
           <input
