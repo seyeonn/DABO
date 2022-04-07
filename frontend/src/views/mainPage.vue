@@ -9,10 +9,16 @@
           <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
-          <button v-if="'A' === this.$store.state.userBloodType"><img src= "@/assets/A.png" /></button>
-          <button v-else-if="'B' === this.$store.state.userBloodType"><img src= "@/assets/B.png" /></button>
-          <button v-else-if="'AB' === this.$store.state.userBloodType"><img src= "@/assets/AB.png" /></button>
-          <button v-else><img src= "@/assets/O.png" /></button>
+          <button v-if="'A' === this.$store.state.userBloodType">
+            <img src="@/assets/A.png" />
+          </button>
+          <button v-else-if="'B' === this.$store.state.userBloodType">
+            <img src="@/assets/B.png" />
+          </button>
+          <button v-else-if="'AB' === this.$store.state.userBloodType">
+            <img src="@/assets/AB.png" />
+          </button>
+          <button v-else><img src="@/assets/O.png" /></button>
           <!-- <button><img src="@/assets/profile.png" /></button> -->
         </div>
       </div>
@@ -47,7 +53,9 @@
           <div><p>마음을 기부해보세요</p></div>
         </div>
         <div class="contents-donation d-flex">
-          <div class="thumnail-donation"><img :src="this.baseURL+mediaUrl" /></div>
+          <div class="thumnail-donation">
+            <img :src="this.baseURL + mediaUrl" />
+          </div>
           <div class="col-8">
             <div class="donation-title">
               <p>{{ title }}</p>
@@ -157,13 +165,20 @@
         </div>
       </div>
     </div>
+    <div>
+      <router-link
+        to="/exBlockChain/dashboard"
+        class="btn btn-primary btn-block"
+        >BlockChain Detail</router-link
+      >
+    </div>
   </div>
 </template>
 
 <script>
 import { findByBloodCard } from "@/api/bloodCard.js";
 import { getDonationBoard } from "@/api/campaign.js";
-import {API_BASE_URL} from "@/config/index.js"
+import { API_BASE_URL } from "@/config/index.js";
 
 export default {
   data() {
@@ -176,7 +191,7 @@ export default {
       amount: "",
       deadline: "",
       target: "",
-      baseURL: API_BASE_URL,  
+      baseURL: API_BASE_URL,
       dueDate: "",
     };
   },
@@ -189,9 +204,8 @@ export default {
       const vm = this;
       findByBloodCard(
         function (response) {
-          
           vm.bloodcardCnt = response.data.length;
-          vm.$store.commit("setBloodCardCnt", response.data.length)
+          vm.$store.commit("setBloodCardCnt", response.data.length);
         },
         function (err) {
           console.log(err);
@@ -231,7 +245,7 @@ export default {
     setDueDate() {
       console.log("1");
     },
-  }
+  },
 };
 </script>
 
