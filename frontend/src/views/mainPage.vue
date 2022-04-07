@@ -6,7 +6,7 @@
       </div>
       <div class="d-flex header-contents">
         <div class="main-greeting">
-          <p>{{ $store.state.bloodCardCnt }} 님 <br />안녕하세요!</p>
+          <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
           <button v-if="'A' === this.$store.state.userBloodType"><img src= "@/assets/A.png" /></button>
@@ -32,7 +32,7 @@
           <div><img src="@/assets/imoge.png" style="width: 80px" /></div>
           <div>
             <p>
-              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
+              나의 헌혈증은 {{ $store.state.bloodCardCnt }}개 입니다.
               <!-- <br />나의 기부 뱃지는
               2개 입니다. -->
             </p>
