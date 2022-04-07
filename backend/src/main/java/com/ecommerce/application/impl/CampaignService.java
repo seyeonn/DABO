@@ -116,6 +116,8 @@ public class CampaignService implements ICampaignService {
             campaignDto.setDeadLine(campaign.getDeadLine());
             campaignDto.setMediaUrl(campaign.getMediaUrl());
             campaignDto.setUsername(campaign.getUser().getNickname());
+            campaignDto.setReceiveDabo(campaign.getReceiveDabo());
+            campaignDto.setReceiveBloodCard(campaign.getReceiveBloodCard());
             campaignDto.setWalletAddress(campaign.getWalletAddress());
 
             list.add(campaignDto);
@@ -145,6 +147,8 @@ public class CampaignService implements ICampaignService {
         campaignDto.setMediaUrl(campaign.getMediaUrl());
         campaignDto.setUsername(campaign.getUser().getNickname());
         campaignDto.setUserId(campaign.getUser().getUserId());
+        campaignDto.setReceiveDabo(campaign.getReceiveDabo());
+        campaignDto.setReceiveBloodCard(campaign.getReceiveBloodCard());
         campaignDto.setWalletAddress(campaign.getWalletAddress());
 
         return campaignDto;
@@ -208,6 +212,8 @@ public class CampaignService implements ICampaignService {
             campaignDto.setDeadLine(campaign.getDeadLine());
             campaignDto.setMediaUrl(campaign.getMediaUrl());
             campaignDto.setUsername(campaign.getUser().getNickname());
+            campaignDto.setReceiveDabo(campaign.getReceiveDabo());
+            campaignDto.setReceiveBloodCard(campaign.getReceiveBloodCard());
 
             campaignDtoList.add(campaignDto);
         }
