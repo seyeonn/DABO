@@ -118,12 +118,20 @@ ERC20 DABO Token으로 신뢰도 있는 기부 시스템
 
 ### ⛑ **Server Port**
 
-[제목 없음](https://www.notion.so/d600db1053284dc28d9bd228c6510df9)
+|이름|포트 번호|
+| ------ | ------ | 
+| web server(nginx) | 80 |
+| springboot (tomcat) | 8080 |
+| geth | 8545 |
+| geth websocket| 8546 |
+| https | 443 |
+| mysql | 3306 |
+
+
 
 ### 🛠 **Ubuntu 패키지설치**
 
 ```
-
 # update
 $ sudo apt update
 
@@ -148,7 +156,6 @@ $ sudo apt-get install nginx
 ### 🛠 **frontend 빌드 및 backend 무중단 배포**
 
 ```
-
 #frontend
 npm run build
 
@@ -162,7 +169,6 @@ mvn clean install -DskipTests
 ### 🛠 **HTTPS 키 발급**
 
 ```
-
 sudo apt-get install letsencrypt
 # 만약 nginx를 사용중이면 중지
 sudo systemctl stop nginx
@@ -179,7 +185,6 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 #### **Go, geth, solc Installation**
 
 ```
-
 # Go Install
 sudo apt install software-propeties-common
 sudo add-apt-repository ppa:longsleep/golang-backprots
@@ -203,7 +208,6 @@ go version
 #### **Geth를 다룰 폴더 생성하기**
 
 ```
-
 mkdir {폴더 이름}
 cd {폴더 이름}
 
@@ -212,7 +216,6 @@ cd {폴더 이름}
 #### **계정 생성하기**
 
 ```
-
 geth --datadir $PWD account new
 
 ```
@@ -220,7 +223,6 @@ geth --datadir $PWD account new
 #### **Genesis block 생성하기**
 
 ```
-
 #genesis.json
 {
     "config": {
@@ -246,7 +248,6 @@ geth --datadir $PWD account new
 #### **네트워크 초기화**
 
 ```
-
 geth --datadir {경로} init {제네시스 파일}
 # ex) geth --datadir $PWD init genesis.json
 
@@ -263,6 +264,67 @@ geth --networkid 15 --datadir $PWD --http --http.addr "0.0.0.0" --http.port 8545
 ```
 geth attach http://[도메인]:8545>
 ```
+
+# 4️⃣ 개발 플로우
+
+### 기술스택
+
+![dabo_기술스택.png](https://i.imgur.com/2last72.png)
+
+### 아키텍처
+
+![stack.png](https://i.imgur.com/aUtpLtz.png)
+
+### 블록체인 시퀀스 다이어그램 및 라이브러리 소개
+
+<< 추가 예정 >>
+
+# 5️⃣ 협업 방식
+
+### 🔗 Git Flow 전략
+
+![Untitled](https://i.imgur.com/h3Ixecj.png)
+
+### 작업 시작 전
+
+
+1. 원본 프로젝트 저장소 remote 설정 (초기 설정시 한번만 해주면 된다.)
+
+```bash
+git remote add origin-dabo https://lab.ssafy.com/s06-blockchain-sub2/S06P22B106.git
+```
+
+<details>
+<summary> git remote -v 로 확인</summary>
+<div markdown="1">
+
+![git1](https://i.imgur.com/KxptsA0.png)
+  - 내가 작업할 저장소 : origin
+  - 원격 저장소(원본) : origin-dabo
+
+</div>
+</details>
+
+
+2. branch 생성 후 작업 시작하기
+
+- fork한 repository로 이동
+- 생성과 동시에 그 브랜치로 이동하는 명령어
+
+```bash
+git checkout -b develop
+```
+
+<details>
+<summary> 실행 화면 </summary>
+<div markdown="1">
+
+![git2](https://i.imgur.com/WX6Wu9N.png)
+
+- 각자 작업은 develop branch에서 작업
+
+</div>
+</details>
 
 
 
