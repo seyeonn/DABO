@@ -72,9 +72,9 @@
                 aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style="width: 70%"
+                :style="{ width: progress }"
               >
-                70%
+                {{ progress }}
               </div>
             </div>
           </div>
@@ -193,6 +193,7 @@ export default {
       target: "",
       baseURL: API_BASE_URL,
       dueDate: "",
+      process: "70%",
     };
   },
   created() {
@@ -227,6 +228,18 @@ export default {
           const today = new Date();
           vm.dueDate = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
           console.log(response.data[0]);
+          vm.progress =
+            Math.round(
+              (0.5 *
+                (response.data[0].receiveBloodCard / response.data[0].amount) +
+                0.5 *
+                  (response.data[0].receiveDabo / response.data[0].target)) *
+                100 *
+                100
+            ) /
+              100 +
+            "%";
+          console.log(vm.progress);
         },
         function (err) {
           console.log(err);
@@ -250,8 +263,6 @@ export default {
 </script>
 
 <style scoped>
-.main-page {
-}
 .main-header {
   background-color: #e52d27;
   height: 24vh;
