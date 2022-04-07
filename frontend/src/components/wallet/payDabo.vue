@@ -148,7 +148,8 @@ export default {
             vm.isCashCharging = false;
             vm.fetchCashBalance();
             vm.fetchCreateDonation();
-            vm.$router.go({ path: 'dabowallet/chargeconfirm'})
+            vm.$router.push({name: 'chargeconfirm'})
+            // vm.$router.go({ path: 'dabowallet/chargeconfirm'})
           },
           function() {
             alert("캐시 충전을 실패했습니다.");
