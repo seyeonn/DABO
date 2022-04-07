@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <router-link
-                    to="/explorer/blocks"
+                    to="/exBlockChain/blocks"
                     class="btn btn-primary btn-block"
                     >View All</router-link
                   >
@@ -45,7 +45,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <router-link
-                    to="/explorer/txes"
+                    to="/exBlockChain/txes"
                     class="btn btn-primary btn-block"
                     >View All</router-link
                   >
