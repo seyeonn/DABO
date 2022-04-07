@@ -152,6 +152,7 @@ export default {
           "ether"
         );
         vm.wallet = data;
+        vm.$store.commit("setWallet", data)
       });
     },
     cashTransfer(){
