@@ -96,16 +96,17 @@ export default {
       const { IMP } = window;
       IMP.init('imp00423345'); // test 가맹점을 넣어놨어요
 
+      //
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: 'html5_inicis',                           // PG사
         pay_method: 'card',                           // 결제수단
         merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-        amount: this.selectDabo*10000,                                 // 결제금액
+        amount:this.selectDabo*10000 ,                                 // 결제금액
         name: '아임포트 결제 데이터 분석',                  // 주문명
         buyer_name: '홍길동',                           // 구매자 이름
         buyer_tel: '01012341234',                     // 구매자 전화번호
-        buyer_email: 'example@example',               // 구매자 이메일
+        buyer_email: 'mo_ah@naver.com',               // 구매자 이메일
         buyer_addr: '신사동 661-16',                    // 구매자 주소
         buyer_postcode: '06018',                      // 구매자 우편번호
       };
@@ -138,8 +139,9 @@ export default {
         /**
          * 이더를 지불하고 캐시를 충전
          */
+        console.log(this.selectDabo*0.1)
         buyCash(
-          new BN(ethToWei(String(this.cashChargeAmount))),
+          new BN(ethToWei(String(this.selectDabo*0.1))),
           privateKey,
           function() {
             alert("캐시를 충전했습니다.");
@@ -164,6 +166,7 @@ export default {
           "transactionDonationFromAddress": this.walletAddress,
           "transactionDonationToAddress":  this.walletAddress
       }
+
       console.log(body)
       walletService.createDonation(body,function(response){
         console.log("createDonation API Success")
@@ -222,6 +225,7 @@ export default {
           "ether"
         );
         vm.wallet = data;
+        vm.$store.commit("setWallet", data)
       });
     },
     toBack() {
