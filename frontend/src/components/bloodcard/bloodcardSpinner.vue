@@ -7,16 +7,22 @@
             <i style="color: #505352" class="far fa-times-circle fa-2x"></i>
           </button> -->
           <div class="modal-header">
-            <slot name="header"> default header </slot>
+            <slot name="header"> 헌혈증 생성중 </slot>
           </div>
 
           <div class="modal-body">
             
               <div class = "warning" >
-              <p style="font-size: 16px">경고!</p>
-              <p>1. 지갑 비밀키를 잃어버리지 마세요! 한 번 잃어버리면 복구 할 수 없습니다</p>
-              <p>2. 공유하지 마세요! 비밀키가 악위적인 사이트에 노출되면 당신의 자산이 유실될 수 있습니다.</p>
-              <p>3. 백업을 만들어 두세요! 종이에 적어서 오프라인으로 관리하세요!</p>
+              
+              <div class="spinner" style="text-align: center;">
+                <p style="font-size: 13px;">헌혈증 생성까지 최대 약 10초가 소요됩니다.</p>
+                <p>잠시만 기다려주세요</p>
+                <v-progress-circular
+                  :size="100"
+                  color="#f06464"
+                  indeterminate
+                ></v-progress-circular>
+              </div>
             </div>
 
             <slot name="body"> </slot>
@@ -103,12 +109,5 @@ export default {};
   /* font-family: "Nanumsquare", Tahoma, Geneva, Verdana, sans-serif; */
   font-size: 12px;
   
-}
-
-.warning {
-  background-color: #e52d27;
-  color : white;
-  font-size: 12px;
-  padding: 1rem;
 }
 </style>
