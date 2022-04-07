@@ -318,6 +318,8 @@ public class CampaignService implements ICampaignService {
             campaignDto.setMediaUrl(campaign.getMediaUrl());
             campaignDto.setUsername(campaign.getUser().getNickname());
             campaignDto.setWalletAddress(campaign.getWalletAddress());
+            campaignDto.setReceiveDabo(campaign.getReceiveDabo());
+            campaignDto.setReceiveBloodCard(campaign.getReceiveBloodCard());
             list.add(campaignDto);
         }
         Collections.sort(list, (o1, o2) -> {
