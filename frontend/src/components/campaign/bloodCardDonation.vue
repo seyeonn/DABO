@@ -31,6 +31,8 @@
         </div>
       </div>
 
+      <spinner v-if="spinnerChecked" @close="spinnerChecked = false"></spinner>
+
       <div>
         <a href="#bDonation">
           <button class="btn_red_donation" @click="bloodDonation">
@@ -73,15 +75,20 @@
 <script>
 import { findByBloodCard, bloodCardChageState } from "@/api/bloodCard.js";
 import { bloodCardSend } from "@/utils/bloodCardDonation.js";
+import spinner from "@/components/campaign/bloodcardDonationSpinner.vue"
 
 export default {
   data() {
     return {
+      spinnerChecked: false,
       bloodCardCheck: [],
       bloodCards: [{}],
       privateKey: "",
       bloodCardCnt: 0,
     };
+  },
+  components: {
+    spinner
   },
   methods: {
     bloodDonation: function () {
@@ -95,6 +102,7 @@ export default {
     },
     checkConfirm() {
       const vm = this;
+      vm.spinnerChecked = true;
       let bloodCardId = 0;
       for (var i = 0; i < this.bloodCardCheck.length; i++) {
         if (vm.bloodCardCheck[i]) {
@@ -115,9 +123,11 @@ export default {
               bloodCardChageState(
                 body,
                 function () {
+                  vm.spinnerChecked = false;
                   vm.$router.push({ name: "donationConfirm", params: "" });
                 },
                 function (err) {
+                  vm.spinnerChecked = false;
                   console.err(err);
                 }
               );
