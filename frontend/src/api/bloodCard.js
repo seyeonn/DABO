@@ -3,6 +3,7 @@ import { tokenInstance } from "./tokenIndex.js";
 const instance = tokenInstance();
 
 function findByBloodCard(success, fail){
+    console.log("findByBloodCard START")
     instance
     .get("api/bc/search")
     .then(function(response){

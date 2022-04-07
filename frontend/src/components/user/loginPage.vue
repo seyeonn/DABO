@@ -80,6 +80,7 @@ export default {
               console.log("getUserInfo",response);
               scope.$store.commit("setUserId", response.data.userId);
               scope.$store.commit("setUserNickName", response.data.nickname);
+              scope.$store.commit("setUserBloodType", response.data.bloodType);
               alert("지갑 정보를 찾습니다");
               findWallet(
                 response.data.userId,
@@ -120,7 +121,7 @@ export default {
           alert("유저 이메일 혹은 비밀번호가 일치하지 않습니다.");
         }
       );
-
+      
       // axios({
       //   method: "post",
       //   url: API_BASE_URL + "/api/user/login",
@@ -142,6 +143,7 @@ export default {
       //     alert("로그인 실패");
       //   });
     },
+    
   },
 };
 </script>
