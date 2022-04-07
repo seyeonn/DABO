@@ -6,7 +6,7 @@
       </div>
       <div class="d-flex header-contents">
         <div class="main-greeting">
-          <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
+          <p>{{ $store.state.bloodCardCnt }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
           <button v-if="'A' === this.$store.state.userBloodType"><img src= "@/assets/A.png" /></button>
@@ -189,7 +189,9 @@ export default {
       const vm = this;
       findByBloodCard(
         function (response) {
+          
           vm.bloodcardCnt = response.data.length;
+          vm.$store.commit("setBloodCardCnt", response.data.length)
         },
         function (err) {
           console.log(err);
@@ -229,7 +231,7 @@ export default {
     setDueDate() {
       console.log("1");
     },
-  },
+  }
 };
 </script>
 
