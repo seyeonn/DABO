@@ -8,34 +8,44 @@
       <p>우리집 주변의 헌혈의 집을 찾아보세요.</p> -->
       <div class="submit-form">
         <div class="input-check d-flex">
-        <input 
-        type="text" 
-        name="bloodhouse" 
-        id="bloodhouse" 
-        v-model="keyword"
-        placeholder="blood house search" />
-        <button class="btn_red col-2" @click="goSearch()">
+          <input
+            type="text"
+            name="bloodhouse"
+            id="bloodhouse"
+            v-model="keyword"
+            placeholder="blood house search"
+          />
+          <button class="btn_red col-2" @click="goSearch()">
             <span>search</span>
-          </button> 
-          </div>
+          </button>
+        </div>
       </div>
       <div>
         <div class="container">
-          <house-list-item 
-          v-for="bloodHouse in bloodHouseList"
-          :key="bloodHouse.id"
-          v-bind="bloodHouse"
+          <house-list-item
+            v-for="bloodHouse in bloodHouseListFor"
+            :key="bloodHouse.id"
+            v-bind="bloodHouse"
+            :per-page="perPage"
+            :current-page="currentPage"
           />
         </div>
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          aria-controls="bloodcard"
+          align="center"
+        >
+        </b-pagination>
       </div>
-      
-    <!-- <section class="test"> -->
+
+      <!-- <section class="test"> -->
       <!-- <div id="map"></div> -->
-    <!-- </section> -->
+      <!-- </section> -->
     </div>
   </div>
 </template>
-
 
 <script>
 import HouseListItem from "@/components/reservation/houseListItem.vue";
@@ -50,8 +60,24 @@ export default {
       latitude: 0,
       longitude: 0,
       bloodHouseList: [],
-      keyword: ""
-    }
+      keyword: "",
+      // 몇개 씩 보여줄지
+      perPage: 4,
+      // 현재 페이지
+      currentPage: 1,
+    };
+  },
+  computed: {
+    rows() {
+      return this.bloodHouseList.length;
+    },
+    bloodHouseListFor() {
+      const items = this.bloodHouseList;
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      );
+    },
   },
   async created() {
     if (!("geolocation" in navigator)) {
@@ -80,16 +106,17 @@ export default {
     // })
 
     // 헌혈의 집 불러오기
-    const response = await axios
+    await axios
       .get(API_BASE_URL + "/api/reservation/bloodHouseList")
       .then((res) => {
         console.log(res.data);
         this.bloodHouseList = res.data;
+        console.log(this.bloodHouseList.length);
       });
-    console.log(response);
   },
+
   components: {
-      HouseListItem
+    HouseListItem,
   },
   methods: {
     // initMap() {
@@ -130,21 +157,20 @@ export default {
     goSearch() {
       // 헌혈의 집 list
       const response = axios
-        .get(API_BASE_URL+"/api/reservation/search", {
+        .get(API_BASE_URL + "/api/reservation/search", {
           params: {
-            keyword: this.keyword
-          }
+            keyword: this.keyword,
+          },
         })
         .then((res) => {
           console.log(res.data);
           this.bloodHouseList = res.data;
         });
       console.log(response);
-    }
-  }
-}
+    },
+  },
+};
 </script>
-
 
 <style scoped>
 .bloodHouse-page {
@@ -164,6 +190,4 @@ export default {
   height: 400px;
   border: 1px #a8a8a8 solid;
 }
-
-
 </style>

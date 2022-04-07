@@ -165,13 +165,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <router-link
-        to="/exBlockChain/dashboard"
-        class="btn btn-primary btn-block"
-        >BlockChain Detail</router-link
-      >
-    </div>
   </div>
 </template>
 
@@ -193,7 +186,6 @@ export default {
       target: "",
       baseURL: API_BASE_URL,
       dueDate: "",
-      process: "70%",
     };
   },
   created() {
@@ -386,6 +378,9 @@ export default {
 }
 .contents-donation .donation-progress {
   margin-right: 5%;
+}
+.contents-donation .donation-progress > div {
+  background-color: #f06464;
 }
 .contents-donation .progress-info {
   justify-content: space-between;

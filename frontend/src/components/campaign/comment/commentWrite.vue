@@ -72,7 +72,6 @@ export default {
 <style>
 .commentInput-page {
   margin: 0 auto;
-  height: 90px;
   font-weight: bold;
 }
 .btn_red_comment {
