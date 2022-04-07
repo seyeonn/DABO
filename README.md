@@ -20,7 +20,7 @@
 
 블록체인은 **데이터 분산 처리 기술**로 네트워크에 참여하는 모든 사용자가 모든 거래 내역 등의 데이터를 분산, 저장할 수 있다. 또한 블록체인은 블록들을 체인 형태로 묶은 형태로 되어 있으며 이 블록은 **개인과 개인의 거래, 즉 P2P의 데이터가 기록되는 장부**가 된다. 이런 블록들이 연결되어 만들어지는 것이 '사슬(체인)'의 구조를 가지게 된다.
 
-모든 사용자가 거래 내역을 보유하고 있기 때문에 거래 내역을 확인할 때는 모든 사용자가 보유한 장부를 대조하고 확인해야 한다. 이러한 원리로 블록체인은 **'공공 거래장부'** 또는 **'분산 거래장부'**로도 불린다.
+모든 사용자가 거래 내역을 보유하고 있기 때문에 거래 내역을 확인할 때는 모든 사용자가 보유한 장부를 대조하고 확인해야 한다. 이러한 원리로 블록체인은 **공공 거래장부** 또는 **분산 거래장부**로도 불린다.
 
 
 #### 🔐 **신뢰성을 보장할 수 있는 근거**
@@ -76,6 +76,8 @@
 이러한 배경에서 DABO는 전자 헌혈증을 통해 보다 편리하게 관리할 수 있고, 더불어 전자 헌혈증과 DABO를 통해 캠페인에 동참할 수 있습니다.
 
 
+<br/>
+
 # 2️⃣ 프로젝트 소개
 
 > Donation + ABO
@@ -103,6 +105,8 @@ ERC20 DABO Token으로 신뢰도 있는 기부 시스템
 
 <<<<< gif 추가 및 기능 설명 부분 필요..>>>>>>
 
+
+<br/>
 
 # 3️⃣ Install And Usage
 
@@ -182,7 +186,7 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 ### 🛠 **Set up Private Network with Geth**
 
-#### **Go, geth, solc Installation**
+#### **- Go, geth, solc Installation**
 
 ```
 # Go Install
@@ -205,7 +209,7 @@ go version
 
 ```
 
-#### **Geth를 다룰 폴더 생성하기**
+#### **- Geth를 다룰 폴더 생성하기**
 
 ```
 mkdir {폴더 이름}
@@ -213,14 +217,14 @@ cd {폴더 이름}
 
 ```
 
-#### **계정 생성하기**
+#### **- 계정 생성하기**
 
 ```
 geth --datadir $PWD account new
 
 ```
 
-#### **Genesis block 생성하기**
+#### **- Genesis block 생성하기**
 
 ```
 #genesis.json
@@ -245,7 +249,7 @@ geth --datadir $PWD account new
 
 ```
 
-#### **네트워크 초기화**
+#### **- 네트워크 초기화**
 
 ```
 geth --datadir {경로} init {제네시스 파일}
@@ -253,31 +257,73 @@ geth --datadir {경로} init {제네시스 파일}
 
 ```
 
-#### **HTTP 접속 설정**
+#### **- HTTP 접속 설정**
 
 ```
 geth --networkid 15 --datadir $PWD --http --http.addr "0.0.0.0" --http.port 8545 --http.corsdomain "*" --rpc.allow-unprotected-txs --http.api "personal,eth,net,web3,txpool,miner,admin" --allow-insecure-unlock --nodiscover --mine --http.vhosts '*' --unlock 0 --password /home/ubuntu/dabo_geth/passwd
 ```
 
-#### **다른 곳에서 Geth 접속하기**
+#### **- 다른 곳에서 Geth 접속하기**
 
 ```
 geth attach http://[도메인]:8545>
 ```
 
+<br/>
+
 # 4️⃣ 개발 플로우
 
-### 기술스택
+### **기술스택**
 
 ![dabo_기술스택.png](https://i.imgur.com/2last72.png)
 
-### 아키텍처
+### **아키텍처**
 
 ![stack.png](https://i.imgur.com/aUtpLtz.png)
 
-### 블록체인 시퀀스 다이어그램 및 라이브러리 소개
+### **블록체인 시퀀스 다이어그램 및 라이브러리 소개**
 
-<< 추가 예정 >>
+![q1](https://user-images.githubusercontent.com/38287375/162273950-ca4a3b63-e052-4c82-8a2a-a6d3e0f5a957.png)
+
+![q2](https://user-images.githubusercontent.com/38287375/162273941-54245e9a-e7f7-412e-b345-34d3eafea555.png)
+
+![q3](https://user-images.githubusercontent.com/38287375/162273955-1583089e-fdf4-4ca3-926e-fcb783118155.png)
+
+![q4](https://user-images.githubusercontent.com/38287375/162273953-18210e4d-b529-4d18-8d87-96da0d16aa98.png)
+
+#### **블록체인 사용 필수 개념**
+
+1. Geth(Go-Ethereum)
+    
+    Geth는 이더리움 클라이언트 중 Go 언어로 개발된 버전입니다. Geth 프로그램은 이더리움에서 제공하는 다양한 API를 사용해 볼 수 있으며 메인 넷, 테스트 넷 등과의 연동을 쉽게 할 수 있도록 편의성을 제공합니다. 이더리움의 공식 프로그램으로 내부 기능과 프로토콜을 완벽히 준수하며 현재까지 가장 널리 사용되는 이더리움 클라이언트입니다
+    
+    **DABO**는 Geth를 이용하여 EC2 서버에 프라이빗 네트워크를 구축하였으며 Smart Contract를 연동하여 만든 DApp입니다.
+    
+2. ERC 20
+    
+    ERC-20은 EIP에서 제안되어 현재 공식으로 채택된 토큰 표준안 중 가장 널리 사용되는 표준입니다. EIP란 Ethereum Improvement Proposals의 약자로 중앙화된 결정 주체가 없는 이더리움 프로젝트의 특성상 개선안을 제안하고 이를 투표로 표결하여 어떤 개선안을 채택하여 소프트웨어에 반영할지를 결정하기 위해 존재하는, 문자 그대로 “이더리움 개선 제안”을 뜻합니다.
+    
+    ERC-20은 스마트 컨트랙트 기반 토큰이 준수해야 할 공통 기능과 인터페이스를 정의하고 있어 이 표준에 맞추어 DABO 토큰을 발행하였습니다.
+    
+    반드시 구현해야 할 함수는 **전체 공급량(totalSupply),** **잔고(balanceOf),** **전송(transfer),** **~에서 전송(transferFrom)**, **승인(approve)**, **허용(allowance)** 6가지로, DABO 토큰 기준에 따라 토큰을 만들고 Remix를 통해 private network에 배포하였습니다.
+    
+3. WEb3.js
+    
+    Web3.js는 이더리움 생태계에 다양한 요청을 처리할 수 있게 하는 JavaScript API 라이브러리입니다. Geth는 HTTP 기반의 JSON RPC를 지원하고 있으며, Web3.js 또한 내부적으로 JSON RPC를 사용하고 있습니다. web3.js는 프론트엔드에서 이더리움 노드들과 상호 작용을 쉽고 가능하게 하므로 **DABO** 또한 web3.js를 사용하여 DApp을 개발하였습니다.
+    
+4. Remix IDE
+Remix IDE는 별도의 설치 없이 웹 브라우저 상에서 이용 가능한 이더리움 스마트 컨트랙트 개발 도구 입니다
+다양한 버전의 솔리디티 버전을 컴파일 할 수있고 Javascript VM을 통해 스마트 컨트랙트를 사전 테스트 할 수 있도록 하며 테스트넷과 연동을 통한 배포 및 호출 등을 쉽게 진행할 수 있습니다
+또한 스마트 컨트랙트에 소요되는 Gas를 미리 예상해 볼 수 있고 UI를 통한 손쉬운 호출로 이더리움 스마트 컨트랙트를 개발 하기에 편리 합니다.
+**DABO**는 Remix를 사용하여 이더리움 스마트 컨트랙트를 개발 및 배포 하였습니다
+5. 솔리디티
+    
+    솔리디티는 이더리움에서 개발한 스마트 컨트랙트 개발 언어 입니다
+    솔리디티 스마트 컨트랙트 컴파일러를 통해 바이트 코드로 변환되어 이더리움 가상 머신 위에서 동작하게 됩니다
+    솔리디에는 이더리움의 주소를 나타내는 20 바이트 길이를 저장할 수 있는 address 자료형이 존재하며 이 밖에 레퍼런스 타입 구조체, 배열, 열거형, 매핑형 등을 사용 할 수 있습니다
+    **DABO**는 Solidity언어를 사용하여 Smart Contract를 작성했고, Remix IDE를 사용하여 컴파일 및 배포를 하였습니다.
+
+<br/>
 
 # 5️⃣ 협업 방식
 
@@ -285,7 +331,7 @@ geth attach http://[도메인]:8545>
 
 ![Untitled](https://i.imgur.com/h3Ixecj.png)
 
-### 작업 시작 전
+#### **작업 시작 전**
 
 
 1. 원본 프로젝트 저장소 remote 설정 (초기 설정시 한번만 해주면 된다.)
@@ -314,27 +360,231 @@ git remote add origin-dabo https://lab.ssafy.com/s06-blockchain-sub2/S06P22B106.
 ```bash
 git checkout -b develop
 ```
+- 각자 작업은 develop branch에서 작업
+
+
+
+#### **각 작업 커밋**
+
+- 커밋 컨벤션 지키기
+- add, commit을 한 후 push는 origin 으로 작업한 브랜치를 push해야함
+
+```bash
+git add .
+git commit -m "feat:[front] 레이아웃 구현"
+git push origin develop
+```
+
+#### **작업 후**
 
 <details>
-<summary> 실행 화면 </summary>
+<summary> 내 origin 레포지토리로 오면 상단에 버튼이 생성되어 있음 </summary>
 <div markdown="1">
 
-![git2](https://i.imgur.com/WX6Wu9N.png)
-
-- 각자 작업은 develop branch에서 작업
+![git1](https://i.imgur.com/Z9pnBo5.png)
 
 </div>
 </details>
 
+<details>
+<summary> Jira 이슈 번호를 넣어 Title 작성 후 요청 보내기 </summary>
+<div markdown="1">
+
+![qqq2](https://user-images.githubusercontent.com/38287375/162270653-9268ebd0-dc9a-4952-a6a8-eab70343cf36.png)
 
 
+</div>
+</details>
+
+<details>
+<summary> 자동으로 원본 origin-dabo 레포지토리로 이동된다. </summary>
+<div markdown="1">
+
+![qqq3](https://user-images.githubusercontent.com/38287375/162270801-1e693ecd-e15e-4988-aae2-7eab9cf1cf68.png)
 
 
+</div>
+</details>
+
+- 이 때 같은 파일을 다른 요청에서도 수정했다면 충돌이 발생할 수 있음
+- 코드 리뷰 받고 approve 되면 merge하기
 
 
+#### **Merge 후 원본 저장소와 로컬 저장소 동기화하기**
+
+- 내 저장소의 develop 브랜치로 이동
+- fetch, merge
+    
+    ```bash
+    git fetch origin-dabo
+    git merge origin-dabo/CICD
+    ```
+    
+    - 원격 저장소의 develop 브랜치와 내 저장소의 develop 브랜치를 동기화시킨다.
 
 
+<br/>
 
+### 📝 Notion
 
+![qqq4](https://user-images.githubusercontent.com/38287375/162271068-82828402-a575-4300-b975-a4a723c3d704.png)
+
+![qqq5](https://user-images.githubusercontent.com/38287375/162271123-2fb5e2d7-7cd0-49fe-9328-28a1f2b4a8db.png)
+
+![qqq6](https://user-images.githubusercontent.com/38287375/162271179-6980a2ff-6f85-45ff-99ba-cddbcc8f52ac.png)
+
+- 데일리 스크럼과 전반적인 문서 작업을 노션에 정리하였습니다.
+- 팀원들과 각자 공부한 부분에 대한 내용을 정리하였습니다.
+
+<br/>
+
+### 🏷 Jira
+
+![qqq7](https://user-images.githubusercontent.com/38287375/162271315-eb75badf-b0a5-4535-ba42-48ed491fac15.png)
+
+![qqq8](https://user-images.githubusercontent.com/38287375/162271367-ee38e9be-6c9a-4b8c-974f-3f712555a4c6.png)
+
+- Jira를 통해 프로젝트를 관리하였습니다.
+
+<br/>
+
+# 6️⃣ 개발 일정
+
+![qqq9](https://user-images.githubusercontent.com/38287375/162271695-2bfba1df-956d-4ef7-9fb2-56fedc02c687.png)
+
+<br/>
+
+# 7️⃣ 기능 명세 요구 사항 정의서
+
+![dabo__기능](https://user-images.githubusercontent.com/38287375/162272286-f46796cc-a2e1-4732-a494-2c511c62d9bc.png)
+
+<br/>
+
+# 8️⃣ REST API
+![dabo_swagger](https://user-images.githubusercontent.com/38287375/162272465-74713dcd-4042-4d80-8701-2c70a11104c2.png)
+
+<br/>
+
+# 9️⃣ ERD  
+![dabo_erd](https://user-images.githubusercontent.com/38287375/162272554-55bd61a7-07df-4a39-bc1a-4f1fa5455516.png)
+
+<br/>
+
+# 🔟 와이어 프레임  
+![dabo_와이어프레임](https://user-images.githubusercontent.com/38287375/162272599-4646693a-a7a8-4d9c-8fbf-6ce939846db7.png)
+
+<br/>
+
+---
+
+# 🧵 Finally
+
+### 📐 Coding Convention
+
+#### **Language Convention**
+
+- JAVA : 네이버 - [JAVA 코딩 컨벤션](https://naver.github.io/hackday-conventions-java/)
+- JAVASCRIPT : AIRBNB - [JAVASCRIPT 컨벤션](https://github.com/airbnb/javascript)
+
+#### **Git Convention**
+
+```bash
+#   feat    : 기능 (새로운 기능)
+#   fix     : 버그 (버그 수정)
+#   refactor: 리팩토링
+#   style   : 스타일 (코드 형식, 세미콜론 추가: 비즈니스 로직에 변경 없음)
+#   docs    : 문서 (문서 추가, 수정, 삭제)
+#   test    : 테스트 (테스트 코드 추가, 수정, 삭제: 비즈니스 로직에 변경 없음)
+#   chore   : 기타 변경사항 (빌드 스크립트 수정 등)
+# ------------------
+#     관련된 이슈번호는 제목 맨 뒤에 추가한다. ex. S06P22B106-1
+# ------------------
+
+# example
+feat : [back] 로그인 #S06P22B106-1
+```
+
+#### **Jira Convention**
+
+```bash
+## 이슈 생성
+
+- 에픽 : 공통(라이브강의,기획 등)  / 회원 관리 / 전자 헌혈증 관리 / 기부글 관리 / 토근 자산 관리 / 헌혈의 집 관리 / 배포 및 CI/CD / 블록체인 /발표 /  UCC / 문서
+- 스토리 : 개인별 생성, 피드 생성, 피드 삭제 등의 디테일하게 들어가기
+    - Summary 규칙 : ["에픽명”] “front or backend”  | “구현내용”
+    - 예시
+        - [공통] 오전 라이브 & 미팅 | 0128
+        - [공통] 오후 미팅 | 0128
+        - [피드] backend | 피드 생성
+- 서브테스크 : 스토리 작업 중 자신이 한 일 디테일하게 적기
+    - 피드 생성의 경우 : 피드 생성 오류 잡기
+```
+
+<br/>
+
+### 👩‍💻👨‍💻 팀 소개
+
+| 구분 | 이름 | 역할 | 깃허브 주소 |
+| --- | --- | --- | --- |
+| 팀장 | 손모은 | 서버 배포, DABO 지갑 관리 기능 구현  | https://github.com/moeun2 |
+| 팀원 | 홍종현 | 전자헌혈증 관리 기능 구현 | https://github.com/jonghyunH |
+| 팀원 | 정명수 | 유저 관리 기능 구현 , UCC 제작 | https://github.com/JeongMyeongSu |
+| 팀원 | 안세연 | 캠페인 관리 기능 구현, 헌혈의 집 예약 기능 구현 | https://github.com/seyeonn |
+| 팀원 | 장지빈 | 유저, 메인페이지, 전자헌혈증 프론트 구현 |  |
+| 팀원 | 이제훈 | DABO 지갑 관리 프론트 구현 | https://github.com/L-Jehun |  
+
+### **역할 상세**
+
+- 손모은
+    - 1) 서버 배포 환경 구축
+        - 블록체인 서버 : Geth를 활용한 프라이빗 네트워크 구축, Nginx, letsencrypt를 이용한 SSL 처리
+        - 백엔드 서버 : Vue, SpringBoot 서버 구축, Nginx,letsencrypt를 이용한 SSL 처리
+    - 2) DABO 지갑 관리 기능 (Full Stack)
+        - [Front] Web3를 이용하여 DABO 지갑 생성, 조회, 이더 충전, 캐쉬 트랜스퍼 기능 구현
+        - [back] Web3j, springboot를 이용한 DABO 지갑 API 생성(Wallet Controller, DaboTokenHistory Controller)
+        - JPA 활용 DABO 지갑 Database 관리
+- 홍종현
+    - 1) DB 설계
+        - ERDCloud를 활용한 데이터 베이스  설계
+    - 2) DABO 전자 헌혈증 관리 기능 (Full Stack)
+        - [Front] Web3를 이용하여 전자 헌혈증 생성 및 전달
+        - [back] Web3, SpringBoot를 이용한 전자 헌혈증 API 생성(BloodCardController)
+        - JPA 활용 DABO 지갑 관리 Database 관리
+- 정명수
+    - 1) 백엔드 기능 구현
+        - 유저 관련 기능 구현
+        - 관계형 DB 관리
+    - 2) UCC 제작
+- 안세연
+    - 1) API 설계
+        - Postman을 활용한 API 설계
+    - 2) FrontEnd 레이아웃 및 기능 구현
+        - 캠페인 관련 전체 레이아웃
+        - 헌혈의 집 예약 관련 전체 레이아웃
+    - 3) BackEnd 기능 구현
+        - 캠페인 관련 기능 구현
+        - 헌혈의 집 예약 관련 기능 구현
+        - 공공데이터 활용
+    - 4) UCC 제작 지원
+- 장지빈
+    - 1)
+- 이제훈
+    - 1)  API 설계
+        - Postman을 활용한 API 설계
+    - 2) FontEnd 레이아웃 및 기능 구현
+        - Main 페이지
+        - 회원관리 (로그인, 회원가입)
+        - 캠페인 리스트 레이아웃
+        - Front 레이아웃 수정
+    - 3) UCC 제작 지원
+
+### **소감**
+
+- 손모은 : 이더리움, 비트코인 듣기만 했던 블록체인이라는 주제를 구현하려니 너무 어려웠지만 신기술을 경험하고 공부할 수 있는 기회가 되어 좋았습니다. 프라이빗 네트워크를 구현하는데 시간이 너무 오래 걸리고 코로나 때문에 팀장으로서 많이 기여를 못한 것 같아 팀원들에게 미안한 마음입니다. 좋은 팀원들 덕분에 프로젝트 구현 못할 줄 알았는데 이렇게 구현할 수 있게 되어서 기쁩니다. 다들 감사하고 모두 수고 많으셨습니다!
+- 홍종현 : 블록체인에 대해 처음 접해보기도 하고 개념이 어려워 이해 하는데 시간을 많이 쓰는 바람에 프로젝트에 기여를 많이 못한거 같아서 스스로에게 아쉽기도 하고 팀원들에게도 미안하지만 좋은 팀장, 팀원분들 만난 덕분에 많은 도움 받으며 성공적으로 마무리 할 수 있었던거 같습니다. 모두 고생 많으셨습니다 감사합니다
+- 정명수 : 프로젝트의 핵심이었던 블록체인 기능이 마무리가 얼마남지 않은 시점까지 구현이 되지 못했습니다. 3주가 남은 시점부터 상황의 심각성을 느끼고 투입되었지만, 큰 도움이 되지 못했습니다. 살면서 최고로 무기력함과 좌절감을 느꼈던 것 같습니다. 너무 팀원들에게 배우기만 한 것 같아 유감스럽습니다. 그래도 더 공부해야 할 것들이 많다는 것 또한 잘 배웠습니다. 프로젝트 마무리 잘 해주신 팀원들께 감사합니다.
+- 안세연 : 블록체인이란 신기술을 도입한 프로젝트라 좋은 경험이었지만 아직 생소한 기술이다보니 참고할 정보나 자료가 별로 없어 팀원 모두 힘들어했습니다. 그럼에도 불구하고 끝까지 열심히 해준 팀원들에게 감사하다고 말하고 싶습니다. 기능 구현을 하면서 막힐 때마다 팀원분들이 함께 고민해주시고 많이 도와주셔서 성공적으로 마칠 수 있었습니다. 함께 완성해갔기에 프로젝트 결과물 또한 잘 나올 수 있었다고 생각합니다. 좋은 분위기를 이끌어준 팀원분들 너무 고생하셨고 감사합니다 :-)
+- 장지빈
+- 이제훈 : 힘든 상황에도 불구하고 끝까지 최선을 다해서 프로젝트를 마무리 해준 팀원분들이 너무 좋았습니다. 전반적으로 UI가 기획한대로 나와서 기분이 좋았고 프로젝트가 진행 될 수록 서로 많이 배우는 계기가 되었습니다. 부족한 부분을 채워가며 기대 이상으로 구현이 잘되어서 좋았습니다. 다들 감사합니다!
 
 
