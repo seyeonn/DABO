@@ -99,8 +99,8 @@
         <button @click="chargeETH"></button>
         <br/>
         <div style="display: flex; justify-content: space-between;">
-          <span @click="copyPrivateKey">[비밀키]</span>
-          <span><i class="fa-solid fa-copy"></i> 복사하기</span>
+          <span>[비밀키]</span>
+          <span @click="copyPrivateKey"><i class="fa-solid fa-copy"></i> 복사하기</span>
         </div>
         <p>{{ privateKey }}</p>
         <p style="text-align : left;">[지갑 주소]</p>
