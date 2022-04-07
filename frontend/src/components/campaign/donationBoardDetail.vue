@@ -17,7 +17,7 @@
             <p>{{ content }}</p>
             <div>
                 <div class="small font-weight-bold">
-                    <span class="ratio">20%</span> 
+                    <span class="ratio">{{ receiveDabo }}%</span> 
                     <span class="float-right">{{ dueDate }}일 남음</span>
                     </div>
                       <div class="progress mb-2">
@@ -66,6 +66,7 @@ export default {
           mediaUrl: "",
           deadline: "" ,
           dueDate: "",
+          receiveDabo: 0,
           baseURL: API_BASE_URL,  
         }
     },
@@ -83,6 +84,7 @@ export default {
           this.campaignId = res.data.campaignId;
           this.mediaUrl = res.data.mediaUrl;
           this.deadline = res.data.deadLine;
+          this.receiveDabo = res.data.receiveDabo;
           console.log(res.data.deadLine);
           this.setDueDate();
         });
