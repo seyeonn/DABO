@@ -14,7 +14,7 @@
             type="radio"
             name="radio"
             value="10000"
-            v-on:click="selectDabo = 10000"
+            v-model="selectDabo"
           />
           <label for="radio-1">10000 DABO</label>
         </div>
@@ -24,7 +24,7 @@
             type="radio"
             name="radio"
             value="20000"
-            v-on:click="selectDabo = 20000"
+            v-model="selectDabo"
           />
           <label for="radio-2">20000 DABO</label>
         </div>
@@ -34,7 +34,7 @@
             type="radio"
             name="radio"
             value="30000"
-            v-on:click="selectDabo =30000"
+            v-model="selectDabo"
           />
           <label for="radio-3">30000 DABO</label>
         </div>
@@ -44,9 +44,7 @@
             type="radio"
             name="radio"
             value="40000"
-            
-
-            v-on:click="selectDabo = 40000"
+            v-model="selectDabo"
           />
           <label for="radio-4">40000 DABO</label>
         </div>
@@ -56,7 +54,7 @@
             type="radio"
             name="radio"
             value="50000"
-            v-on:click="selectDabo = 50000"
+            v-model="selectDabo"
           />
           <label for="radio-5">50000 DABO</label>
         </div>
@@ -65,9 +63,8 @@
             id="radio-6"
             type="radio"
             name="radio"
-            value="6"
-            v-on:click="selectDabo = 60000"
-            
+            value="60000"
+            v-model="selectDabo"
           />
           <label for="radio-6">60000 DABO</label>
         </div>
@@ -83,7 +80,7 @@
 
       <div>
         <a href="#bDonation">
-          <button class="btn_red_donation" @click="bloodDonation">
+          <button class="btn_red_donation" @click="bloodDonation()">
             <span>DABO 기부하기</span>
           </button>
         </a>
@@ -100,10 +97,9 @@
             전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라
             기부가 취소될 수 있습니다.
           </sub>
-          <div>
-            <span>비밀키를 입력 하세요</span>
-            <input type="text" v-model="privateKey" />
-          </div>
+            <div class="input-text" v-if="!isCashCharging">
+              <input type="text" v-model="privateKey" placeholder="private key를 입력해주세요">
+            </div>
           <div>
             <a href="#">
               <button class="btn_red_cancel">
@@ -124,11 +120,13 @@
 import { leaveDeposit } from "@/utils/cashContract.js";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
+import { CASH_CONTRACT_ADDRESS } from "@/config/index.js"
+
 export default {
   data() {
     return {
 
-      selectDabo: 0,
+      selectDabo: '',
       amount: "",
       privateKey: "",
       toAddress: this.$route.params.toAddress,
@@ -151,11 +149,31 @@ export default {
           amount: this.selectDabo,
         },
         vm.$store.state.user.walletAddress,
+        
         this.privateKey,
         function () {
-          alert("지불했습니다. 입금 확인 요청 바랍니다.");
+          const body = {
+            amount: vm.selectDabo,
+            transactionDonationFromAddress:vm.$store.state.user.walletAddress,
+            transactionDonationToAddress:vm.toAddress,
+            contractAddress:CASH_CONTRACT_ADDRESS,
+            state:"기부",
+            campaignId:vm.$route.query.campaignId
+          }
+
+          walletService.createDonation(
+            body,
+            function(){
+              alert("지불했습니다. 입금 확인 요청 바랍니다.");
+              vm.$router.push({ name: "daboConfirm", params: "" });
+            },
+            function(){
+
+            }
+          )
+          
           // this.fetchWalletInfo();
-          vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
+          // UI 갱신
           //   vm.processing = false;
           //   vm.input.payAmount = null;
           //   vm.input.privateKey = "";
@@ -271,5 +289,16 @@ export default {
 /* Hover */
 .form_radio_group label:hover {
   color: #666;
+}
+
+.input-text input {
+  width: 90%;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 </style>

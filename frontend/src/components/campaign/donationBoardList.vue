@@ -121,6 +121,7 @@ export default {
   border: none;
   height: 35px;
   font-size: 12px;
+  padding: 0 !important;
 }
 .btn_red_c {
   background-color: #e52d27de;
@@ -201,5 +202,8 @@ export default {
 }
 .thumbnail-campaign {
   text-align: center;
+}
+.thumbnail-campaign img {
+  width: -webkit-fill-available;
 }
 </style>
