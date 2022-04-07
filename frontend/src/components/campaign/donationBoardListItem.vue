@@ -7,18 +7,21 @@
       <h4>{{ title }}</h4>
       <p>{{ content }}</p>
       <div>
-        <div class="small font-weight-bold">
-          <span class="ratio">20%</span>
-          <span class="float-right" style="margin-left: 5px; margin-right: 60px"
-            >5명</span
-          >
+        <div class="su-campaign small font-weight-bold d-flex">
+          <div>
+            <span class="ratio">20%</span>
+            <span
+              class="float-right"
+              style="margin-left: 5px; margin-right: 60px"
+              >5명</span
+            >
+          </div>
           <span class="float-right">15일 남음</span>
         </div>
         <div class="progress mb-2">
           <div
             class="progress-bar bg-danger"
             role="progressbar"
-            style="width: 20%"
             aria-valuenow="20"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -31,7 +34,7 @@
 
 <script>
 //import axios from 'axios';
-import {API_BASE_URL} from "@/config/index.js"
+import { API_BASE_URL } from "@/config/index.js";
 
 export default {
   props: {
@@ -43,7 +46,7 @@ export default {
   data() {
     return {
       campaign: [],
-      baseURL: API_BASE_URL
+      baseURL: API_BASE_URL,
     };
   },
   methods: {
@@ -57,4 +60,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.progress-bar {
+  width: 20%;
+}
+.su-campaign {
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
