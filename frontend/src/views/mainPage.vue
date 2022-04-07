@@ -32,7 +32,7 @@
           <div><img src="@/assets/imoge.png" style="width: 80px" /></div>
           <div>
             <p>
-              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
+              나의 헌혈증은 {{ $store.state.bloodCardCnt }}개 입니다.
               <!-- <br />나의 기부 뱃지는
               2개 입니다. -->
             </p>
@@ -189,7 +189,9 @@ export default {
       const vm = this;
       findByBloodCard(
         function (response) {
+          
           vm.bloodcardCnt = response.data.length;
+          vm.$store.commit("setBloodCardCnt", response.data.length)
         },
         function (err) {
           console.log(err);
@@ -229,7 +231,7 @@ export default {
     setDueDate() {
       console.log("1");
     },
-  },
+  }
 };
 </script>
 
