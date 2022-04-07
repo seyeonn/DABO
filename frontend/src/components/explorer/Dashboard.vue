@@ -19,8 +19,8 @@
       </div>
 
       <div id="data-preview" class="row">
-        <div id="blocks" class="col-md-6">
-          <div class="card shadow-sm">
+        <div id="blocks" class="col-lg-6">
+          <div class="card shadow-md">
             <div class="card-header">Blocks</div>
             <div class="card-body">
               <block-list countToShow="3" @updated="updateLatestBlock">
