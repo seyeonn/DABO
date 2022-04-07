@@ -38,6 +38,7 @@ import chargeConfirm from "@/views/daboWallet/chargeConfirm.vue";
 
 import Findpassword from "@/components/user/findPassword.vue";
 Vue.use(VueRouter);
+import exBlockChain from "@/views/exBlockChain.vue";
 import testDabo from "@/components/wallet/testDabo.vue"
 const routes = [
   {
@@ -215,6 +216,38 @@ const routes = [
     path: "/mydabo",
     name: "myDabo",
     component: myDabo,
+  },
+  {
+    name: "exBlockChain",
+    path: "/exBlockChain",
+    component: exBlockChain,
+    children: [
+      {
+        name: "exBlockChain.dashboard",
+        path: "dashboard",
+        component: () => import("@/components/explorer/Dashboard.vue"),
+      },
+      {
+        name: "exBlockChain.block",
+        path: "blocks",
+        component: () => import("@/components/explorer/BlockListView.vue"),
+      },
+      {
+        name: "exBlockChain.block.detail",
+        path: "block/:blockNumber",
+        component: () => import("@/components/explorer/BlockDetail.vue"),
+      },
+      {
+        name: "exBlockChain.tx",
+        path: "txes",
+        component: () => import("@/components/explorer/TxListView.vue"),
+      },
+      {
+        name: "exBlockChain.tx.detail",
+        path: "tx/:hash",
+        component: () => import("@/components/explorer/TxDetail.vue"),
+      },
+    ],
   },
 ];
 
