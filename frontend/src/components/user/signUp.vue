@@ -11,9 +11,6 @@
             placeholder="NickName"
             v-model="nickname"
           />
-          <div class="btn_input btn_check btn_red ">
-            <span>check</span>
-          </div>
         </div>
         <div class="input-bloodtype">
           <span>Blood Type</span>
@@ -64,9 +61,6 @@
             name="email"
             placeholder="Email"
           />
-          <div class="btn_input btn_check btn_red col-2">
-            <span>check</span>
-          </div>
         </div>
         <input
           type="password"
@@ -93,40 +87,33 @@
       </div>
     </form>
     <!-- <button @click = "onShowModal">Modal Test</button> -->
-    <Modal v-if="showModal" @close="showModal = false">
+    <Modal v-if="showModal && !walletCreated" @close="showModal = false">
       <!-- header slot starts -->
       <h3 slot="header">
         DABO 지갑 생성을<br/>축하합니다!
         <!-- <i class="fas fa-times closeModalBtn" @click="showModal = false"></i> -->
       </h3>
-      <div class="spinner" style="text-align: center;" v-if="walletCreated && showModal">
-        <p style="font-size: 13px;">지갑 생성까지 최대 약 10초가 소요됩니다.</p>
-        <v-progress-circular
-          :size="100"
-          color="#f06464"
-          indeterminate
-        ></v-progress-circular>
+
+      <div slot="body" style="word-break:break-all">
+        <br/>
+        <button @click="chargeETH"></button>
+        <br/>
+        <div style="display: flex; justify-content: space-between;">
+          <span @click="copyPrivateKey">[비밀키]</span>
+          <span><i class="fa-solid fa-copy"></i> 복사하기</span>
+        </div>
+        <p>{{ privateKey }}</p>
+        <p style="text-align : left;">[지갑 주소]</p>
+        <span>{{ walletAddress }}</span>
       </div>
-      <div v-if="!walletCreated">
-        <div slot="body" style="word-break:break-all">
-          <br/>
-          <button @click="chargeETH"></button>
-          <br/>
-          <div style="display: flex; justify-content: space-between;">
-            <span @click="copyPrivateKey">[비밀키]</span>
-            <span><i class="fa-solid fa-copy"></i> 복사하기</span>
-          </div>
-          <p>{{ privateKey }}</p>
-          <p style="text-align : left;">[지갑 주소]</p>
-          <span>{{ walletAddress }}</span>
-        </div>
-        <div slot="footer">
-          <button class="btn_red" @click="goToLogin">
-            Go To Login
-          </button>
-        </div>
+      <div slot="footer">
+        <button class="btn_red" @click="goToLogin">
+          Go To Login
+        </button>
       </div>
     </Modal>
+    <spinner v-if="showModal && walletCreated" @close="showModal && !walletCreated">
+    </spinner>
   </div>
   
 </template>
@@ -139,13 +126,15 @@ import { API_BASE_URL } from "@/config";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
 import Modal from "@/components/user/walletModal.vue"
+import spinner from "@/components/user/walletSpinner.vue"
 export default {
   components:{
-    Modal
+    Modal,
+    spinner
   },
   data() {
     return {
-      showModal: true,
+      showModal: false,
       walletCreated: false,
       name: "",
       nickname: "",
@@ -195,6 +184,7 @@ export default {
         passwordConfirm: this.passwordConfirm,
       };
       console.log(userData);
+      this.walletCreated = true;
 
       const response = await axios
 
@@ -215,9 +205,14 @@ export default {
           this.saveWallet();
         })
         .then(() => {
+          this.walletCreated = false;
           this.onShowModal();
           // console.log("chargeETH START")
           // this.chargeETH();
+        })
+        .catch(err => {
+          console.log(err.response) 
+          alert('회원가입에 실패했습니다. 다시 시도해주세요.')
         })
       console.log(response);
     },
@@ -292,6 +287,7 @@ export default {
           "ether"
         );
         vm.wallet = data;
+        vm.$store.commit("setWallet", data)
       });
     },
   },

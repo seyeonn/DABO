@@ -1,27 +1,12 @@
 <template>
-    <div>
-        <div class="wallet-header">
-      <button @click="toBack()">back</button>
+  <div>
+    <div class="dabo_header">
+      <h2 class="dabo_title">다보 후원</h2>
     </div>
-        <div class="dabo_header">
-            <h2 class="dabo_title">다보 후원</h2>
-        </div>
-        <div class="daboDonation-page">
-            <h4 class="h-p">기부 금액(DABO)</h4>
-            <p>{{this.$store.state.wallet.cash}} DABO 보유</p>
+    <div class="daboDonation-page">
+      <h4 class="h-p">기부 금액(DABO)</h4>
+      <p>{{ this.$store.state.wallet.cash }} DABO 보유</p>
 
-      <!-- <table class="dabo_table">
-                <tr>
-                    <td @click="changeAmount(20000)">20000 DABO</td>
-                    <td @click="changeAmount(40000)">40000 DABO</td>
-                    <td @click="changeAmount(60000)">60000 DABO</td>
-                </tr>
-                <tr>
-                    <td>80000 DABO</td>
-                    <td>100000 DABO</td>
-                    <td @click="textbox">직접 입력</td>
-                </tr>
-            </table> -->
       <div class="form_radio_group">
         <div class="form_radio_group-item">
           <input
@@ -29,7 +14,7 @@
             type="radio"
             name="radio"
             value="10000"
-            v-on:click="selectDabo = 10000"
+            v-model="selectDabo"
           />
           <label for="radio-1">10000 DABO</label>
         </div>
@@ -39,7 +24,7 @@
             type="radio"
             name="radio"
             value="20000"
-            v-on:click="selectDabo = 20000"
+            v-model="selectDabo"
           />
           <label for="radio-2">20000 DABO</label>
         </div>
@@ -49,7 +34,7 @@
             type="radio"
             name="radio"
             value="30000"
-            v-on:click="selectDabo =30000"
+            v-model="selectDabo"
           />
           <label for="radio-3">30000 DABO</label>
         </div>
@@ -59,9 +44,7 @@
             type="radio"
             name="radio"
             value="40000"
-            
-
-            v-on:click="selectDabo = 40000"
+            v-model="selectDabo"
           />
           <label for="radio-4">40000 DABO</label>
         </div>
@@ -71,7 +54,7 @@
             type="radio"
             name="radio"
             value="50000"
-            v-on:click="selectDabo = 50000"
+            v-model="selectDabo"
           />
           <label for="radio-5">50000 DABO</label>
         </div>
@@ -80,9 +63,8 @@
             id="radio-6"
             type="radio"
             name="radio"
-            value="6"
-            v-on:click="selectDabo = 60000"
-            
+            value="60000"
+            v-model="selectDabo"
           />
           <label for="radio-6">60000 DABO</label>
         </div>
@@ -98,7 +80,7 @@
 
       <div>
         <a href="#bDonation">
-          <button class="btn_red_donation" @click="bloodDonation">
+          <button class="btn_red_donation" @click="bloodDonation()">
             <span>DABO 기부하기</span>
           </button>
         </a>
@@ -115,42 +97,19 @@
             전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라
             기부가 취소될 수 있습니다.
           </sub>
-          <div>
-            <span>비밀키를 입력 하세요</span>
-            <input type="text" v-model="privateKey" />
-          </div>
+            <div class="input-text" v-if="!isCashCharging">
+              <input type="text" v-model="privateKey" placeholder="private key를 입력해주세요">
+            </div>
           <div>
             <a href="#">
               <button class="btn_red_cancel">
                 <span>취소하기</span>
               </button>
             </a>
-            </div>
-            <div id="bDonation" class="modal-window">
-                <div>
-                        <p>200 DABO를 기부하시겠습니까?</p>
-                        <sub>
-                            <b-icon icon="exclamation-circle" style="width: 10px; height: 10px;"></b-icon>
-                            DABO 기부는 일정 시간의 대기 시간을 가진 뒤 자동으로 전달됩니다.
-                            전달 완료 후에는 취소하실 수 없으며, 관련 법령이 정하는 바에 따라 기부가 취소될 수 있습니다.
-                        </sub>
-                        <div>
-                        <span>비밀키를 입력 하세요</span>
-                        <input type="text" v-model="privateKey">
-                      </div>
-                        <div>
-                        <a href="#">
-                            <button class="btn_red_cancel">
-                                <span>취소하기</span>
-                            </button>
-                        </a>
-                        <button class="btn_red_modal" @click="checkConfirm()">
-                            <span>기부하기</span>
-                        </button>
-                        </div>
-                </div>
-                
-            </div>
+            <button class="btn_red_modal" @click="cashTransfer()">
+              <span>기부하기</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -161,11 +120,13 @@
 import { leaveDeposit } from "@/utils/cashContract.js";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
+import { CASH_CONTRACT_ADDRESS } from "@/config/index.js"
+
 export default {
   data() {
     return {
 
-      selectDabo: 0,
+      selectDabo: '',
       amount: "",
       privateKey: "",
       toAddress: this.$route.params.toAddress,
@@ -188,11 +149,31 @@ export default {
           amount: this.selectDabo,
         },
         vm.$store.state.user.walletAddress,
+        
         this.privateKey,
         function () {
-          alert("지불했습니다. 입금 확인 요청 바랍니다.");
+          const body = {
+            amount: vm.selectDabo,
+            transactionDonationFromAddress:vm.$store.state.user.walletAddress,
+            transactionDonationToAddress:vm.toAddress,
+            contractAddress:CASH_CONTRACT_ADDRESS,
+            state:"기부",
+            campaignId:vm.$route.query.campaignId
+          }
+
+          walletService.createDonation(
+            body,
+            function(){
+              alert("지불했습니다. 입금 확인 요청 바랍니다.");
+              vm.$router.push({ name: "daboConfirm", params: "" });
+            },
+            function(){
+
+            }
+          )
+          
           // this.fetchWalletInfo();
-          vm.$router.push({ name: "daboConfirm", params: "" }); // UI 갱신
+          // UI 갱신
           //   vm.processing = false;
           //   vm.input.payAmount = null;
           //   vm.input.privateKey = "";
@@ -218,9 +199,6 @@ export default {
         vm.$store.state.wallet = data;
       });
     },
-    toBack() {
-        this.$router.go(-1);
-        }
   },
 };
 </script>
@@ -260,20 +238,6 @@ export default {
   height: 30px;
   font-size: 12px;
   margin-top: 10px;
-}
-.wallet-header {
-  background-color: #e52d27;
-  height: 2.5em;
-  justify-content: space-between;
-  align-items: center;
-}
-.wallet-header button {
-  border: 0;
-  outline: 0;
-  background-color: #e52d27;
-  font-family: 'NicoMoji' !important;
-  color: white;
-  vertical-align: -webkit-baseline-middle;
 }
 .h3_span {
   color: #e52d27;
@@ -325,5 +289,16 @@ export default {
 /* Hover */
 .form_radio_group label:hover {
   color: #666;
+}
+
+.input-text input {
+  width: 90%;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 </style>

@@ -85,6 +85,7 @@ public class WalletController {
 	@ApiOperation(value = "Register Donation History")
 	@RequestMapping(value = "/wallets/donation", method = RequestMethod.POST)
 	public TransactionDonationHistory createDonation(@Valid @RequestBody TransactionDonationHistory transactionDonationHistory) {
+		logger.debug("createDonation START");
 		return walletService.createDonation(transactionDonationHistory);
 	}
 

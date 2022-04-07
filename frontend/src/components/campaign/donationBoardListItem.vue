@@ -1,7 +1,7 @@
 <template>
   <div class="campaign_item" @click="goDetail()">
     <div class="thumbnail-campaign">
-      <img :src="'http://localhost:8080' + mediaUrl" alt="" />
+      <img :src="this.baseURL + mediaUrl" alt="" />
     </div>
     <div class="">
       <h4>{{ title }}</h4>
@@ -31,6 +31,7 @@
 
 <script>
 //import axios from 'axios';
+import {API_BASE_URL} from "@/config/index.js"
 
 export default {
   props: {
@@ -42,6 +43,7 @@ export default {
   data() {
     return {
       campaign: [],
+      baseURL: API_BASE_URL
     };
   },
   methods: {

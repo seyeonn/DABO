@@ -3,7 +3,6 @@ package com.ecommerce.infrastructure.repository;
 
 import com.ecommerce.domain.exception.RepositoryException;
 import com.ecommerce.domain.repository.IWalletRepository;
-import com.ecommerce.domain.repository.entity.TransactionDonationHistory;
 import com.ecommerce.domain.repository.entity.Wallet;
 import com.ecommerce.infrastructure.repository.factory.WalletFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,6 +133,4 @@ public class WalletRepository implements IWalletRepository
 			throw new RepositoryException(e, e.getMessage());
 		}
 	}
-
-
 }

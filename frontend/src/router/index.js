@@ -18,7 +18,7 @@ import DaboDonation from "@/components/campaign/daboDonation.vue";
 import DaboConfirm from "@/components/campaign/daboConfirm.vue";
 
 import reservation from "@/views/reservation/reservationMain.vue";
-import SearchMap from "@/components/reservation/searchMap.vue";
+import BloodHouseList from "@/components/reservation/bloodHouseList.vue";
 import NowReservation from "@/components/reservation/nowReservation.vue";
 import ReservationHistory from "@/components/reservation/reservationHistory.vue";
 
@@ -89,9 +89,9 @@ const routes = [
     component: reservation,
     children: [
       {
-        path: "searchMap",
-        name: "searchMap",
-        component: SearchMap,
+        path: "bloodHouseList",
+        name: "bloodHouseList",
+        component: BloodHouseList,
       },
       {
         path: "nowReservation",
@@ -210,11 +210,6 @@ const routes = [
     path: "/badge",
     name: "badge",
     component: badge,
-  },
-  {
-    path: "/landing",
-    name: "landing",
-    component: landing,
   },
   {
     path: "/mydabo",

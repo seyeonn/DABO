@@ -9,7 +9,11 @@
           <p>{{ $store.state.user.nickname }} 님 <br />안녕하세요!</p>
         </div>
         <div class="btn-profile">
-          <button><img src="@/assets/profile.png" /></button>
+          <button v-if="'A' === this.$store.state.userBloodType"><img src= "@/assets/A.png" /></button>
+          <button v-else-if="'B' === this.$store.state.userBloodType"><img src= "@/assets/B.png" /></button>
+          <button v-else-if="'AB' === this.$store.state.userBloodType"><img src= "@/assets/AB.png" /></button>
+          <button v-else><img src= "@/assets/O.png" /></button>
+          <!-- <button><img src="@/assets/profile.png" /></button> -->
         </div>
       </div>
     </div>
@@ -28,7 +32,7 @@
           <div><img src="@/assets/imoge.png" style="width: 80px" /></div>
           <div>
             <p>
-              나의 헌혈증은 {{ bloodcardCnt }}개 입니다.
+              나의 헌혈증은 {{ $store.state.bloodCardCnt }}개 입니다.
               <!-- <br />나의 기부 뱃지는
               2개 입니다. -->
             </p>
@@ -43,7 +47,7 @@
           <div><p>마음을 기부해보세요</p></div>
         </div>
         <div class="contents-donation d-flex">
-          <div class="thumnail-donation"><img src="@/assets/imoge.png" /></div>
+          <div class="thumnail-donation"><img :src="this.baseURL+mediaUrl" /></div>
           <div class="col-8">
             <div class="donation-title">
               <p>{{ title }}</p>
@@ -51,7 +55,7 @@
             <div class="donation-summary">{{ content }}</div>
             <div class="progress-info d-flex">
               <p>헌혈증 {{ amount }}개 필요</p>
-              <p>{{ deadLine }}까지</p>
+              <p>{{ dueDate }}일 남음</p>
             </div>
             <div class="progress donation-progress">
               <div
@@ -159,6 +163,8 @@
 <script>
 import { findByBloodCard } from "@/api/bloodCard.js";
 import { getDonationBoard } from "@/api/campaign.js";
+import {API_BASE_URL} from "@/config/index.js"
+
 export default {
   data() {
     return {
@@ -170,6 +176,8 @@ export default {
       amount: "",
       deadline: "",
       target: "",
+      baseURL: API_BASE_URL,  
+      dueDate: "",
     };
   },
   created() {
@@ -181,7 +189,9 @@ export default {
       const vm = this;
       findByBloodCard(
         function (response) {
+          
           vm.bloodcardCnt = response.data.length;
+          vm.$store.commit("setBloodCardCnt", response.data.length)
         },
         function (err) {
           console.log(err);
@@ -198,6 +208,10 @@ export default {
           vm.amount = response.data[0].amount;
           vm.deadLine = response.data[0].deadLine;
           vm.target = response.data[0].target;
+          const strDate = response.data[0].deadLine.split("-");
+          const date = new Date(strDate[0], strDate[1] - 1, strDate[2]);
+          const today = new Date();
+          vm.dueDate = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
           console.log(response.data[0]);
         },
         function (err) {
@@ -214,7 +228,10 @@ export default {
     gobloodcardCreate() {
       this.$router.push({ name: "bloodcardCreate" });
     },
-  },
+    setDueDate() {
+      console.log("1");
+    },
+  }
 };
 </script>
 
@@ -315,6 +332,8 @@ export default {
   transform: translate(0px, -24px);
   font-size: small;
   font-weight: normal;
+  padding: 5px;
+  background-color: transparent;
 }
 .detail-show button {
   border: none;
@@ -357,7 +376,6 @@ export default {
 }
 
 .contents-ranking {
-  height: 50vh;
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;

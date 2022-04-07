@@ -11,7 +11,7 @@
         <p class="p_title">제목</p>
         <input type="text" name="title" v-model="campaign.title" id="" placeholder="캠페인 제목">
         <p class="p_title">내용</p>
-        <input type="text" name="content" v-model="campaign.content" id="" placeholder="캠페인 설명">
+        <textarea name="content" v-model="campaign.content" id="" class="textarea_c" placeholder="캠페인 설명" />
         <p class="p_title">목표 갯수</p>
         <input type="text" name="amount" v-model="campaign.amount" id="" placeholder="목표 갯수" style="width: 80px; margin-right: 5px;">개
         <p class="p_title">목표 DABO</p>
@@ -183,5 +183,19 @@ export default {
 .p_title {
   margin-top: 10px;
   margin-bottom: 0px;
+}
+.textarea_c {
+  width: 100%;
+  height: 100px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  border-color: #e8e8e8;
+}
+.textarea_c::placeholder {
+    color: #bdbdbd;
+  font-size: 12px;
+  padding: 10px;
 }
 </style>
