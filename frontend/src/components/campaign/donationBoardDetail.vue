@@ -17,16 +17,20 @@
           class="campaign-detail-img"
           alt=""
         />
-        <h4>{{ title }}</h4>
-        <p>{{ content }}</p>
+        <h4 class="boadrdDetail-title">{{ title }}</h4>
+        <p class="boadrdDetail-contents">{{ content }}</p>
         <div>
           <div class="detailCampagin-su small font-weight-bold d-flex">
-            <span class="ratio">20%</span>
-            <span class="float-right">{{ dueDate }}일 남음</span>
+            <span class="ratio"
+              >헌혈증 {{ receiveBloodCard }} / {{ amount }}</span
+            >
+            <span class="float-right remainDate col-4"
+              >{{ dueDate }}일 남음</span
+            >
           </div>
           <div class="progress">
             <div
-              class="progress-bar bg-danger"
+              class="progress-bar"
               role="progressbar"
               aria-valuenow="20"
               aria-valuemin="0"
@@ -88,6 +92,7 @@ export default {
       dueDate: "",
       baseURL: API_BASE_URL,
       progress: "",
+      receiveBloodCard: "",
     };
   },
   async created() {
@@ -107,6 +112,8 @@ export default {
         this.campaignId = res.data.campaignId;
         this.mediaUrl = res.data.mediaUrl;
         this.deadline = res.data.deadLine;
+        this.receiveBloodCard = res.data.receiveBloodCard;
+        this.amount = res.data.amount;
         console.log(res.data);
         this.setDueDate();
         this.progress =
@@ -228,7 +235,6 @@ export default {
   font-size: 20px;
   font-weight: 3px;
   margin-right: 10px;
-  width: 0 !important;
 }
 .campaign-detail-img {
   width: 100%;
@@ -265,5 +271,17 @@ export default {
 }
 .progress {
   margin-bottom: 7%;
+}
+.remainDate {
+  text-align: right;
+}
+.boadrdDetail-title {
+  font-weight: bold;
+}
+.boadrdDetail-contents {
+  font-weight: 500;
+}
+.progress-bar {
+  background-color: #f06464 !important;
 }
 </style>
