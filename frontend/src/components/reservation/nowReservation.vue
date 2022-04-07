@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="wallet-header">
+            <button @click="toBack()">back</button>
+        </div>
         <div class="dabo_header">
             <h2 class="dabo_title">헌혈의 집 예약</h2>
         </div>
@@ -85,7 +88,11 @@ export default {
                 console.log(reservation);
                 this.$router.push({name: 'reservationHistory', params: {reservation: reservation}})
                 });
-        }
+        },
+        toBack() {
+        console.log(this.campignId)
+      this.$router.go(-1);
+      },
     }
 }
 </script>
