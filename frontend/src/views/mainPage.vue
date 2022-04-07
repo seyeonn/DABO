@@ -165,6 +165,13 @@
         </div>
       </div>
     </div>
+    <div>
+      <router-link
+        to="/exBlockChain/dashboard"
+        class="btn btn-primary btn-block"
+        >BlockChain Detail</router-link
+      >
+    </div>
   </div>
 </template>
 
