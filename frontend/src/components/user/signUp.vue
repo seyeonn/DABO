@@ -4,7 +4,7 @@
     <form class="form" @submit.prevent="submitForm">
       <div class="submit-form">
         <input type="text" name="name" placeholder="Name" v-model="name" />
-        <div class="input-check">
+        <div class="">
           <input
             type="text"
             name="nickname"
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="input-check d-flex">
+        <div class="d-flex">
           <input
             class=""
             type="email"
@@ -77,7 +77,7 @@
         <button type="submit" class="btn_red">
           <span>SignUp</span>
         </button>
-        
+
         <!-- <p>뒤에 레이아웃 만들어지면 이 부분 옮겨야 함.</p> -->
         <!-- <button v-on:click="createWallet">지갑주소 생성하기</button> -->
         <!-- <p>privatekey : {{ privateKey }}</p> -->
@@ -90,32 +90,34 @@
     <Modal v-if="showModal && !walletCreated" @close="showModal = false">
       <!-- header slot starts -->
       <h3 slot="header">
-        DABO 지갑 생성을<br/>축하합니다!
+        DABO 지갑 생성을<br />축하합니다!
         <!-- <i class="fas fa-times closeModalBtn" @click="showModal = false"></i> -->
       </h3>
 
-      <div slot="body" style="word-break:break-all">
-        <br/>
+      <div slot="body" style="word-break: break-all">
+        <br />
         <button @click="chargeETH"></button>
-        <br/>
-        <div style="display: flex; justify-content: space-between;">
+        <br />
+        <div style="display: flex; justify-content: space-between">
           <span>[비밀키]</span>
-          <span @click="copyPrivateKey"><i class="fa-solid fa-copy"></i> 복사하기</span>
+          <span @click="copyPrivateKey"
+            ><i class="fa-solid fa-copy"></i> 복사하기</span
+          >
         </div>
         <p>{{ privateKey }}</p>
-        <p style="text-align : left;">[지갑 주소]</p>
+        <p style="text-align: left">[지갑 주소]</p>
         <span>{{ walletAddress }}</span>
       </div>
       <div slot="footer">
-        <button class="btn_red" @click="goToLogin">
-          Go To Login
-        </button>
+        <button class="btn_red" @click="goToLogin">Go To Login</button>
       </div>
     </Modal>
-    <spinner v-if="showModal && walletCreated" @close="showModal && !walletCreated">
+    <spinner
+      v-if="showModal && walletCreated"
+      @close="showModal && !walletCreated"
+    >
     </spinner>
   </div>
-  
 </template>
 
 <script>
@@ -125,12 +127,12 @@ import Web3 from "web3";
 import { API_BASE_URL } from "@/config";
 import * as walletService from "@/api/wallet.js";
 import { createWeb3 } from "@/utils/web3.js";
-import Modal from "@/components/user/walletModal.vue"
-import spinner from "@/components/user/walletSpinner.vue"
+import Modal from "@/components/user/walletModal.vue";
+import spinner from "@/components/user/walletSpinner.vue";
 export default {
-  components:{
+  components: {
     Modal,
-    spinner
+    spinner,
   },
   data() {
     return {
@@ -142,7 +144,8 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      privateKey: "0x17947ddb6fae4d679ea3afe98aff1a33950f5d2e846c278d46c439b72068282d",
+      privateKey:
+        "0x17947ddb6fae4d679ea3afe98aff1a33950f5d2e846c278d46c439b72068282d",
       walletAddress: "",
       userId: "",
       wallet: {
@@ -157,17 +160,19 @@ export default {
     };
   },
   methods: {
-    copyPrivateKey(){
-      
-        this.$copyText(this.privateKey).then(function (e) {
-          alert('Copied')
-          console.log(e)
-        }, function (e) {
-          alert('Can not copy')
-          console.log(e)
-        })
+    copyPrivateKey() {
+      this.$copyText(this.privateKey).then(
+        function (e) {
+          alert("Copied");
+          console.log(e);
+        },
+        function (e) {
+          alert("Can not copy");
+          console.log(e);
+        }
+      );
     },
-    onShowModal(){
+    onShowModal() {
       // alert("Click");
       this.showModal = true;
     },
@@ -210,10 +215,10 @@ export default {
           // console.log("chargeETH START")
           // this.chargeETH();
         })
-        .catch(err => {
-          console.log(err.response) 
-          alert('회원가입에 실패했습니다. 다시 시도해주세요.')
-        })
+        .catch((err) => {
+          console.log(err.response);
+          alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        });
       console.log(response);
     },
 
@@ -260,7 +265,7 @@ export default {
        * cash 충전을 위한 이더 충전
        */
       // if(this.wallet.balance <= 1)
-      console.log("eth charge START")
+      console.log("eth charge START");
       const scope = this;
       walletService.chargeEther(
         this.walletAddress,
@@ -271,7 +276,7 @@ export default {
           // this.onShowModal();
         },
         function (err) {
-          console.log(err)
+          console.log(err);
           console.log("이더 충전에 실패했습니다.");
           // scope.isCharging = false;
         }
@@ -287,7 +292,7 @@ export default {
           "ether"
         );
         vm.wallet = data;
-        vm.$store.commit("setWallet", data)
+        vm.$store.commit("setWallet", data);
       });
     },
   },
@@ -332,10 +337,8 @@ export default {
   font-size: 12px;
   padding: 10px;
 }
-.input-check {
-  position: relative;
-}
 .btn_input {
+  margin: 0;
   position: absolute;
   right: 1%;
   top: 8px;
