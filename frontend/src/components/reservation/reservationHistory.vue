@@ -6,7 +6,8 @@
         <div class="reservationHistory-page">
             <div class="img_com">
                     <img src="@/assets/imoge.png" class="imoge_com"/>
-                <p class="img_p">예약이 접수되었습니다!</p>
+                <p class="img_p">예약이 접수되었습니다!
+                <br /> 잠시후 확정 전화가 올 때까지 대기하여 주세요.</p>
             </div>
             <div>
                 <h4 class="r_h4">나의 예약 현황</h4>
@@ -51,7 +52,7 @@ export default {
     box-shadow: 2px 2px 2px 2px rgb(190, 190, 190);
 }
 .img_com {
-    height: 250px;
+    height: 280px;
     text-align: center;
 }
 .imoge_com {
@@ -61,6 +62,7 @@ export default {
 }
 .img_p {
     margin-top: 10px;
+    margin-bottom: 30px;
 }
 .r_h4 {
     color: #e52d27;
