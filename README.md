@@ -2,7 +2,7 @@
 
 ![dabo_logo](https://i.imgur.com/sRCbvPP.jpg)
 
-### 블록체인 기반 헌혈증 관리 및 기부 플랫폼  
+### 블록체인 기반 전자 헌혈증 관리 및 기부 플랫폼  
   
 <br/>
 
@@ -109,7 +109,7 @@ ERC20 DABO Token으로 신뢰도 있는 기부 시스템
 
 ### 🎈 서비스
 
-- 전자헌혈증 
+- 전자헌혈증 관리 시스템
     - 블록체인을 활용한 전자헌혈증 생성 및 조회
 - 자체 Token 시스템 
     - Ethereum 기반의 자체 Token으로 투명한 장부 공개
@@ -188,13 +188,7 @@ ERC20표준으로 발행된 DABO 토큰을 전자결제시스템과 연동하여
 
 ### ⚙ **시스템 환경**
 
-- Cloud : AWS EC2
-- OS : Ubuntu 20.04 LTS
-- Vue : 2.6.14
-- Springboot : 2.1.4.RELEASE
-- DB : mysql 8.0.28
-- geth :1.10.17-stable
-- go: 1.13.8
+![dabo_기술스택](https://user-images.githubusercontent.com/40678696/162347929-0b374078-792d-4889-9b69-c8d73787a7c1.png)
 
 ### ⛑ **Server Port**
 
@@ -349,10 +343,6 @@ geth attach http://[도메인]:8545>
 
 # 4️⃣ 개발 플로우
 
-### **기술스택**
-
-![dabo_기술스택.png](https://i.imgur.com/2last72.png)
-
 ### **아키텍처**
 
 ![stack.png](https://i.imgur.com/aUtpLtz.png)
@@ -367,7 +357,7 @@ geth attach http://[도메인]:8545>
 
 ![q4](https://user-images.githubusercontent.com/38287375/162273953-18210e4d-b529-4d18-8d87-96da0d16aa98.png)
 
-#### **블록체인 사용 필수 개념**
+#### **DABO 블록체인 적용 중요 개념 정리**
 
 1. **Geth(Go-Ethereum)**
     
@@ -612,10 +602,12 @@ feat : [back] 로그인 #S06P22B106-1
 ### **역할 상세**
 
 - 손모은
-    - 1) 서버 배포 환경 구축
+    - 1) API 설계
+        - Postman을 활용한 API 설계
+    - 2) 서버 배포 환경 구축
         - 블록체인 서버 : Geth를 활용한 프라이빗 네트워크 구축, Nginx, letsencrypt를 이용한 SSL 처리
         - 백엔드 서버 : Vue, SpringBoot 서버 구축, Nginx,letsencrypt를 이용한 SSL 처리
-    - 2) DABO 지갑 관리 기능 (Full Stack)
+    - 3) DABO 지갑 관리 기능 (Full Stack)
         - [Front] Web3를 이용하여 DABO 지갑 생성, 조회, 이더 충전, 캐쉬 트랜스퍼 기능 구현
         - [back] Web3j, springboot를 이용한 DABO 지갑 API 생성(Wallet Controller, DaboTokenHistory Controller)
         - JPA 활용 DABO 지갑 Database 관리
