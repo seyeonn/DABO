@@ -527,6 +527,8 @@ git push origin develop
 <br/>
 
 # 8️⃣ REST API
+Postman Document[1차 REST API 정리] : https://documenter.getpostman.com/view/18058426/UVsMukqm
+
 ![dabo_swagger](https://user-images.githubusercontent.com/38287375/162272465-74713dcd-4042-4d80-8701-2c70a11104c2.png)
 
 <br/>
