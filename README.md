@@ -10,7 +10,7 @@
 
 ### 사이트 주소
 
-[https://dabobloodcard.site/](https://dabobloodcard.site/)
+~~[https://dabobloodcard.site/](https://dabobloodcard.site/)~~ (현재 지원하지 않습니다.)
   
   <br/>
 
